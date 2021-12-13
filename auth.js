@@ -1,14 +1,16 @@
 const db = require('./db/models')
 
 const loginUser = (req, res, user) => {
-    db.Session.auth = {
+    req.session.auth = {
         userId: user.id
     }
 }
 
-const requireAuth = (req, res, next) => {
-    if (!res.locals.authenticated) {
-      return res.redirect('/users/login');
+const requireAuth = async (req, res, next) => {
+    const sessionId = req.sessionId;
+    const session = await db.Session.findByPk(sessionId)
+    if (!session) {
+        return res.redirect('/users/login');
     }
     return next();
 };
