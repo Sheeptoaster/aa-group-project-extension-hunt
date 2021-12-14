@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: 'categoryId',
       foreignKey: 'extensionId'
     })
+    Extension.hasMany(models.Comment, { foreignKey: 'extensionId' })
   };
   return Extension;
 };
