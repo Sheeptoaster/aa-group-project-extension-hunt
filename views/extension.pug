@@ -1,0 +1,19 @@
+extends layout
+
+include utils.pug
+
+block content
+	div
+		h1= name
+		p= description
+		img(src= iconURL)
+	div
+		form(action="")#add-comment-form
+			input(type="hidden" name="_csrf" value=csrfToken)
+			input(type="hidden" name="extensionId" value=extensionId)
+			input(type="hidden" name="userId" value=userId)
+			+field('', 'comment', content, 'form-group', 'form-control', "text", "What do you think of this extension?")
+			button(type="submit") SEND
+		ul#content-container
+			each comment in comments
+				li: div= comment.content
