@@ -33,7 +33,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING.BINARY
       },
-      avatarUrl: {
+      avatarURL: {
         type: Sequelize.STRING
       },
       createdAt: {
