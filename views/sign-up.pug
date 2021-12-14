@@ -1,0 +1,19 @@
+extends layout.pug
+
+include utils.pug
+
+block content
+	h1 Register
+	form(action='/users/sign-up' method='POST')
+		input(type="hidden" name="_csrf" value=csrfToken)
+		+field('Username', 'username', username, 'form-group', 'form-control')
+		+field('First Name', 'firstName', firstName, 'form-group', 'form-control')
+		+field('Last Name', 'lastName', lastName, 'form-group', 'form-control')
+		+field('email', 'email', email, 'form-group', 'form-control', "email")
+		+field('Password', 'password', password, 'form-group', 'form-control', "password")
+		+field('Confirm Password', 'confirmPassword', confirmPassword, 'form-group', 'form-control', "password")
+		div
+			button(type='submit') Register
+			a(href='/') Cancel
+	div
+		p: a(href='/user/login') Already have an account? Login Here
