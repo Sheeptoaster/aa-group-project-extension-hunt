@@ -99,11 +99,20 @@ let signUpValidation = [
 	check('password')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a password')
-		//TODONOW finish signupValidation
-
+		.matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+		.withMessage("Passwords must contain a lower case character, a upper case character, a number, and a special character (one of the following: !@#$%^&* )."),
+	check("confirmPassword")
+		.exists({ checkFalsy: true })
+		.withMessage("Please provide a value for Confirm Password")
+		.custom((value, { req }) => {
+			if (value !== req.body.password) {
+				throw new Error("Confirm Password does not match password.")
+			}
+			return true;
+		})
 ]
 
-router.post("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
+router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (req, res) => {
 	const {
 		firstName,
 		lastName,
@@ -120,7 +129,8 @@ router.post("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
 		await user.save();
 		res.redirect("/");//TODO #15 log user in
 	} else { //TODO #14 display errors
-		res.redirect("/users/sign-up", { firstName, lastName, username, email, csrfToken: req.csrfToken() });
+		console.log(validatorErrors.array().map(error => error.msg));
+		res.render("sign-up", { firstName, lastName, username, email, csrfToken: req.csrfToken() });
 	}
 }))
 
