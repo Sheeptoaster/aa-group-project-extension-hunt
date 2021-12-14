@@ -7,9 +7,7 @@ const loginUser = (req, res, user) => {
 }
 
 const requireAuth = async (req, res, next) => {
-    const sessionId = req.sessionId;
-    const session = await db.Session.findByPk(sessionId)
-    if (!session) {
+    if (!req.session.auth) {
         return res.redirect('/users/login');
     }
     return next();
@@ -22,7 +20,7 @@ const logoutUser = (req, res) => {
 const restoreUser = async (req, res, next) => {
     if (req.session.auth) {
         const { userId } = req.session.auth
-        console.log(userId)
+        // console.log(userId)
 
         try {
             const user = await db.User.findByPk(userId)
