@@ -1,15 +1,24 @@
-document.querySelector("#createComment").addEventListener("click", async (event => {
+document.querySelector("#create-comment").addEventListener("click", async (event => {
 	// Call POST /api/comments
-	let commentInput = document.querySelector("#commentInput");
+	// let commentInput = document.querySelector("#comment-input");
+	const addCommentForm = document.querySelector('#add-comment-form')
+	const formData = new FormData(addCommentForm)
+	const content = formData.get('content')
+	const extensionId = formData.get('extensionId')
+	const userId = formData.get('userId')
 	let res = await fetch("/api/comments", {
 		method: "POST",
 		header: "application/json",
 		body: {
-			content: commentInput.value,
-			extensionId: "placeholder",
-			userId: "placeholder"
+			content,
+			extensionId,
+			userId
 		}
 	})
-	//TODONOW fetch comments container
-	//TODONOW add comment to comments container
+
+	// const { content, userId } = await res.json();
+	const contentContainer = document.querySelector('#content-container')
+	const div = document.createElement('div')
+	div.appendChild(`<h1>${userId}, ${content}</h1>`)
+	contentContainer.appendChild(div)
 }))
