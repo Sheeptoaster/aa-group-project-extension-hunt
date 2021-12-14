@@ -72,9 +72,35 @@ router.get('/sign-up', csrfProtection, asyncHandler(async (req, res) => {
 	})
 }))
 
-//TODO #11 sign-up validation
+/* POST sign-up */
 let signUpValidation = [
-	//check()...
+	check('username')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a username')
+		.isLength({ max: 50 })
+		.withMessage('username must be shorter than 50 characters'),
+	check('firstName')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a first name')
+		.isLength({ max: 50 })
+		.withMessage('first name must be shorter than 50 characters'),
+	check('lastName')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a last name')
+		.isLength({ max: 50 })
+		.withMessage('last name must be shorter than 50 characters'),
+	check('email')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a email')
+		.isEmail()
+		.withMessage('Please provide a valid email')
+		.isLength({ max: 100 })
+		.withMessage('email must be shorter than 100 characters'),
+	check('password')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a password')
+		//TODONOW finish signupValidation
+
 ]
 
 router.post("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
