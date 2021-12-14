@@ -13,15 +13,23 @@ router.get('/', requireAuth, async (req, res, next) => {
 	res.send('Testing')
 });
 
+/* GET login page. */
 router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
 	res.render('login', { title: 'Login', csrfToken: req.csrfToken() })
 }))
 
-//CREATE VALIDATION CHECK FUNCTION
 
-router.post('/login', csrfProtection, asyncHandler(async (req, res) => {
-	console.log('Test');
-	//TODO Create Validation Check
+/* POST login page. */
+const loginValidators = [
+	check('username')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a username'),
+	check('password')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a password')
+]
+
+router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, res) => {
 	const {
 		username,
 		password
@@ -53,6 +61,7 @@ router.post('/login', csrfProtection, asyncHandler(async (req, res) => {
 	})
 }))
 
+/* GET sign-up page */
 router.get('/sign-up', csrfProtection, asyncHandler(async (req, res) => {
 	const user = await db.User.build();
 	res.render('sign-up', {
@@ -89,6 +98,7 @@ router.post("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
 	}
 }))
 
+/* POST logout page */
 router.post("/logout", (req, res) => {
 	logoutUser(req, res);
 	res.redirect("/users/login");
