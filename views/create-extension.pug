@@ -1,3 +1,14 @@
 extends layout
 
+include utils
+
 block content
+    form(action='/users/sign-up' method='POST')
+        input(type="hidden" name="_csrf" value=csrfToken)
+        +field('Extension Name', 'name', name, 'form-group', 'form-control')
+        +field('Description', 'description', description, 'form-group', 'form-control', 'textArea')
+        +field('Icon URL', 'iconURL', iconURL, 'form-group', 'form-control', 'text', 'optional')
+        div(id='categories-checkboxes')
+            each category in categories
+                label(category.name) #{category.name}
+                input(type='checkbox', id=category.name, name=category.name, value=category.name)

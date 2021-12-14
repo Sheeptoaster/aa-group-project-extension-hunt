@@ -9,7 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const { restoreUser } = require("./auth.js");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const extensionRouter = require('./routes/extension')
+const extensionRouter = require('./routes/extensions')
 
 const app = express();
 

@@ -8,9 +8,9 @@ const { check, validationResult } = require('express-validator');
 
 const router = express.Router()
 
-router.get('/new', csrfProtection, asyncHandler((req, res) => {
-
-    res.render('create-extension', { title: "Create New Extension"})
+router.get('/new', csrfProtection, asyncHandler(async(req, res) => {
+    const categories = await db.Category.findAll()
+    res.render('create-extension', { csrfToken: req.csrfToken(), title: "Create New Extension", categories })
 }))
 
 
