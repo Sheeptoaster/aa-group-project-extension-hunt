@@ -5,7 +5,7 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 	const formData = new FormData(addCommentForm)
 	const content = formData.get('content')
 	const extensionId = window.location.href.split("/")[4];
-	let res = await fetch("http://localhost:8080/api/comments", {
+	let res = await fetch("/api/comments", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

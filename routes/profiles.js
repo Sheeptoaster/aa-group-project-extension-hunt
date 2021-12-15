@@ -17,7 +17,7 @@ router.get('/:id', asyncHandler(async(req, res) => {
     })
     let extensionNames = user.Extensions.map(extension => extension.name)
     console.log(user.Extensions[0].name)
-    res.render('profile-page', { title: "Profile Page", user, req, extensionNames })
+    res.render('profile-page', { title: "Profile Page", user, req, extensionNames, csrfToken: req.csrfToken() })
 }))
 
 
