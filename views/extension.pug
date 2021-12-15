@@ -11,10 +11,14 @@ block content
 	div
 		form(action="")#add-comment-form
 			input(type="hidden" name="_csrf" value=csrfToken)#csrfToken
-			input(type="hidden" name="extensionId" value=extensionId)
-			input(type="hidden" name="userId" value=userId)
 			+field('', 'content', "", 'form-group', 'form-control', "text", "What do you think of this extension?")
-			button(type="submit")#create-comment SEND
+			//- TODO #60 SEND button opens sign-up if not logged in
+			if locals.authenticated
+				button(type="submit" disabled= false)#create-comment SEND
+			else
+				button(type="submit" disabled= true)#create-comment SEND
 		ul#content-container
 			each comment in comments
-				li: div= comment.content
+				li
+					h2 Username Placeholder
+					span= comment.content

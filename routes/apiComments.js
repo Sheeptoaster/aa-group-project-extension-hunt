@@ -17,19 +17,16 @@ const commentValidators = [
 
 router.post("/", requireAuth, commentValidators, asyncHandler(async (req, res) => {
 	const { content, extensionId } = req.body;
-	console.log("post /api/comments")
 	const userId = req.session.auth.userId;
 	const validationErrors = validationResult(req);
 
 	if (validationErrors.isEmpty()) {
-		console.log("no errors dectected")
 		await db.Comment.create({ content, extensionId, userId });
 		let user = await db.User.findByPk(userId);
 		res.json({
 			username: user.username
 		});
 	} else {
-		console.log("errors dectected")
 		const error = validationErrors.array()[0];
 		res.json({ error });
 	}

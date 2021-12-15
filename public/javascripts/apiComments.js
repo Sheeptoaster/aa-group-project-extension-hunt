@@ -4,8 +4,8 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 	const addCommentForm = document.querySelector('#add-comment-form')
 	const formData = new FormData(addCommentForm)
 	const content = formData.get('content')
-	const extensionId = formData.get('extensionId')
-	let res = await fetch("/api/comments", {
+	const extensionId = window.location.href.split("/")[4];
+	let res = await fetch("http://localhost:8080/api/comments", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -17,16 +17,20 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 	})
 
 	const data = await res.json();
-	console.log("button click detected");
 	if (!data.error) {
 		const { username } = data;
-		const contentContainer = document.querySelector('#content-container')
-		const div = document.createElement('div') //TODO replace with styled comment html
-		div.appendChild(`<h1>${username}, ${content}</h1>`)
+		const contentContainer = document.querySelector('#content-container') //TODO #61 create comment styling
+		const div = document.createElement('div');
+		const usernameElement = document.createElement("h2");
+		usernameElement.innerText = username;
+		div.appendChild(usernameElement);
+		const contentElement = document.createElement("span");
+		contentElement.innerText = content;
+		div.appendChild(contentElement);
 		contentContainer.appendChild(div)
 	} else {
 		// display errors dynamically
-		console.log("button click detected");
-		document.querySelector("#comment-errors").appendChild(data.error);
+		console.log(data.error);
+		// document.querySelector("#comment-errors").appendChild(); //TODO #62 create dispaly for comment error message
 	}
 })
