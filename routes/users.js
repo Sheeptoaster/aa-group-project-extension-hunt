@@ -127,9 +127,10 @@ router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (re
 	const validatorErrors = validationResult(req);
 	if (validatorErrors.isEmpty()) {
 		await user.save();
-		res.redirect("/");//TODO #15 log user in
+		loginUser(req, res, user)
+		res.redirect("/");
 	} else { //TODO #14 display errors
-		console.log(validatorErrors.array().map(error => error.msg));
+		console.log(validatorErrors.array().map(error => error.msg));//TODO #66 catch sequelize unique errors
 		res.render("sign-up", { firstName, lastName, username, email, csrfToken: req.csrfToken() });
 	}
 }))
