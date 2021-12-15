@@ -45,6 +45,7 @@ router.post('/new', csrfProtection, asyncHandler(async(req, res) => {
             //Creates Extension Category Instance for Join Table
             await db.ExtensionCategories.create({ extensionId: extension.id, categoryId: categoryId[i] })
         }
+        res.redirect('/')
     // }
 }))
 
