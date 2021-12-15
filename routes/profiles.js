@@ -27,9 +27,11 @@ router.get('/:id/edit', csrfProtection, asyncHandler(async(req, res) => {
     const userId = parseInt(req.params.id);
     const currentUserId = req.session.auth.userId;
 
+    const profileUser = await db.User.findByPk(userId)
+
 
     if(userId === currentUserId) {
-        res.render('profile-edit', { title: 'Edit Profile', csrfToken: req.csrfToken() })
+        res.render('profile-edit', { title: 'Edit Profile', profileUser, csrfToken: req.csrfToken() })
     } else {
         res.redirect(`/profiles/${userId}`)
     }
@@ -46,8 +48,6 @@ router.patch('/:id/edit', csrfProtection, asyncHandler(async(req, res) => {
         email,
         bio,
         avatarURL,
-        password,
-        confirmPassword
     } = req.body
 }))
 
