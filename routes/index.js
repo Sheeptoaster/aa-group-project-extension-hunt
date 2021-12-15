@@ -4,7 +4,7 @@ const router = express.Router();
 const { csrfProtection, asyncHandler } = require('./utils')
 
 /* GET home page. */
-router.get('/',csrfProtection, asyncHandler(async(req, res, next) => {
+router.get('/', csrfProtection, asyncHandler(async(req, res, next) => {
 	const extensions = await db.Extension.findAll({
 		// include: db.Comment,
 		order: [ ['id'] ],

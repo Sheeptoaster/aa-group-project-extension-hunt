@@ -2,7 +2,7 @@ const express = require("express");
 
 const db = require("../db/models");
 const { requireAuth } = require("../auth");
-const { asyncHandler } = require("./utils.js");
+const { asyncHandler, csrfProtection } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
 
 const router = express.Router();
@@ -15,7 +15,7 @@ const commentValidators = [
 		.withMessage("Comments must be shorter than 256 characters")
 ]
 
-router.post("/", requireAuth, commentValidators, asyncHandler(async (req, res) => {
+router.post("/", requireAuth, csrfProtection, commentValidators, asyncHandler(async (req, res) => {
 	const { content, extensionId } = req.body;
 	const userId = req.session.auth.userId;
 	const validationErrors = validationResult(req);

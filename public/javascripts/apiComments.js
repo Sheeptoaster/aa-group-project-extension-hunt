@@ -4,6 +4,7 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 	const addCommentForm = document.querySelector('#add-comment-form')
 	const formData = new FormData(addCommentForm)
 	const content = formData.get('content')
+	const csrf = formData.get('_csrf')
 	const extensionId = window.location.href.split("/")[4];
 	let res = await fetch("/api/comments", {
 		method: "POST",
@@ -12,7 +13,8 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 		},
 		body: JSON.stringify({
 			content,
-			extensionId
+			extensionId,
+			_csrf: csrf
 		})
 	})
 

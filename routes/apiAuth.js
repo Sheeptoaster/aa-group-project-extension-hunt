@@ -13,10 +13,10 @@ const loginValidators = [
 		.withMessage('Please provide a username'),
 	check('password')
 		.exists({ checkFalsy: true })
-		.withMessage('Please provide a password')
+		.withMessage('Please provide a password'),
 ]
 
-router.post('/login',  loginValidators, asyncHandler(async (req, res) => {
+router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, res) => {
 	const {
 		username,
 		password
@@ -33,21 +33,17 @@ router.post('/login',  loginValidators, asyncHandler(async (req, res) => {
 
 			if (passwordMatch) {
 				loginUser(req, res, user);
-				// restoreUser(req,res, next)
-				console.log(req.session.auth)
                 res.json({user})
+				return
 			}
 		}
 
-		errors.push('Login failed for the provided username and password');
+		errors.push('Password does not match');
 	} else {
 		errors = validatorErrors.array().map((error) => error.msg)
 	}
-
-	// res.render('login', {
-	// 	username,
-	// 	csrfToken: req.csrfToken(),
-	// })
+	res.status = 403
+	res.json({ errors })
 }))
 
 

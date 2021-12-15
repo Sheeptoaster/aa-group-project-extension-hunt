@@ -7,7 +7,7 @@ const { requireAuth } = require('../auth');
 
 const router = express.Router()
 
-router.get('/:id', asyncHandler(async(req, res) => {
+router.get('/:id', csrfProtection, asyncHandler(async(req, res) => {
     const userId = parseInt(req.params.id)
     const user = await db.User.findOne({
         where: {
