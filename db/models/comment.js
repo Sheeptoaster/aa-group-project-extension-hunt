@@ -7,15 +7,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     extensionId: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      references: { model: 'Extensions' }
     },
     userId: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      references: { model: 'Users' }
     }
   }, {});
   Comment.associate = function(models) {
     Comment.belongsTo(models.User, { foreignKey: 'userId' })
+    Comment.belongsTo(models.Extension, { foreignKey: 'extensionId' })
   };
   return Comment;
 };

@@ -13,15 +13,23 @@ router.get('/', requireAuth, async (req, res, next) => {
 	res.send('Testing')
 });
 
+/* GET login page. */
 router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
 	res.render('login', { title: 'Login', csrfToken: req.csrfToken() })
 }))
 
-//CREATE VALIDATION CHECK FUNCTION
 
-router.post('/login', csrfProtection, asyncHandler(async (req, res) => {
-	console.log('Test');
-	//TODO Create Validation Check
+/* POST login page. */
+const loginValidators = [
+	check('username')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a username'),
+	check('password')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a password')
+]
+
+router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, res) => {
 	const {
 		username,
 		password
@@ -53,6 +61,7 @@ router.post('/login', csrfProtection, asyncHandler(async (req, res) => {
 	})
 }))
 
+/* GET sign-up page */
 router.get('/sign-up', csrfProtection, asyncHandler(async (req, res) => {
 	const user = await db.User.build();
 	res.render('sign-up', {
@@ -63,12 +72,47 @@ router.get('/sign-up', csrfProtection, asyncHandler(async (req, res) => {
 	})
 }))
 
-//TODO #11 sign-up validation
+/* POST sign-up */
 let signUpValidation = [
-	//check()...
+	check('username')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a username')
+		.isLength({ max: 50 })
+		.withMessage('username must be shorter than 50 characters'),
+	check('firstName')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a first name')
+		.isLength({ max: 50 })
+		.withMessage('first name must be shorter than 50 characters'),
+	check('lastName')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a last name')
+		.isLength({ max: 50 })
+		.withMessage('last name must be shorter than 50 characters'),
+	check('email')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a email')
+		.isEmail()
+		.withMessage('Please provide a valid email')
+		.isLength({ max: 100 })
+		.withMessage('email must be shorter than 100 characters'),
+	check('password')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a password')
+		.matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+		.withMessage("Passwords must contain a lower case character, a upper case character, a number, and a special character (one of the following: !@#$%^&* )."),
+	check("confirmPassword")
+		.exists({ checkFalsy: true })
+		.withMessage("Please provide a value for Confirm Password")
+		.custom((value, { req }) => {
+			if (value !== req.body.password) {
+				throw new Error("Confirm Password does not match password.")
+			}
+			return true;
+		})
 ]
 
-router.post("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
+router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (req, res) => {
 	const {
 		firstName,
 		lastName,
@@ -85,10 +129,12 @@ router.post("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
 		await user.save();
 		res.redirect("/");//TODO #15 log user in
 	} else { //TODO #14 display errors
-		res.redirect("/users/sign-up", { firstName, lastName, username, email, csrfToken: req.csrfToken() });
+		console.log(validatorErrors.array().map(error => error.msg));
+		res.render("sign-up", { firstName, lastName, username, email, csrfToken: req.csrfToken() });
 	}
 }))
 
+/* POST logout page */
 router.post("/logout", (req, res) => {
 	logoutUser(req, res);
 	res.redirect("/users/login");

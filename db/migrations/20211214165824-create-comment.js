@@ -14,7 +14,8 @@ module.exports = {
       },
       extensionId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: 'Extensions' }
       },
       userId: {
         allowNull: false,

@@ -1,0 +1,17 @@
+extends layout
+
+include utils
+
+block content
+    form(action='/extensions/new' method='POST')
+        input(type="hidden" name="_csrf" value=csrfToken)
+        +field('Extension Name', 'name', name, 'form-group', 'form-control')
+        +field('Description', 'description', description, 'form-group', 'form-control', 'textArea')
+        +field('Icon URL', 'iconURL', iconURL, 'form-group', 'form-control', 'text', 'optional')
+        div(id='categoriesCheckboxes')
+            each category in categories
+                label(category.name) #{category.name}
+                input(type='checkbox', id=category.name, name=category.name, value=category.id)
+        div
+            button(type='submit') Create Extension
+            a(href='/') Cancel

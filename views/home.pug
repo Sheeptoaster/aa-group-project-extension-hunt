@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    h2 List of Ten Products
+        ul
+        each item in extensions
+            li #{item.name} Upvotes: #{item.upvotes}
