@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    div(class='profile-card')
+        img(src=user.avatarURL)
+        div(class='first-last-name') #{user.firstName} #{user.lastName}
+        div(class='bio') #{user.bio}
+        div(class='username') #{user.username}
+        if user.id === req.session.auth.userId
+            a(href=`/profiles/${user.id}/edit`)
+                button(class='edit-button' type='button') Edit
+    div
+        ul
+            each name in extensionNames
+                li #{name}
