@@ -2,12 +2,12 @@ extends layout
 
 block content
     div(class='profile-card')
-        img(src=user.avatarURL)
-        div(class='first-last-name') #{user.firstName} #{user.lastName}
-        div(class='bio') #{user.bio}
-        div(class='username') #{user.username}
-        if user.id === req.session.auth.userId
-            a(href=`/profiles/${user.id}/edit`)
+        img(src=profileUser.avatarURL)
+        div(class='first-last-name') #{profileUser.firstName} #{profileUser.lastName}
+        div(class='bio') #{profileUser.bio}
+        div(class='username') #{profileUser.username}
+        if profileUser.id === req.session.auth.userId
+            a(href=`/profiles/${profileUser.id}/edit`)
                 button(class='edit-button' type='button') Edit
     div
         ul
