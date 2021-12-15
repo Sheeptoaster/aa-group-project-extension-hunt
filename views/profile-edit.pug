@@ -3,6 +3,19 @@ extends layout
 include utils.pug
 
 block content
-    form(action='/profiles/:id/edit', method='POST')
+    ul
+        if errors
+            each error in errors
+                li= error
+    form(action=`/profiles/${profileUser.id}/edit`, method='POST')
         input(type='hidden' name='_METHOD' value='PATCH')
         input(type='hidden' name='_csrf' value=csrfToken)
+        +field('Username', 'username', profileUser.username, 'form-group', 'form-control')
+        +field('First Name', 'firstName', profileUser.firstName, 'form-group', 'form-control')
+        +field('Last Name', 'lastName', profileUser.lastName, 'form-group', 'form-control')
+        +field('Email', 'email', profileUser.email, 'form-group', 'form-control')
+        +field('Bio', 'bio', profileUser.bio, 'form-group', 'form-control')
+        +field('AvatarURL', 'avatarURL', profileUser.avatarURL, 'form-group', 'form-control')
+        div
+            button(type="submit") Update Profile
+            a(href=`/profiles/${profileUser.id}`) Cancel
