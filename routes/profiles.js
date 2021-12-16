@@ -33,6 +33,7 @@ const userUpdateValidation = [
 
 router.get(
   "/:id",
+  csrfProtection,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id);
     const profileUser = await db.User.findOne({
@@ -41,17 +42,11 @@ router.get(
       },
       include: [db.Comment, db.Extension],
     });
-
     let extensionNames = profileUser.Extensions.map(
       (extension) => extension.name
     );
 
-    res.render("profile-page", {
-      title: "Profile Page",
-      profileUser,
-      req,
-      extensionNames,
-    });
+    res.render('profile-page', { title: "Profile Page", profileUser, req, extensionNames, csrfToken: req.csrfToken() })
   })
 );
 
