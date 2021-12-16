@@ -1,16 +1,38 @@
 extends layout
 
 block content
-    div(class='profile-card')
-        img(src=profileUser.avatarURL)
-        div(class='first-last-name') #{profileUser.firstName} #{profileUser.lastName}
-        div(class='bio') #{profileUser.bio}
-        div(class='username') #{profileUser.username}
-        if profileUser.id === req.session.auth.userId
-            a(href=`/profiles/${profileUser.id}/edit`)
-                button(class='edit-button' type='button') Edit
-                - //TODO #77 Profile Page Crashes If Not Logged In
-    div
-        ul
-            each name in extensionNames
-                li #{name}
+    div.page-container
+        div(class='profile-card')
+            img#profile-image(src=profileUser.avatarURL)
+            div#profile-text
+                div(class='first-last-name') #{profileUser.firstName} #{profileUser.lastName}
+                div(class='bio') #{profileUser.bio}
+                div(class='username') @#{profileUser.username}
+                if profileUser.id === req.session.auth.userId
+                    a(href=`/profiles/${profileUser.id}/edit`)
+                        button(class='edit-button' type='button') Edit
+                        - //TODO #77 Profile Page Crashes If Not Logged In
+        div#user-lists-container
+            ul#extension-list-header
+                div#extension-header #{profileUser.username}'s extensions
+                each extension in extensions
+                    a(href=`/extensions/${extension.id}`)
+                        li.extension-container#extension-container
+                            div.img-container
+                                img.list-img(src=`${extension.iconURL}`, alt="")
+                            content.list-content
+                                div.extension-name #{extension.name}
+                                div.extension-description #{extension.slogan}
+                                div.category-container
+                                    each category in extension.Categories
+                                        div.category-name #{category.name}
+                            div.upvote-container
+                                div.triangle
+                                upvote.upvotes #{extension.upvotes}
+            ul#comment-list
+                div#comment-header #{profileUser.username}'s comments
+                each comment in comments
+                    div#comment-container
+                        li#user-comment
+                            div#chat-bubble 💬
+                            div#chat-text #{comment.content}
