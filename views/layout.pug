@@ -2,37 +2,35 @@ doctype html
 include utils
 
 html
-  head
-      block head
-        title= title
-        link(rel='stylesheet' href='/stylesheets/reset.css')
-        link(rel='stylesheet' href='/stylesheets/index.css')
-        script(src="/javascripts/index.js" type="module" defer)
-        script(src="/javascripts/apiAuth.js" type="module")
-  body
-    h1= title
-    if locals.authenticated
-      div(id='welcome-container')
-        span Welcome #{user.firstName}
-        form(action="/users/logout" method="POST")
-          button(type="submit") Logout
-    else
-      div(id='welcome-container')
-        //- a(href="/api/auth/login") Login
-        button(id='login-button') Login
-        a(href="/users/sign-up") Sign-Up
-    div(id='login-popup' class="hidden")
-      h1 Login
-      form(id="login-form")
-          input(type='hidden' name='_csrf' value=csrfToken)
-          +field('Username', 'username', username, 'form-group', 'form-control')
-          +field('Password', 'password', password, 'form-group', 'form-control', 'password')
-          div(class='py-4')
-              button(id='login-submit') Submit
-              button(id='cancel-popup-button') Cancel
-              //- a(href='/') Cancel
-      div
-          p: a(href='/users/sign-up') Don't have an account? Register Here
-
-
-    block content
+	head
+		block head
+			title= title
+			link(rel='stylesheet' href='/stylesheets/reset.css')
+			link(rel='stylesheet' href='/stylesheets/index.css')
+			script(src="/javascripts/index.js" type="module" defer)
+			script(src="/javascripts/apiAuth.js" type="module")
+	body
+		h1= title
+		if locals.authenticated
+			div(id='welcome-container')
+				span Welcome #{user.firstName}
+				form(action="/users/logout" method="POST")
+					button(type="submit") Logout
+		else
+			div(id='welcome-container')
+				button(id='login-button') Login
+				a(href="/users/sign-up") Sign-Up
+		div(id='login-popup' class="hidden")
+			h1 Login
+			form(id="login-form")
+				input(type='hidden' name='_csrf' value=csrfToken)
+				+field('Username', 'username', username, 'form-group', 'form-control')
+				div(class="hidden")#username-errors
+				+field('Password', 'password', password, 'form-group', 'form-control', 'password')
+				div(class="hidden")#password-errors
+				div(class='py-4')
+					button(id='login-submit') Submit
+					button(id='cancel-popup-button') Cancel
+			div
+				p: a(href='/users/sign-up') Don't have an account? Register Here
+block content

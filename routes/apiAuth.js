@@ -22,7 +22,10 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
 		password
 	} = req.body;
 
-	let errors = [];
+	let errors = {
+		usernameErrors: [],
+		passwordErrors: []
+	}
 	const validatorErrors = validationResult(req);
 
 	if (validatorErrors.isEmpty()) {
@@ -32,15 +35,23 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
 			const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
 
 			if (passwordMatch) {
+				console.log("password matched");
 				loginUser(req, res, user);
-                res.json({user})
+				res.json({ user })
 				return
 			}
 		}
 
-		errors.push('Password does not match');
+		errors.passwordErrors.push('Password does not match');
 	} else {
-		errors = validatorErrors.array().map((error) => error.msg)
+		validatorErrors.array().forEach((error) => {
+			if (/password/i.test(error.msg)) {
+				errors.passwordErrors.push(error.msg);
+			}
+			if (/username/i.test(error.msg)) {
+				errors.usernameErrors.push(error.msg);
+			}
+		})
 	}
 	res.status = 403
 	res.json({ errors })
