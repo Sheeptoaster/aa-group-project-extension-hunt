@@ -7,7 +7,7 @@ const { requireAuth } = require('../auth');
 
 const router = express.Router()
 
-router.get('/:id', asyncHandler(async(req, res) => {
+router.get('/:id', csrfProtection, asyncHandler(async(req, res) => {
     const userId = parseInt(req.params.id)
     const user = await db.User.findOne({
         where: {
@@ -17,7 +17,7 @@ router.get('/:id', asyncHandler(async(req, res) => {
     })
     let extensionNames = user.Extensions.map(extension => extension.name)
     console.log(user.Extensions[0].name)
-    res.render('profile-page', { title: "Profile Page", user, req, extensionNames })
+    res.render('profile-page', { title: "Profile Page", user, req, extensionNames, csrfToken: req.csrfToken() })
 }))
 
 

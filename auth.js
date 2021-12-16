@@ -8,7 +8,7 @@ const loginUser = (req, res, user) => {
 
 const requireAuth = async (req, res, next) => {
     if (!req.session.auth) {
-        return res.redirect('/users/login');
+        return res.redirect('/api/auth/login');
     }
     return next();
 };
