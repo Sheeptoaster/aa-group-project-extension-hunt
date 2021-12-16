@@ -9,6 +9,7 @@ block content
         if profileUser.id === req.session.auth.userId
             a(href=`/profiles/${profileUser.id}/edit`)
                 button(class='edit-button' type='button') Edit
+                - //TODO #77 Profile Page Crashes If Not Logged In
     div
         ul
             each name in extensionNames

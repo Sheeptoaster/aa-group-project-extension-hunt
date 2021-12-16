@@ -25,7 +25,13 @@ module.exports = {
         references: { model: 'Users' }
       },
       iconURL: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
+      },
+      slogan: {
+        type: Sequelize.TEXT
+      },
+      extensionImg: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
