@@ -26,7 +26,6 @@ router.post('/new', csrfProtection, asyncHandler(async(req, res) => {
         iconURL,
         categoriesCheckboxes
     } = req.body;
-
     //Grabs userId of Currently Logged In User
     const ownerId = req.session.auth.userId;
     //Builds New Extension Instance
@@ -59,7 +58,8 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 		name: extension.name,
 		descrption: extension.descrption,
 		iconURL: extension.iconURL,
-		comments //TODO #56 visual design of comments
+		comments, //TODO #56 visual design of comments
+        csrfToken: req.csrfToken()
 	});
 }))
 

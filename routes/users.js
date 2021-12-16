@@ -13,54 +13,6 @@ router.get('/', requireAuth, async (req, res, next) => {
 	res.send('Testing')
 });
 
-/* GET login page. */
-router.get('/login', csrfProtection, asyncHandler(async (req, res) => {
-	res.render('login', { title: 'Login', csrfToken: req.csrfToken() })
-}))
-
-
-/* POST login page. */
-const loginValidators = [
-	check('username')
-		.exists({ checkFalsy: true })
-		.withMessage('Please provide a username'),
-	check('password')
-		.exists({ checkFalsy: true })
-		.withMessage('Please provide a password')
-]
-
-router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, res) => {
-	const {
-		username,
-		password
-	} = req.body;
-
-	let errors = [];
-	const validatorErrors = validationResult(req);
-
-	if (validatorErrors.isEmpty()) {
-		const user = await db.User.findOne({ where: { username } });
-
-		if (user !== null) {
-			const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
-
-			if (passwordMatch) {
-				loginUser(req, res, user);
-				return res.redirect('/');
-			}
-		}
-
-		errors.push('Login failed for the provided username and password');
-	} else {
-		errors = validatorErrors.array().map((error) => error.msg)
-	}
-
-	res.render('login', {
-		username,
-		csrfToken: req.csrfToken(),
-	})
-}))
-
 /* GET sign-up page */
 router.get('/sign-up', csrfProtection, asyncHandler(async (req, res) => {
 	const user = await db.User.build();
@@ -121,15 +73,17 @@ router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (re
 		confirmPassword,
 		email
 	} = req.body;
+	console.log(req.body)
 	//TODO #13 errors (if any are empty or if passwords don't match)
 	const hashedPassword = await bcrypt.hash(password, 12);
 	const user = await db.User.build({ firstName, lastName, username, email, hashedPassword });
 	const validatorErrors = validationResult(req);
 	if (validatorErrors.isEmpty()) {
 		await user.save();
-		res.redirect("/");//TODO #15 log user in
+		loginUser(req, res, user)
+		res.redirect("/");
 	} else { //TODO #14 display errors
-		console.log(validatorErrors.array().map(error => error.msg));
+		console.log(validatorErrors.array().map(error => error.msg));//TODO #66 catch sequelize unique errors
 		res.render("sign-up", { firstName, lastName, username, email, csrfToken: req.csrfToken() });
 	}
 }))
@@ -137,7 +91,7 @@ router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (re
 /* POST logout page */
 router.post("/logout", (req, res) => {
 	logoutUser(req, res);
-	res.redirect("/users/login");
+	res.redirect("/");
 })
 
 module.exports = router;
