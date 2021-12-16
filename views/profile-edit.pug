@@ -8,7 +8,6 @@ block content
             each error in errors
                 li= error
     form(action=`/profiles/${profileUser.id}/edit`, method='POST')
-        input(type='hidden' name='_METHOD' value='PATCH')
         input(type='hidden' name='_csrf' value=csrfToken)
         +field('Username', 'username', profileUser.username, 'form-group', 'form-control')
         +field('First Name', 'firstName', profileUser.firstName, 'form-group', 'form-control')
