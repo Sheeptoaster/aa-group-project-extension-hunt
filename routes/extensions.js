@@ -62,9 +62,9 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
     })
 	res.render("extension", {
         extension,
-		name: extension.name,
-		description: extension.description,
-		iconURL: extension.iconURL,
+		// name: extension.name,
+		// description: extension.description,
+		// iconURL: extension.iconURL,
 		comments,
         csrfToken: req.csrfToken()
 	});
