@@ -3,6 +3,7 @@ const db = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils')
 const { check, validationResult } = require('express-validator');
 const { requireAuth } = require('../auth');
+const category = require('../db/models/category');
 
 
 
@@ -53,6 +54,7 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 	const extension = await db.Extension.findByPk(extensionId);
 	const comments = await db.Comment.findAll({ where: { extensionId } })
 	res.render("extension", {
+        extension,
 		name: extension.name,
 		descrption: extension.descrption,
 		iconURL: extension.iconURL,
@@ -61,6 +63,55 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 	});
 }))
 
+router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
+    const extension = parseInt(req.params.id);
 
+    const extensions = await db.Extension.findByPk(extension)
+
+    const categories = await db.ExtensionCategories.findAll({
+        where: {
+            extensionId: extension
+        }
+    })
+    let categoryId = categories.map((category) => category.categoryId)
+
+    const categoriesName = await db.Category.findAll()
+
+    res.render('extension-edit', { title: 'Edit Extension', csrfToken: req.csrfToken(), extensions, categoriesName, categoryId })
+}))
+
+router.post('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
+    const { name, description, iconURL, categoriesCheckboxes } = req.body
+    const extensionId = parseInt(req.params.id)
+
+    const extension = await db.Extension.findByPk(extensionId)
+
+    const categoryValues = Object.values(req.body)
+    const categoryId = categoryValues.slice(4)
+
+    const updatedExtension = await extension.update({
+        name,
+        description,
+        iconURL
+    })
+
+    for (let i = 0; i < categoryId.length; i++) {
+        let extensionCategory = await db.ExtensionCategories.findByPk(parseInt(categoryId[i]))
+        await extensionCategory.update({
+            extensionId: updatedExtension.id,
+            categoryId: categoryId[i]
+        })
+    }
+    res.redirect('/')
+}))
+
+router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
+    const extensionId = parseInt(req.params.id)
+
+    const deletedExtension = await db.Extension.findByPk(extensionId)
+    await deletedExtension.destroy()
+
+    res.redirect('/')
+}))
 
 module.exports = router
