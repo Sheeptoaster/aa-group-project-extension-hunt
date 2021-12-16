@@ -40,13 +40,17 @@ router.get(
       where: {
         id: userId,
       },
-      include: [db.Comment, db.Extension],
+      include: [db.Comment, { model: db.Extension, include: db.Category }],
     });
     let extensionNames = profileUser.Extensions.map(
       (extension) => extension.name
     );
 
-    res.render('profile-page', { title: "Profile Page", profileUser, req, extensionNames, csrfToken: req.csrfToken() })
+    let extensions = profileUser.Extensions
+
+    // console.log(profileUser.Extensions[0].name)
+
+    res.render('profile-page', { title: "Profile Page", profileUser, req, extensions, csrfToken: req.csrfToken() })
   })
 );
 

@@ -1,0 +1,34 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-card {
+    border-radius: 5px;
+    align-items: center;
+    height: 300px;
+    display: flex;
+    background-color: rgb(35,34,128);
+    width: 80%;
+}
+
+#profile-image {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    margin-left: 75px;
+}
+
+#profile-text {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    margin-left: 25px;
+}
+
+.first-last-name {
+    font-size: 30px;
+}
