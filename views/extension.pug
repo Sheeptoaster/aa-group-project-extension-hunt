@@ -4,23 +4,32 @@ include utils.pug
 
 block content
 	script(src="/javascripts/apiComments.js" type="module")
-	div
-		h1= name
-		p= description
-		img(src= iconURL)
-	div
-		a(class='delete-button' href=`/extensions/${extension.id}}/delete`) Delete
-	div
-		form(action="")#add-comment-form
-			input(type="hidden" name="_csrf" value=csrfToken)#csrfToken
-			+field('', 'content', "", 'form-group', 'form-control', "text", "What do you think of this extension?")
-			//- TODO #60 SEND button opens sign-up if not logged in
-			if locals.authenticated
-				button(type="submit" disabled= false)#create-comment SEND
-			else
-				button(type="submit" disabled= true)#create-comment SEND
-		ul#content-container
-			each comment in comments
-				li
-					h2 Username Placeholder
-					span= comment.content
+	div(id='main-extension-container')
+		div(id='extension-page-header')
+			h1(id='extension-name')= extension.name
+			p(id='slogan')= extension.slogan
+			img(src= extension.iconURL id='extension-icon')
+		div(id='extension-page-body')
+			div(id='extension-details')
+				img(src= extension.extensionImg id='extension-img')
+				p(id='extension-description')= extension.description
+			div(id='extension-btn-container')
+				button(type="disabled" id='upvote-btn-extension') Upvote
+				button(type="disabled" id='downvote-btn-extension') Down Vote
+			div(id='comments-container')
+				div(id='create-comment')
+					form(action="" id='add-comment-form')
+						input(type="hidden" name="_csrf" value=csrfToken)#csrfToken
+						+field('', 'content', "", 'form-group', 'extension-comment-field', "text", "What do you think of this extension?")
+						//- TODO #60 SEND button opens sign-up if not logged in
+						if locals.authenticated
+							button(type="submit" disabled= false)#create-comment SEND
+						else
+							button(type="submit" disabled= true)#create-comment SEND
+				div(id='comment-section')
+					ul#content-container
+						each comment in comments
+							li(class='comment-li')
+								img(src=comment.User.avatarURL, class='comment-avatar-img')
+								h2(class='comment-username')= comment.User.username
+								span(class='comment-content')= comment.content
