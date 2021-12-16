@@ -25,7 +25,6 @@ router.post('/new', csrfProtection, asyncHandler(async(req, res) => {
         iconURL,
         categoriesCheckboxes
     } = req.body;
-
     //Grabs userId of Currently Logged In User
     const ownerId = req.session.auth.userId;
     //Builds New Extension Instance

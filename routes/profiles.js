@@ -1,25 +1,114 @@
-const express = require('express');
-const db = require('../db/models')
-const { csrfProtection, asyncHandler } = require('./utils')
-const { check, validationResult } = require('express-validator');
-const { requireAuth } = require('../auth');
+const express = require("express");
+const db = require("../db/models");
+const { csrfProtection, asyncHandler } = require("./utils");
+const { check, validationResult } = require("express-validator");
+const { requireAuth } = require("../auth");
 
+const router = express.Router();
 
-const router = express.Router()
+const userUpdateValidation = [
+  check("username")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a username")
+    .isLength({ max: 50 })
+    .withMessage("username must be shorter than 50 characters"),
+  check("firstName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a first name")
+    .isLength({ max: 50 })
+    .withMessage("first name must be shorter than 50 characters"),
+  check("lastName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a last name")
+    .isLength({ max: 50 })
+    .withMessage("last name must be shorter than 50 characters"),
+  check("email")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a email")
+    .isEmail()
+    .withMessage("Please provide a valid email")
+    .isLength({ max: 100 })
+    .withMessage("email must be shorter than 100 characters"),
+];
 
-router.get('/:id', csrfProtection, asyncHandler(async(req, res) => {
-    const userId = parseInt(req.params.id)
-    const user = await db.User.findOne({
-        where: {
-            id: userId
-        },
-        include: [ db.Comment, db.Extension ]
-    })
-    let extensionNames = user.Extensions.map(extension => extension.name)
-    console.log(user.Extensions[0].name)
-    res.render('profile-page', { title: "Profile Page", user, req, extensionNames, csrfToken: req.csrfToken() })
-}))
+router.get(
+  "/:id",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id);
+    const profileUser = await db.User.findOne({
+      where: {
+        id: userId,
+      },
+      include: [db.Comment, db.Extension],
+    });
+    let extensionNames = profileUser.Extensions.map(
+      (extension) => extension.name
+    );
 
+    res.render('profile-page', { title: "Profile Page", profileUser, req, extensionNames, csrfToken: req.csrfToken() })
+  })
+);
 
+router.get(
+  "/:id/edit",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id);
+    const currentUserId = req.session.auth.userId;
 
-module.exports = router
+    const profileUser = await db.User.findByPk(userId);
+
+    if (userId === currentUserId) {
+      res.render("profile-edit", {
+        title: "Edit Profile",
+        profileUser,
+        csrfToken: req.csrfToken(),
+      });
+    } else {
+      res.redirect(`/profiles/${userId}`);
+    }
+  })
+);
+
+router.post(
+  "/:id/edit",
+  csrfProtection,
+  userUpdateValidation,
+  asyncHandler(async (req, res) => {
+    const userId = req.params.id;
+    const profileUser = await db.User.findByPk(userId);
+
+    const { firstName, lastName, username, email, bio, avatarURL } = req.body;
+
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      const updatedUser = await profileUser.update({
+        firstName,
+        lastName,
+        username,
+        email,
+        bio,
+        avatarURL,
+      });
+
+      res.redirect(`/profiles/${userId}`);
+    } else {
+        const errors = validatorErrors.array().map(error => error.msg);
+        res.render('profile-edit', {
+            errors,
+            firstName,
+            lastName,
+            username,
+            email,
+            bio,
+            avatarURL,
+            profileUser,
+            csrfToken: req.csrfToken()
+        })
+    }
+  })
+);
+
+module.exports = router;
