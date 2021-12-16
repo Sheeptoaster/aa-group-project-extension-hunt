@@ -105,7 +105,7 @@ router.post('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => 
     res.redirect('/')
 }))
 
-router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
     const extensionId = parseInt(req.params.id)
 
     const deletedExtension = await db.Extension.findByPk(extensionId)
