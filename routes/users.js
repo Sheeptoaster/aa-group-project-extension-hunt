@@ -30,24 +30,42 @@ let signUpValidation = [
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a username')
 		.isLength({ max: 50 })
-		.withMessage('username must be shorter than 50 characters'),
+		.withMessage('Username must be shorter than 50 characters')
+		.custom(value => {
+			return db.User.findOne({ where: { username: value } }).then(previousUser => {
+				if (previousUser) {
+					return Promise.reject("Username already taken.");
+				} else {
+					return;
+				}
+			})
+		}),
 	check('firstName')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a first name')
 		.isLength({ max: 50 })
-		.withMessage('first name must be shorter than 50 characters'),
+		.withMessage('First name must be shorter than 50 characters'),
 	check('lastName')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a last name')
 		.isLength({ max: 50 })
-		.withMessage('last name must be shorter than 50 characters'),
+		.withMessage('Last name must be shorter than 50 characters'),
 	check('email')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a email')
 		.isEmail()
 		.withMessage('Please provide a valid email')
 		.isLength({ max: 100 })
-		.withMessage('email must be shorter than 100 characters'),
+		.withMessage('Email must be shorter than 100 characters')
+		.custom(value => {
+			return db.User.findOne({ where: { email: value } }).then(previousUser => {
+				if (previousUser) {
+					return Promise.reject("Email already associated with an account.");
+				} else {
+					return;
+				}
+			})
+		}),
 	check('password')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a password')
