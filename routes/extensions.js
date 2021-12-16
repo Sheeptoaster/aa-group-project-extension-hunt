@@ -3,6 +3,7 @@ const db = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils')
 const { check, validationResult } = require('express-validator');
 const { requireAuth } = require('../auth');
+const category = require('../db/models/category');
 
 
 
@@ -49,7 +50,7 @@ router.post('/new', csrfProtection, asyncHandler(async(req, res) => {
     // }
 }))
 
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 	const extensionId = parseInt(req.params.id);
 	const extension = await db.Extension.findByPk(extensionId);
 	const comments = await db.Comment.findAll({ where: { extensionId } })
@@ -61,6 +62,21 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 	});
 }))
 
+router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
+    const extension = parseInt(req.params.id);
 
+    const extensions = await db.Extension.findByPk(extension)
+
+    const categories = await db.ExtensionCategories.findAll({
+        where: {
+            extensionId: extension
+        }
+    })
+    let categoryId = categories.map((category) => category.categoryId)
+
+    const categoriesName = await db.Category.findAll()
+    
+    res.render('extension-edit', { title: 'Edit Extension', csrfToken: req.csrfToken(), extensions, categoriesName, categoryId })
+}))
 
 module.exports = router

@@ -1,0 +1,21 @@
+extends layout
+
+include utils.pug
+
+block content
+    h1 Edit Extension
+    form(action='/extensions/#{extensions.id}/edit' method='POST')
+        input(type='hidden' name='_csrf' value=csrfToken)
+        +field('Extension Name', 'name', name, 'form-group', 'form-control')
+        +field('Description', 'description', description, 'form-group', 'form-control')
+        +field('Icon URL', 'iconURL', iconURL, 'form-group', 'form-control')
+        div(id='categoriesCheckboxes')
+            for category in categoriesName
+                label(category.name)  #{category.name}
+                if categoryId.includes(category.id)
+                    input(type='checkbox', id=category.id, name=category.name, value=category.id checked=true)
+                else
+                    input(type='checkbox', id=category.id, name=category.name, value=category.id)
+        div
+            button(type='submit') Update Extension
+            a(href='/extensions/#{extensions.id}') Cancel
