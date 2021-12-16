@@ -1,0 +1,79 @@
+#product-container {
+    display: inline-flex;
+    justify-items: space-around;
+    align-items: center;
+    flex-direction: column;
+    background-color: #007acc
+}
+
+#product-page-header {
+    background-color: #232323;
+    color: white;
+    display: grid;
+    justify-content: center;
+    width: 55%;
+    grid-template-areas:
+    "picture title"
+    "picture ."
+    "picture description";
+    grid-template-rows: 4em;
+    grid-template-columns: 15em;
+}
+
+#extension-h1 {
+    grid-area: title;
+}
+
+#description-p {
+    grid-area: description;
+}
+
+#extension-icon {
+    grid-area: picture;
+    border-radius: .65em;
+    margin: .25em;
+    width: 7.5em;
+    height: 7.5em;
+}
+
+
+#add-comment-form {
+    display: flex;
+    justify-content: center;
+}
+
+.extension-comment-field {
+    width: 20em;
+    max-width: 30em;
+    height: 2em;
+    max-height: 3em;
+    margin: .5em;
+}
+
+
+.comment-li {
+    display: grid;
+    grid-template-areas:
+    "avatar username"
+    ". content";
+    grid-template-columns: 3em auto;
+    border: 1px solid black;
+    padding: .5em;
+    background-color: whitesmoke;
+}
+
+
+.comment-avatar-img {
+    width: 2em;
+    height: 2em;
+    border-radius: 2em;
+    grid-area: avatar;
+}
+
+.comment-content {
+    grid-area: content;
+}
+
+.comment-username {
+    grid-area: username;
+}

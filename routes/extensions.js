@@ -4,6 +4,7 @@ const { csrfProtection, asyncHandler } = require('./utils')
 const { check, validationResult } = require('express-validator');
 const { requireAuth } = require('../auth');
 const category = require('../db/models/category');
+const comment = require('../db/models/comment');
 
 
 
@@ -52,13 +53,19 @@ router.post('/new', csrfProtection, asyncHandler(async(req, res) => {
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 	const extensionId = parseInt(req.params.id);
 	const extension = await db.Extension.findByPk(extensionId);
-	const comments = await db.Comment.findAll({ where: { extensionId } })
+	const comments = await db.Comment.findAll({
+        where: { extensionId },
+        include: {
+            model: db.User,
+            as: "User"
+        }
+    })
 	res.render("extension", {
         extension,
 		name: extension.name,
-		descrption: extension.descrption,
+		description: extension.description,
 		iconURL: extension.iconURL,
-		comments, //TODO #56 visual design of comments
+		comments,
         csrfToken: req.csrfToken()
 	});
 }))

@@ -1,2 +1,9 @@
 @import url(index.css);
 @import url(reset.css);
+@import url(extension-page.css);
+
+
+
+html {
+    background-color: #f1f1f1;
+}
