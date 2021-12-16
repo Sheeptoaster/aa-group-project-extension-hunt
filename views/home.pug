@@ -1,7 +1,20 @@
 extends layout
 
 block content
-    h2 List of Ten Products
-        ul
-        each item in extensions
-            li #{item.name} Upvotes: #{item.upvotes}
+    h2.extension-h2 Your next favorite extension 👇
+
+    ul
+    each item in extensions
+        a(href=`/extensions/${item.id}`)
+            div.entire-list
+                li.extension-container
+                    div.img-container
+                        img.list-img(src=`${item.iconURL}`, alt="")
+                    content.list-content
+                        div.extension-name #{item.name}
+                        div.extension-descrirption #{item.description}
+                        div.category-container
+                            each category in item.Categories
+                                div.category-name #{category.name}
+                    div.upvote-container
+                        upvote.upvotes #{item.upvotes}

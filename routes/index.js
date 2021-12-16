@@ -6,11 +6,10 @@ const { csrfProtection, asyncHandler } = require('./utils')
 /* GET home page. */
 router.get('/', csrfProtection, asyncHandler(async(req, res, next) => {
 	const extensions = await db.Extension.findAll({
-		// include: db.Comment,
+		include: db.Category,
 		order: [ ['id'] ],
 		limit: 10
 	});
-	// console.log(extensions[0].Comments[0].content);
 	res.render('home', { title: 'Extensions Home Page', extensions, csrfToken: req.csrfToken() });
 }));
 
