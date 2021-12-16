@@ -18,13 +18,19 @@ module.exports = (sequelize, DataTypes) => {
       references: { model: 'Users' }
     },
     iconURL: {
-      type: DataTypes.STRING
-    }
+      type: DataTypes.TEXT
+    },
+    slogan: {
+      type: DataTypes.TEXT
+    },
+    extensionImg: {
+      type: DataTypes.TEXT
+    },
   }, {});
   Extension.associate = function(models) {
     Extension.belongsTo(models.User, { foreignKey: 'ownerId' }),
     Extension.belongsToMany(models.Category, {
-      through: 'ExtensionCategory',
+      through: 'ExtensionCategories',
       otherKey: 'categoryId',
       foreignKey: 'extensionId'
     })

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Category.associate = function(models) {
     Category.belongsToMany(models.Extension, {
-      through: 'ExtensionCategory',
+      through: 'ExtensionCategories',
       otherKey: 'extensionId',
       foreignKey: 'categoryId'
     })
