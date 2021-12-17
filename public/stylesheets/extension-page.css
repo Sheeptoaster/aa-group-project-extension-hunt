@@ -1,4 +1,4 @@
-main-extension-container
+/* main-extension-container
     Extension-Card
     extension-page-header
         extension-name
@@ -19,15 +19,13 @@ main-extension-container
                     comment-li
                         comment-avatar-img
                         comment-username
-                        comment-content
-
+                        comment-content */
 
 #main-extension-container {
     display: inline-flex;
     justify-items: space-around;
     align-items: center;
     flex-direction: column;
-    background-color: #007acc
 }
 
 #extension-page-header {

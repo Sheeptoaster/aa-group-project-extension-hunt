@@ -25,7 +25,7 @@ a {
 }
 
 .gradient:hover {
-    background: linear-gradient(10deg, white 60%, rgb(253, 221, 226));
+    background: linear-gradient(10deg, #f1f1f1 60%, rgb(253, 221, 226));
 }
 
 .img-container, .upvote-container {
