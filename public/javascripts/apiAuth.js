@@ -48,7 +48,6 @@ document.querySelector("#login-submit").addEventListener("click", async event =>
 			_csrf: csrf
 		})
 	})
-	console.log("return to event listener")
 	const data = await res.json()
 
 	if (!data.errors) {
@@ -72,5 +71,36 @@ document.querySelector("#login-submit").addEventListener("click", async event =>
 		const passwordErrors = document.querySelector("#password-errors");
 		passwordErrors.innerText = data.errors.passwordErrors[0];
 		passwordErrors.classList.remove("hidden");
+	}
+})
+
+document.querySelector("#demo-sign-in").addEventListener("click", async event => {
+	event.preventDefault()
+	const loginForm = document.querySelector('#login-form')
+	const loginData = new FormData(loginForm)
+	const csrf = loginData.get('_csrf')
+	let res = await fetch('/api/auth/login', {
+		method: 'POST',
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			username: "Demo User",
+			password: "a",
+			_csrf: csrf
+		})
+	})
+	const data = await res.json()
+
+	if (!data.errors) {
+		//DOM manipulate login and signout. replace with logout
+		const welcomeContainer = document.querySelector('#nav-bar-right')
+		welcomeContainer.innerHTML = `
+			<span>Welcome ${data.user.firstName}</span>
+			<a href="/profiles/51">Profile</a>
+			<form action="/users/logout" method="POST">
+				<button type="submit">Logout</button>
+			</form>
+        `
 	}
 })
