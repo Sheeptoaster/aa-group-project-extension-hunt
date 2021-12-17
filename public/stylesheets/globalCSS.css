@@ -1,8 +1,10 @@
 @import url(index.css);
 @import url(reset.css);
+@import url(navbar.css);
 @import url(extension-page.css);
 @import url(home.css);
 @import url(userProfile.css);
+
 html {
     background-color: #f1f1f1;
 }

@@ -1,5 +1,6 @@
 const loginButton = document.querySelector('#login-button')
 const cancelPopupButton = document.querySelector("#cancel-popup-button")
+const loginBackground = document.querySelector("#login-popup-background");
 const loginSignup = document.querySelector('#login-from-signup')
 
 if (loginSignup) {
@@ -10,18 +11,26 @@ if (loginSignup) {
 }
 if (loginButton) {
 	loginButton.addEventListener("click", async event => {
-		const popupElement = document.querySelector('#login-popup')
-		popupElement.classList.remove("hidden");
-	})
-}
-if (cancelPopupButton) {
-	cancelPopupButton.addEventListener("click", async event => {
-		const popupElement = document.querySelector('#login-popup')
-		popupElement.classList.add("hidden");
+		document.querySelector('#login-popup').classList.remove("hidden");
+		loginBackground.classList.remove("hidden");
 	})
 }
 
-document.querySelector("#login-submit").addEventListener("click", async event => {
+if (cancelPopupButton) {
+	cancelPopupButton.addEventListener("click", async event => {
+		document.querySelector('#login-popup').classList.add("hidden");
+		loginBackground.classList.add("hidden");
+	})
+}
+
+if (loginBackground) {
+	loginBackground.addEventListener("click", async event => {
+		document.querySelector('#login-popup').classList.add("hidden");
+		loginBackground.classList.add("hidden");
+	})
+}
+
+document.querySelector("#login-submit").addEventListener("click", async event => { //TODO #83 pressing enter to submit login does not clear grey login background
 	event.preventDefault()
 	const loginForm = document.querySelector('#login-form')
 	const loginData = new FormData(loginForm)
@@ -44,7 +53,7 @@ document.querySelector("#login-submit").addEventListener("click", async event =>
 
 	if (!data.errors) {
 		//DOM manipulate login and signout. replace with logout
-		const welcomeContainer = document.querySelector('#welcome-container')
+		const welcomeContainer = document.querySelector('#nav-bar-right')
 		welcomeContainer.innerHTML = `
             <div>
                 <span> Welcome ${data.user.firstName} </span>
