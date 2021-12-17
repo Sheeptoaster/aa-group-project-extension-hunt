@@ -16,6 +16,7 @@ block content
                         div.category-container
                             each category in item.Categories
                                 div.category-name #{category.name}
-                    div.upvote-container
+                    div#upvote-container
+                        //-TODO #82 add upvote api functionality
                         div.triangle
                         upvote.upvotes #{item.upvotes}

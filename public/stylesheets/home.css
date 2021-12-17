@@ -33,7 +33,7 @@ a {
     justify-content: center;
 }
 
-.upvote-container {
+#upvote-container {
     padding: 10px;
     width: 45px;
     height: 60px;
