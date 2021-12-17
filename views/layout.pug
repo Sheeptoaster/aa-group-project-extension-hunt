@@ -25,9 +25,9 @@ html
 					a(href="/extensions/new") Post an Extension
 			if locals.authenticated
 				li#nav-bar-right
+					span Welcome #{user.firstName}
 					- let profileURL = `/profiles/${user.id}`;
 					a(href= profileURL) Profile
-					span Welcome #{user.firstName}
 					form(action="/users/logout" method="POST")
 						button(type="submit") Logout
 			else

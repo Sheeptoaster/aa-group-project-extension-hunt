@@ -1,0 +1,72 @@
+.sign-up-errors-section {
+    display: flex;
+    flex-direction: column;
+    color: red;
+    padding: 2em;
+    max-width: 35%;
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.sign-up-errors {
+    display: flex;
+}
+
+.sign-up-form-section {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 3em;
+    max-width: 35%;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.sign-up-form-group {
+    padding: .35em;
+}
+
+#signupUsername {
+    width: 20em;
+    display: flex;
+}
+
+#signupFirstName {
+    width: 20em;
+    display: flex;
+}
+
+#signupLastName {
+    width: 20em;
+    display: flex;
+}
+
+#signupEmail {
+    width: 20em;
+    display: flex;
+}
+
+#signupPassword {
+    width: 20em;
+    display: flex;
+}
+
+#signupConfirmPassword {
+    width: 20em;
+    display: flex;
+}
+
+#sign-up-submit-section {
+    display: flex;
+}
+
+#sign-up-submit-btn {
+    margin-right: 3em;
+}
+
+#login-from-signup {
+    margin-left: 1em;
+}

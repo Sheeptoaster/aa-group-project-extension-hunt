@@ -3,18 +3,23 @@ extends layout.pug
 include utils.pug
 
 block content
-	h1 Register
-	form(action='/users/sign-up' method='POST')
-		input(type="hidden" name="_csrf" value=csrfToken)
-		+field('Username', 'username', username, 'form-group', 'form-control')
-		+field('First Name', 'firstName', firstName, 'form-group', 'form-control')
-		+field('Last Name', 'lastName', lastName, 'form-group', 'form-control')
-		+field('email', 'email', email, 'form-group', 'form-control', "email")
-		+field('Password', 'password', password, 'form-group', 'form-control', "password")
-		+field('Confirm Password', 'confirmPassword', confirmPassword, 'form-group', 'form-control', "password")
-		div
-			button(type='submit') Register
-			a(href='/') Cancel
-	div
-		p Already have an account?  
-			span: a#login-from-signup Login Here
+	if errors
+		ul(class='sign-up-errors-section')
+			each error in errors
+				li(class='sign-up-errors')= error
+	div(class='sign-up-form-section')
+		h1 Register
+		form(action='/users/sign-up' method='POST')
+			input(type="hidden" name="_csrf" value=csrfToken)
+			+field('Username', 'signupUsername', username, 'sign-up-form-group', 'form-control')
+			+field('First Name', 'signupFirstName', firstName, 'sign-up-form-group', 'form-control')
+			+field('Last Name', 'signupLastName', lastName, 'sign-up-form-group', 'form-control')
+			+field('Email', 'signupEmail', email, 'sign-up-form-group', 'form-control', "email")
+			+field('Password', 'signupPassword', password, 'sign-up-form-group', 'form-control', "password")
+			+field('Confirm Password', 'signupConfirmPassword', confirmPassword, 'sign-up-form-group', 'form-control', "password")
+			div(class='sign-up-submit-section')
+				button(type='submit' id='sign-up-submit-btn') Register
+				a(href='/' id='sign-up-cancel-link') Cancel
+		div(class='sign-up-link-to-login')
+			p(id='sign-up-link-text') Already have an account?
+				span: a#login-from-signup Login Here
