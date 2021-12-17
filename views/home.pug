@@ -1,13 +1,15 @@
 extends layout
 
 block content
+    script(src="/javascripts/apiUpvote.js" type="module")
     h2.extension-h2 Your next favorite extension 👇
 
     ul
     each item in extensions
-        a(href=`/extensions/${item.id}`)
-            div.entire-list
-                li.extension-container
+        div.entire-list
+            li.extension-container.gradient
+                a(href=`/extensions/${item.id}`).extension-container
+                    //-TODO #85 comment deadzone between content and upvote button
                     div.img-container
                         img.list-img(src=`${item.iconURL}`, alt="")
                     content.list-content
@@ -16,6 +18,6 @@ block content
                         div.category-container
                             each category in item.Categories
                                 div.category-name #{category.name}
-                    div.upvote-container
-                        div.triangle
-                        upvote.upvotes #{item.upvotes}
+                div.upvote-container(extensionId=`${item.id}`)
+                    div.triangle
+                    upvote.upvotes(id=`${item.id}`) #{item.upvotes}

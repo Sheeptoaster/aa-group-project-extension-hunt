@@ -13,6 +13,7 @@ const apiCommentsRouter = require("./routes/apiComments.js");
 const extensionRouter = require('./routes/extensions')
 const profileRouter = require('./routes/profiles')
 const apiAuthRouter = require('./routes/apiAuth')
+const apiUpvoteRouter = require('./routes/apiUpvote')
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use('/api/comments', apiCommentsRouter);
 app.use('/extensions', extensionRouter)
 app.use('/profiles', profileRouter)
 app.use('/api/auth', apiAuthRouter)
+app.use('/api/upvote', apiUpvoteRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

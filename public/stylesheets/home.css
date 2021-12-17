@@ -1,5 +1,6 @@
 a {
     text-decoration: none;
+
 }
 
 .extension-h2 {
@@ -23,7 +24,7 @@ a {
     margin: 30px;
 }
 
-.extension-container:hover {
+.gradient:hover {
     background: linear-gradient(10deg, #f1f1f1 60%, rgb(253, 221, 226));
 }
 
@@ -43,13 +44,16 @@ a {
     justify-content: center;
     align-items: center;
     margin-right: 10px;
-
 }
+
+.upvote-container:hover {
+    cursor: pointer;
+    z-index: 1;
+}
+
 .upvotes {
     font-size: 13px;
     margin-top: 7px;
-    /* width: 45px;
-    height: 60px; */
 }
 
 .triangle {
@@ -72,8 +76,6 @@ a {
     width: 80%;
     display: flex;
     flex-direction: column;
-    /* align-items: flex-start; */
-    /* justify-content: space-between; */
 }
 
 .category-container {
@@ -84,10 +86,13 @@ a {
 
 .category-name {
     font-size: 10px;
-    /* margin: 10px */
     padding: 10px 50px
 }
 
 .extension-name {
     font-weight: bold;
+}
+
+.extension-descrirption {
+    margin-left: 10px;
 }
