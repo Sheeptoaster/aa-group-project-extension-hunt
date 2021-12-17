@@ -6,3 +6,8 @@
 html {
     background-color: #f1f1f1;
 }
+
+#login-from-signup:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
