@@ -84,25 +84,24 @@ let signUpValidation = [
 
 router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (req, res) => {
 	const {
-		firstName,
-		lastName,
-		username,
-		password,
-		confirmPassword,
-		email
+		signupFirstName,
+		signupLastName,
+		signupUsername,
+		signupPassword,
+		signupConfirmPassword,
+		signupEmail
 	} = req.body;
-	console.log(req.body)
 	//TODO #13 errors (if any are empty or if passwords don't match)
-	const hashedPassword = await bcrypt.hash(password, 12);
-	const user = await db.User.build({ firstName, lastName, username, email, hashedPassword });
+	const hashedPassword = await bcrypt.hash(signupPassword, 12);
+	const user = await db.User.build({ signupFirstName, signupLastName, signupUsername, signupEmail, hashedPassword });
 	const validatorErrors = validationResult(req);
 	if (validatorErrors.isEmpty()) {
 		await user.save();
 		loginUser(req, res, user)
 		res.redirect("/");
 	} else { //TODO #14 display errors
-		console.log(validatorErrors.array().map(error => error.msg));//TODO #66 catch sequelize unique errors
-		res.render("sign-up", { firstName, lastName, username, email, csrfToken: req.csrfToken() });
+		const errors = (validatorErrors.array().map(error => error.msg));//TODO #66 catch sequelize unique errors
+		res.render("sign-up", { errors, signupFirstName, signupLastName, signupUsername, signupEmail, csrfToken: req.csrfToken() });
 	}
 }))
 
