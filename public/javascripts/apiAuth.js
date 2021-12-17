@@ -23,7 +23,7 @@ if (loginBackground) {
 	})
 }
 
-document.querySelector("#login-submit").addEventListener("click", async event => {
+document.querySelector("#login-submit").addEventListener("click", async event => { //TODO #83 pressing enter to submit login does not clear grey login background
 	event.preventDefault()
 	const loginForm = document.querySelector('#login-form')
 	const loginData = new FormData(loginForm)

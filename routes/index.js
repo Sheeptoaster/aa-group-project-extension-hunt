@@ -10,7 +10,7 @@ router.get('/', csrfProtection, asyncHandler(async(req, res, next) => {
 		order: [ ['id'] ],
 		limit: 10
 	});
-	res.render('home', { title: 'Extensions Home Page', extensions, csrfToken: req.csrfToken() });
+	res.render('home', { title: 'Extension Hunt', extensions, csrfToken: req.csrfToken() });
 }));
 
 module.exports = router;

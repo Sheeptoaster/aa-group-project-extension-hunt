@@ -1,13 +1,7 @@
 const express = require('express');
 const db = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils')
-const { check, validationResult } = require('express-validator');
 const { requireAuth } = require('../auth');
-const category = require('../db/models/category');
-const comment = require('../db/models/comment');
-
-
-
 
 const router = express.Router()
 
@@ -62,9 +56,6 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
     })
 	res.render("extension", {
         extension,
-		// name: extension.name,
-		// description: extension.description,
-		// iconURL: extension.iconURL,
 		comments,
         csrfToken: req.csrfToken()
 	});
