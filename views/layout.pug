@@ -6,20 +6,35 @@ html
 		block head
 			title= title
 			link(rel='stylesheet' href='/stylesheets/globalCSS.css')
-			//- link(rel='stylesheet' href='/stylesheets/index.css')
 			script(src="/javascripts/index.js" type="module" defer)
 			script(src="/javascripts/apiAuth.js" type="module")
 	body
-		h1= title
-		if locals.authenticated
-			div(id='welcome-container')
-				span Welcome #{user.firstName}
-				form(action="/users/logout" method="POST")
-					button(type="submit") Logout
-		else
-			div(id='welcome-container')
-				button(id='login-button') Login
-				a(href="/users/sign-up") Sign-Up
+		button(class="hidden")#login-popup-background
+		ul#nav-bar
+			li#nav-bar-left
+				img#logo(src="/images/extension-hunt-logo.png")
+				//- input(type="text")#nav-bar-search
+				a(href="/") Home
+				span#about-text About
+					ul#about-dropdown
+						li.about-link: a(href="https://github.com/ntseng") Nathaniel Tseng
+						li.about-link: a(href="https://github.com/srvorkap") Srdan Vorkapic
+						li.about-link: a(href="https://github.com/Sheeptoaster") Jake Weber
+						li.about-link: a(href="https://github.com/Noslepr") Chris Young
+				if locals.authenticated
+					a(href="/extensions/new") Post an Extension
+			if locals.authenticated
+				li#nav-bar-right
+					- let profileURL = `/profiles/${user.id}`;
+					a(href= profileURL) Profile
+					span Welcome #{user.firstName}
+					form(action="/users/logout" method="POST")
+						button(type="submit") Logout
+			else
+				li#nav-bar-right
+					button#demo-sign-in Demo User
+					button(id='login-button') Sign In
+					a(href="/users/sign-up") Sign-Up
 		div(id='login-popup' class="hidden")
 			h1 Login
 			form(id="login-form")
