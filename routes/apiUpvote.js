@@ -8,6 +8,8 @@ router.patch('/', asyncHandler(async (req, res) => {
     const { extensionId } = req.body
 
     const extension = await db.Extension.findByPk(extensionId);
+
+    extension.upvotes++
     extension.save()
 
     res.json({

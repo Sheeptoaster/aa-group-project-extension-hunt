@@ -1,7 +1,6 @@
 const upvoteButton = document.querySelector('.upvote-container')
 
 upvoteButton.addEventListener('click', async (event) => {
-    event.stopPropagation()
 
     const extensionId = upvoteButton.getAttribute('extensionId')
 
