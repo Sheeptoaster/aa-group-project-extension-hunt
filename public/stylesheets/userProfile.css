@@ -1,0 +1,101 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-card {
+    border-radius: 5px;
+    align-items: center;
+    height: 300px;
+    display: flex;
+    background-color: rgb(35,34,128);
+    width: 80%;
+}
+
+#profile-image {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    margin-left: 75px;
+}
+
+#profile-text {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    margin-left: 25px;
+}
+
+.first-last-name {
+    font-size: 30px;
+}
+
+#extension-list-header {
+    font-size: 30px;
+    padding: 15px;
+    width: 100%;
+}
+
+#extension-header {
+    font-size: 30px;
+    padding: 15px
+}
+
+#extension-container {
+    /* width: 80%; */
+    margin: 0px;
+    padding: 15px;
+    height: 120px;
+    background-color: white;
+    width: 50rem;
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 3px;
+    /* flex-wrap: wrap; */
+}
+
+#user-lists-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#comment-list {
+    /* margin: 20px; */
+    width: 500px;
+    list-style-type: none;
+}
+
+#comment-header {
+    margin: 20px 5px
+}
+
+#user-comment {
+    display: flex;
+    line-height: 2em;
+    height: 4em;
+    overflow: hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+    padding: 5px;
+    width: 300px;
+}
+
+#comment-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    border: 1px solid rgb(211, 211, 211)
+}
+
+#chat-bubble {
+    padding: 5px;
+}
+
+.extension-description {
+    margin-left: 10px;
+    padding: 5px;
+}
