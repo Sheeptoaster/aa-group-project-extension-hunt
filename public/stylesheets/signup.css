@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     color: red;
-    /* border: 1px solid black; */
     padding: 2em;
     max-width: 35%;
     height: fit-content;
@@ -67,12 +66,6 @@
 #sign-up-submit-btn {
     margin-right: 3em;
 }
-
-/* #sign-up-cancel-link
-
-.sign-up-link-to-login
-
-#sign-up-link-text */
 
 #login-from-signup {
     margin-left: 1em;
