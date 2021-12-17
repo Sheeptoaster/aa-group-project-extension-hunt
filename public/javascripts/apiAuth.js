@@ -7,6 +7,7 @@ if (loginSignup) {
 	loginSignup.addEventListener("click", async event => {
 		const popupElement = document.querySelector('#login-popup')
 		popupElement.classList.remove("hidden");
+		loginBackground.classList.remove('hidden');
 	})
 }
 if (loginButton) {
