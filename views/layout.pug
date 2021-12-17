@@ -9,26 +9,26 @@ html
 			script(src="/javascripts/index.js" type="module" defer)
 			script(src="/javascripts/apiAuth.js" type="module")
 	body
+		button(class="hidden")#login-popup-background
 		ul#nav-bar
 			li#nav-bar-left
-				img(src="")#logo
+				img#logo(src="/images/extension-hunt-logo.png")
 				input(type="text")
 				a() Extensions
 				a() Community
 				a() About
 			//- TOODNOW logo image
-			li#nav-bar-right
-				if locals.authenticated
-					div(id='welcome-container')
-						a() How to post an Extension?
-						span Welcome #{user.firstName}
-						form(action="/users/logout" method="POST")
-							button(type="submit") Logout
-				else
-					div(id='welcome-container')
-						a() How to post an Extension?
-						button(id='login-button') Sign In
-						a(href="/users/sign-up") Sign-Up
+			if locals.authenticated
+				li#nav-bar-right
+					a() How to post an Extension?
+					span Welcome #{user.firstName}
+					form(action="/users/logout" method="POST")
+						button(type="submit") Logout
+			else
+				li#nav-bar-right
+					a() How to post an Extension?
+					button(id='login-button') Sign In
+					a(href="/users/sign-up") Sign-Up
 		div(id='login-popup' class="hidden")
 			h1 Login
 			form(id="login-form")
