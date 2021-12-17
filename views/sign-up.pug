@@ -3,6 +3,10 @@ extends layout.pug
 include utils.pug
 
 block content
+	ul(class='sign-up-errors-section')
+		if errors
+			each error in errors
+				li(class='sign-up-errors')= error
 	h1 Register
 	form(action='/users/sign-up' method='POST')
 		input(type="hidden" name="_csrf" value=csrfToken)
@@ -12,9 +16,9 @@ block content
 		+field('email', 'signupEmail', email, 'form-group', 'form-control', "email")
 		+field('Password', 'signupPassword', password, 'form-group', 'form-control', "password")
 		+field('Confirm Password', 'signupConfirmPassword', confirmPassword, 'form-group', 'form-control', "password")
-		div
-			button(type='submit') Register
-			a(href='/') Cancel
-	div
-		p Already have an account?
+		div(class='sign-up-submit-section')
+			button(type='submit' id='sign-up-submit-btn') Register
+			a(href='/' id='sign-up-cancel-link') Cancel
+	div(class='sign-up-link-to-login')
+		p(id='sign-up-link-text') Already have an account?
 			span: a#login-from-signup Login Here

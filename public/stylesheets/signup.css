@@ -1,0 +1,53 @@
+/*
+sign-up-errors-section
+        sign-up-errors
+    signupUsername
+    signupFirstName
+    signupEmail
+    signupPassword
+    signupConfirmPassword
+    sign-up-submit-section
+        sign-up-submit-btn
+        sign-up-cancel-link
+sign-up-link-to-login
+    sign-up-link-text
+        login-from-sign-up
+ */
+
+.sign-up-errors-section {
+    display: flex;
+    flex-direction: column;
+    color: red;
+    border: 1px solid black;
+    padding: 2em;
+    max-width: 35%;
+    height: fit-content;
+}
+
+.sign-up-errors
+
+.signupUsername
+
+.signupFirstName
+
+.signupLastName
+
+.signupEmail
+
+.signupPassword
+
+.signupConfirmPassword
+
+.sign-up-submit-section
+
+#sign-up-submit-btn
+
+#sign-up-cancel-link
+
+.sign-up-link-to-login
+
+#sign-up-link-text
+
+#login-from-signup {
+    display: none;
+}

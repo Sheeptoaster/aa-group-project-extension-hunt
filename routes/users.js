@@ -26,7 +26,7 @@ router.get('/sign-up', csrfProtection, asyncHandler(async (req, res) => {
 
 /* POST sign-up */
 let signUpValidation = [
-	check('username')
+	check('signupUsername')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a username')
 		.isLength({ max: 50 })
@@ -40,17 +40,17 @@ let signUpValidation = [
 				}
 			})
 		}),
-	check('firstName')
+	check('signupFirstName')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a first name')
 		.isLength({ max: 50 })
 		.withMessage('First name must be shorter than 50 characters'),
-	check('lastName')
+	check('signupLastName')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a last name')
 		.isLength({ max: 50 })
 		.withMessage('Last name must be shorter than 50 characters'),
-	check('email')
+	check('signupEmail')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a email')
 		.isEmail()
@@ -66,16 +66,16 @@ let signUpValidation = [
 				}
 			})
 		}),
-	check('password')
+	check('signupPassword')
 		.exists({ checkFalsy: true })
 		.withMessage('Please provide a password')
 		.matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
 		.withMessage("Passwords must contain a lower case character, a upper case character, a number, and a special character (one of the following: !@#$%^&* )."),
-	check("confirmPassword")
+	check("signupConfirmPassword")
 		.exists({ checkFalsy: true })
 		.withMessage("Please provide a value for Confirm Password")
 		.custom((value, { req }) => {
-			if (value !== req.body.password) {
+			if (value !== req.body.signupPassword) {
 				throw new Error("Confirm Password does not match password.")
 			}
 			return true;
@@ -91,9 +91,10 @@ router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (re
 		signupConfirmPassword,
 		signupEmail
 	} = req.body;
+	console.log(req.body)
 	//TODO #13 errors (if any are empty or if passwords don't match)
 	const hashedPassword = await bcrypt.hash(signupPassword, 12);
-	const user = await db.User.build({ signupFirstName, signupLastName, signupUsername, signupEmail, hashedPassword });
+	const user = await db.User.build({ firstName: signupFirstName, lastName: signupLastName, username: signupUsername, email: signupEmail, hashedPassword });
 	const validatorErrors = validationResult(req);
 	if (validatorErrors.isEmpty()) {
 		await user.save();
