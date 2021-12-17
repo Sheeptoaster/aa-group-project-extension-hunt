@@ -9,6 +9,7 @@ block content
         div.entire-list
             li.extension-container.gradient
                 a(href=`/extensions/${item.id}`).extension-container
+                    //-TODO #85 comment deadzone between content and upvote button
                     div.img-container
                         img.list-img(src=`${item.iconURL}`, alt="")
                     content.list-content
