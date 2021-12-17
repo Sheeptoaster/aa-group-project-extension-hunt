@@ -1,0 +1,90 @@
+/*
+create-extension-section
+    extension-user-input-fields
+        newName
+        newDescription
+        newIconURL
+        categoriesCheckboxes
+            categoryText
+            newCategory */
+
+#create-extension-h2 {
+    text-align: center;
+    font-size: 5em;
+    margin: .5em;
+}
+
+.create-extension-section {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 3em;
+    box-shadow: .125em .125em .25em .025em rgba(0,0,0,0.8);
+    height: fit-content;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: white;
+    padding: 1.5em;
+}
+
+.new-extension-form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: start;
+    line-height: 3em;
+    align-items: center;
+}
+
+#newName {
+    margin: 1em;
+}
+
+#newDescription {
+    margin: 1em;
+}
+
+#newIconURL {
+    margin: 1em;
+    resize: none;
+}
+
+#newSlogan {
+    margin: 1em;
+    resize: none;
+}
+
+.newCategory {
+    grid-column: auto;
+    margin: .8em .5em;
+}
+
+#categoriesCheckboxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+.categoryText {
+    line-height: 2em;
+}
+
+.categoryText:hover {
+    background-color: #007acc;
+    box-shadow: 1px 1px 5px 5px #007acc;
+}
+
+#create-extension-btn-section {
+    display: flex;
+    align-items: center;
+    margin-top: 3em;
+}
+
+#create-extension-submit-btn {
+    margin-right: 2em;
+    background-color: #007acc;
+    padding: 2% 10%;
+    border-radius: .35em;
+}
