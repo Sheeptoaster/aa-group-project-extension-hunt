@@ -16,21 +16,23 @@ router.post('/new', csrfProtection, asyncHandler(async(req, res) => {
     //Grabs All Input From Create Form
     //Category Checkboxes Creates Key Value Pairs For Checked Categories
     const {
-        name,
-        description,
-        iconURL,
+        newName,
+        newDescription,
+        newIconURL,
+        newSlogan,
         categoriesCheckboxes
     } = req.body;
+    console.log(req.body);
     //Grabs userId of Currently Logged In User
     const ownerId = req.session.auth.userId;
     //Builds New Extension Instance
-    const extension = await db.Extension.build({ name, description, iconURL, upvotes: 0, ownerId });
+    const extension = await db.Extension.build({ name: newName, description: newDescription, iconURL: newIconURL, slogan: newSlogan, upvotes: 0, ownerId });
 
     // const validatorErrors = validationResult(req)
     //Grabs Values from req.body Object and Returns Values In Array
     const categoryValues = Object.values(req.body);
     //Removes First 4 Values in Obj (csrfToken, name, description, and bio)
-    const categoryId = categoryValues.slice(4);
+    const categoryId = categoryValues.slice(5);
     //TODO VALIDATION CHECK
     // if(validatorErrors.isEmpty()) {
         //Saves extension instance

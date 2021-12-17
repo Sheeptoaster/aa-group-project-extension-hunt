@@ -3,15 +3,19 @@ extends layout
 include utils
 
 block content
-    form(action='/extensions/new' method='POST')
-        input(type="hidden" name="_csrf" value=csrfToken)
-        +field('Extension Name', 'name', name, 'form-group', 'form-control')
-        +field('Description', 'description', description, 'form-group', 'form-control', 'textArea')
-        +field('Icon URL', 'iconURL', iconURL, 'form-group', 'form-control', 'text', 'optional')
-        div(id='categoriesCheckboxes')
-            each category in categories
-                label(category.name) #{category.name}
-                input(type='checkbox', id=category.name, name=category.name, value=category.id)
-        div
-            button(type='submit') Create Extension
-            a(href='/') Cancel
+    h2(id='create-extension-h2') Create An Extension
+    div(class='create-extension-section')
+            form(action='/extensions/new' method='POST')
+                div(class='extension-user-input-fields')
+                    input(type="hidden" name="_csrf" value=csrfToken)
+                    +field('Extension Name', 'newName', name, 'new-extension-form-group', 'form-control')
+                    +field('Description', 'newDescription', description, 'new-extension-form-group', 'form-control', 'text')
+                    +field('Icon URL', 'newIconURL', iconURL, 'new-extension-form-group', 'form-control', 'textArea', 'optional')
+                    +field('Slogan', 'newSlogan', slogan, 'new-extension-form-group', 'form-control', 'textArea', 'optional')
+                div(id='categoriesCheckboxes')
+                    each category in categories
+                        label(category.name class='categoryText') #{category.name}
+                            input(type='checkbox', class='newCategory', name=category.name, value=category.id)
+            div(id='create-extension-btn-section')
+                button(type='submit' id='create-extension-submit-btn') Create Extension
+                a(href='/') Cancel

@@ -6,9 +6,10 @@ block content
     h1 Edit Extension
     form(action=`/extensions/${extensions.id}/edit` method='POST')
         input(type='hidden' name='_csrf' value=csrfToken)
-        +field('Extension Name', 'name', name, 'form-group', 'form-control')
-        +field('Description', 'description', description, 'form-group', 'form-control')
-        +field('Icon URL', 'iconURL', iconURL, 'form-group', 'form-control')
+        +field('Extension Name', 'editName', name, 'form-group', 'form-control')
+        +field('Description', 'editDescription', description, 'form-group', 'form-control')
+        +field('Icon URL', 'editIconURL', iconURL, 'form-group', 'form-control')
+        +field('Slogan', 'editSlogan', slogan, 'form-group', 'form-control')
         div(id='categoriesCheckboxes')
             for category in categoriesName
                 label(category.name)  #{category.name}

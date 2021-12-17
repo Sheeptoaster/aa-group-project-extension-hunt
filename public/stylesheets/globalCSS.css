@@ -4,6 +4,9 @@
 @import url(extension-page.css);
 @import url(home.css);
 @import url(userProfile.css);
+@import url(signup.css);
+
+@import url(create-extension.css);
 
 html {
     background-color: #f1f1f1;
