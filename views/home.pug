@@ -1,12 +1,13 @@
 extends layout
 
 block content
+    script(src="/javascripts/apiUpvote.js" type="module")
     h2.extension-h2 Your next favorite extension 👇
 
     ul
     each item in extensions
         div.entire-list
-            li.extension-container
+            li.extension-container.gradient
                 a(href=`/extensions/${item.id}`).extension-container
                     div.img-container
                         img.list-img(src=`${item.iconURL}`, alt="")
@@ -16,7 +17,6 @@ block content
                         div.category-container
                             each category in item.Categories
                                 div.category-name #{category.name}
-                div.upvote-container
-                    //-TODO #82 add upvote api functionality
+                div.upvote-container(extensionId=`${item.id}`)
                     div.triangle
-                    upvote.upvotes #{item.upvotes}
+                    upvote.upvotes(id=`${item.id}`) #{item.upvotes}

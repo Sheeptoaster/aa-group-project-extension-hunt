@@ -48,7 +48,7 @@ app.use('/api/comments', apiCommentsRouter);
 app.use('/extensions', extensionRouter)
 app.use('/profiles', profileRouter)
 app.use('/api/auth', apiAuthRouter)
-app.use('/api/upvotes', apiUpvoteRouter)
+app.use('/api/upvote', apiUpvoteRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
