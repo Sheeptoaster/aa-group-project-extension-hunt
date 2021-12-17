@@ -5,9 +5,9 @@ block content
 
     ul
     each item in extensions
-        a(href=`/extensions/${item.id}`)
-            div.entire-list
-                li.extension-container
+        div.entire-list
+            li.extension-container
+                a(href=`/extensions/${item.id}`).extension-container
                     div.img-container
                         img.list-img(src=`${item.iconURL}`, alt="")
                     content.list-content
@@ -16,7 +16,7 @@ block content
                         div.category-container
                             each category in item.Categories
                                 div.category-name #{category.name}
-                    div#upvote-container
-                        //-TODO #82 add upvote api functionality
-                        div.triangle
-                        upvote.upvotes #{item.upvotes}
+                div.upvote-container
+                    //-TODO #82 add upvote api functionality
+                    div.triangle
+                    upvote.upvotes #{item.upvotes}
