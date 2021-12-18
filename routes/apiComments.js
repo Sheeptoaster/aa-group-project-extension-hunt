@@ -24,7 +24,8 @@ router.post("/", requireAuth, csrfProtection, commentValidators, asyncHandler(as
 		await db.Comment.create({ content, extensionId, userId });
 		let user = await db.User.findByPk(userId);
 		res.json({
-			username: user.username
+			username: user.username,
+			profileURL: user.avatarURL
 		});
 	} else {
 		const error = validationErrors.array()[0];
