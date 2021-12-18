@@ -96,6 +96,8 @@ if (demoSignin) {
 		const data = await res.json()
 
 		if (!data.errors) {
+			const navBarLeft = document.querySelector('#nav-bar-left')
+			navBarLeft.innerHTML +=`<a href="/extensions/new"> Post an Extension </a>`
 			//DOM manipulate login and signout. replace with logout
 			const welcomeContainer = document.querySelector('#nav-bar-right')
 			welcomeContainer.innerHTML = `
