@@ -20,6 +20,7 @@ if (loginButton) {
 
 if (cancelPopupButton) {
 	cancelPopupButton.addEventListener("click", async event => {
+		event.preventDefault();
 		document.querySelector('#login-popup').classList.add("hidden");
 		loginBackground.classList.add("hidden");
 	})
