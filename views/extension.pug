@@ -17,7 +17,7 @@ block content
 				button(type="disabled" id='upvote-btn-extension') Upvote
 				button(type="disabled" id='downvote-btn-extension') Down Vote
 			div(id='comments-container')
-				div(id='create-comment')
+				div
 					form(action="" id='add-comment-form')
 						input(type="hidden" name="_csrf" value=csrfToken)#csrfToken
 						+field('', 'content', "", 'form-group', 'extension-comment-field', "text", "What do you think of this extension?")
