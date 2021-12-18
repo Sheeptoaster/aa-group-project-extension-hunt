@@ -9,6 +9,9 @@ block content
 			h1(id='extension-name')= extension.name
 			p(id='slogan')= extension.slogan
 			img(src= extension.iconURL id='extension-icon')
+		div(id='extension-edit-btn')
+			a(href=`/extensions/${extension.id}/edit`)
+				button(type="submit") Edit Extension
 		div(id='extension-page-body')
 			div(id='extension-details')
 				img(src= extension.extensionImg id='extension-img')

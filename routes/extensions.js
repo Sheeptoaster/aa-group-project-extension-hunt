@@ -87,7 +87,7 @@ router.post('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => 
     const extension = await db.Extension.findByPk(extensionId)
 
     const categoryValues = Object.values(req.body)
-    const categoryId = categoryValues.slice(4)
+    const categoryId = categoryValues.slice(5)
 
     const updatedExtension = await extension.update({
         name,
