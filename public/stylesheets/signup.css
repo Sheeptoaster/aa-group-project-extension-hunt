@@ -6,6 +6,7 @@
     max-width: 35%;
     height: fit-content;
     margin: 0 auto;
+    align-items: center;
 }
 
 .sign-up-errors {
