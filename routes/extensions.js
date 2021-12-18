@@ -2,19 +2,29 @@ const express = require('express');
 const db = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils')
 const { requireAuth } = require('../auth');
+const { check, validationResult } = require('express-validator');
 
 const router = express.Router()
 
-router.get('/new', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+router.get('/new', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     //Finds All Categories
     const categories = await db.Category.findAll()
     //Renders Create Extension Page
     res.render('create-extension', { csrfToken: req.csrfToken(), title: "Create New Extension", categories })
 }))
 
-router.post('/new', csrfProtection, asyncHandler(async(req, res) => {
-    //Grabs All Input From Create Form
-    //Category Checkboxes Creates Key Value Pairs For Checked Categories
+const extensionValidation = [
+    check("newName")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide an Extension Name")
+        .isLength({ max: 50 })
+        .withMessage("Extension Name must be shorter than 50 characters"),
+    check("newDescription")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a description")
+];
+
+router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req, res) => {
     const {
         newName,
         newDescription,
@@ -23,44 +33,40 @@ router.post('/new', csrfProtection, asyncHandler(async(req, res) => {
         categoriesCheckboxes
     } = req.body;
     console.log(req.body);
-    //Grabs userId of Currently Logged In User
     const ownerId = req.session.auth.userId;
-    //Builds New Extension Instance
     const extension = await db.Extension.build({ name: newName, description: newDescription, iconURL: newIconURL, slogan: newSlogan, upvotes: 0, ownerId });
 
-    // const validatorErrors = validationResult(req)
-    //Grabs Values from req.body Object and Returns Values In Array
+    const validatorErrors = validationResult(req)
     const categoryValues = Object.values(req.body);
-    //Removes First 4 Values in Obj (csrfToken, name, description, and bio)
     const categoryId = categoryValues.slice(5);
-    //TODO VALIDATION CHECK
-    // if(validatorErrors.isEmpty()) {
-        //Saves extension instance
-        await extension.save();
-        //Loops Through Array Of Checked Values For Extension Id
-        for(let i = 0; i < categoryId.length; i++) {
-            //Creates Extension Category Instance for Join Table
-            await db.ExtensionCategories.create({ extensionId: extension.id, categoryId: categoryId[i] })
-        }
-        res.redirect('/')
-    // }
+    if(validatorErrors.isEmpty()) {
+    await extension.save();
+    for (let i = 0; i < categoryId.length; i++) {
+        await db.ExtensionCategories.create({ extensionId: extension.id, categoryId: categoryId[i] })
+    }
+    res.redirect('/')
+    } else {
+        const categories = await db.Category.findAll()
+        const errors = (validatorErrors.array().map(error => error.msg));//TODO #66 catch sequelize unique errors
+		res.render("create-extension", { errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories });
+    }
 }))
 
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
-	const extensionId = parseInt(req.params.id);
-	const extension = await db.Extension.findByPk(extensionId);
-	const comments = await db.Comment.findAll({
+    const extensionId = parseInt(req.params.id);
+    const extension = await db.Extension.findByPk(extensionId);
+    const comments = await db.Comment.findAll({
         where: { extensionId },
         include: {
             model: db.User,
             as: "User"
         }
     })
-	res.render("extension", {
+    res.render("extension", {
         extension,
-		comments,
+        comments,
         csrfToken: req.csrfToken()
-	});
+    });
 }))
 
 router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
