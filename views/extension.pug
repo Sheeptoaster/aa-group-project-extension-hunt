@@ -9,6 +9,9 @@ block content
 			h1(id='extension-name')= extension.name
 			p(id='slogan')= extension.slogan
 			img(src= extension.iconURL id='extension-icon')
+		div(id='extension-edit-btn')
+			a(href=`/extensions/${extension.id}/edit`)
+				button(type="submit") Edit Extension
 		div(id='extension-page-body')
 			div(id='extension-details')
 				img(src= extension.extensionImg id='extension-img')
@@ -17,7 +20,7 @@ block content
 				button(type="disabled" id='upvote-btn-extension') Upvote
 				button(type="disabled" id='downvote-btn-extension') Down Vote
 			div(id='comments-container')
-				div(id='create-comment')
+				div
 					form(action="" id='add-comment-form')
 						input(type="hidden" name="_csrf" value=csrfToken)#csrfToken
 						+field('', 'content', "", 'form-group', 'extension-comment-field', "text", "What do you think of this extension?")

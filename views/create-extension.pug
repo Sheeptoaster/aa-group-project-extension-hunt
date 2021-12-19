@@ -3,6 +3,10 @@ extends layout
 include utils
 
 block content
+    if errors
+            ul(class='sign-up-errors-section')
+                each error in errors
+                    li(class='sign-up-errors')= error
     h2(id='create-extension-h2') Create An Extension
     div(class='create-extension-section')
             form(action='/extensions/new' method='POST')

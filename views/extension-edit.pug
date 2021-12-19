@@ -19,6 +19,6 @@ block content
                     input(type='checkbox', id=category.id, name=category.name, value=category.id)
         div
             button(type='submit') Update Extension
-            a(href='/extensions/#{extensions.id}') Cancel
-        div(id='product-delete-btn')
-			a(class='delete-button' href=`/extensions/${extension.id}}/delete`) Delete
+            a(href=`/extensions/${extensions.id}`) Cancel
+    div(id='product-delete-btn')
+        a(class='delete-button' href=`/extensions/${extensions.id}/delete`) Delete
