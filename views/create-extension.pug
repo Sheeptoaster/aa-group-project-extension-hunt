@@ -19,7 +19,7 @@ block content
                 div(id='categoriesCheckboxes')
                     each category in categories
                         label(category.name class='categoryText') #{category.name}
-                            input(type='checkbox', class='newCategory', name=category.name, value=category.id)
+                            input(type='checkbox', class='newCategory', name='categoryIds', value=category.id)
                 div(id='create-extension-btn-section')
                     button(type='submit' id='create-extension-submit-btn') Create Extension
                     a(href='/') Cancel
