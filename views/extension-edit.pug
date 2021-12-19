@@ -3,6 +3,10 @@ extends layout
 include utils.pug
 
 block content
+    ul
+        if errors
+            each error in errors
+                li= error
     h1 Edit Extension
     form(action=`/extensions/${extensions.id}/edit` method='POST')
         input(type='hidden' name='_csrf' value=csrfToken)
