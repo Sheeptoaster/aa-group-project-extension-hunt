@@ -3,7 +3,7 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 	// Call POST /api/comments
 	const addCommentForm = document.querySelector('#add-comment-form')
 	const formData = new FormData(addCommentForm)
-	const content = formData.get('content')
+	const content = formData.get('content').trim(); //TODO #110 clear comment input after submission
 	const csrf = formData.get('_csrf')
 	const extensionId = window.location.href.split("/")[4];
 	let res = await fetch("/api/comments", {
@@ -20,16 +20,23 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 
 	const data = await res.json();
 	if (!data.error) {
-		const { username } = data;
-		const contentContainer = document.querySelector('#content-container') //TODO #61 create comment styling
-		const div = document.createElement('div');
+		const { username, profileURL } = data;
+		const contentContainer = document.querySelector('#content-container')
+		const commentLi = document.createElement('li');
+		commentLi.classList.add("comment-li");
+		const commenterImg = document.createElement('img');
+		commenterImg.setAttribute("src", profileURL);
+		commenterImg.classList.add("comment-avatar-img");
+		commentLi.appendChild(commenterImg);
 		const usernameElement = document.createElement("h2");
+		usernameElement.classList.add("comment-username");
 		usernameElement.innerText = username;
-		div.appendChild(usernameElement);
+		commentLi.appendChild(usernameElement);
 		const contentElement = document.createElement("span");
+		contentElement.classList.add("comment-content");
 		contentElement.innerText = content;
-		div.appendChild(contentElement);
-		contentContainer.appendChild(div)
+		commentLi.appendChild(contentElement);
+		contentContainer.appendChild(commentLi)
 	} else {
 		// display errors dynamically
 		console.log(data.error);

@@ -14,7 +14,9 @@ upvoteButtons.forEach(button => {
 			})
 		})
 		const data = await res.json()
-		const upvoteElement = document.getElementById(`${extensionId}`)
-		upvoteElement.innerText = data.upvotes
+		if (data.upvotes) {
+			const upvoteElement = document.getElementById(`${extensionId}`)
+			upvoteElement.innerText = data.upvotes
+		}
 	})
 })

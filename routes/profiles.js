@@ -48,10 +48,8 @@ router.get(
 
     let extensions = profileUser.Extensions
     let comments = profileUser.Comments
-    // console.log(profileUser.Extensions[0].name)
-    // console.log(profileUser.Comments[0].content)
 
-    res.render('profile-page', { title: "Profile Page", profileUser, req, extensions, comments, csrfToken: req.csrfToken() })
+    res.render('profile-page', { title: "Profile Page", profileUser, req, extensions, comments, csrfToken: req.csrfToken(), authenticated: !!res?.locals.authenticated })
   })
 );
 
