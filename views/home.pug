@@ -1,5 +1,7 @@
 extends layout
 
+include utils.pug
+
 block content
     script(src="/javascripts/apiUpvote.js" type="module")
     h2.extension-h2 Your next favorite extension 👇
@@ -18,6 +20,4 @@ block content
                         div.category-container
                             each category in item.Categories
                                 div.category-name #{category.name}
-                div.upvote-container(extensionId=`${item.id}`)
-                    div.triangle
-                    upvote.upvotes(id=`${item.id}`) #{item.upvotes}
+                +upvoteButton(item, authenticated)
