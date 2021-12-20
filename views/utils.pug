@@ -1,4 +1,3 @@
-
 mixin field(labelText, fieldName, fieldValue, divClass, className, fieldType = 'text', placeholder=null)
     div(class=divClass)
         label(for=fieldName)= labelText
@@ -6,3 +5,9 @@ mixin field(labelText, fieldName, fieldValue, divClass, className, fieldType = '
             textarea(id=fieldName name=fieldName class=className rows='5' placeholder=placeholder)= fieldValue
         else
             input(type=fieldType id=fieldName name=fieldName value=fieldValue placeholder=placeholder class=className)
+
+//- TODO #116 remove border from upvote buttons when user is not logged in
+mixin upvoteButton(extension, authenticated)
+    div.upvote-container(extensionId=`${extension.id}`)
+        div.triangle
+        upvote.upvotes(id=`${extension.id}`) #{extension.upvotes}

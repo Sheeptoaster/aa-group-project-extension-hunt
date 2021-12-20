@@ -10,7 +10,8 @@ router.get('/', csrfProtection, asyncHandler(async(req, res, next) => {
 		order: [ ['id', 'DESC'] ],
 		limit: 10
 	});
-	res.render('home', { title: 'Extension Hunt', extensions, csrfToken: req.csrfToken() });
+	//TODO #117 rendering home rejects a promise
+	res.render('home', { title: 'Extension Hunt', extensions, csrfToken: req.csrfToken(), authenticated: !!res?.locals.authenticated });
 }));
 
 module.exports = router;
