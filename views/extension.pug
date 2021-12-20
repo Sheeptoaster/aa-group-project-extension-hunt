@@ -34,5 +34,5 @@ block content
 						each comment in comments
 							li(class='comment-li')
 								img(src=comment.User.avatarURL, class='comment-avatar-img')
-								h2(class='comment-username')= comment.User.username
+								a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
 								span(class='comment-content')= comment.content
