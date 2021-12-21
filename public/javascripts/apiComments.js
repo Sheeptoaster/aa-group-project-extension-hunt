@@ -1,6 +1,7 @@
 document.querySelector("#create-comment").addEventListener("click", async event => {
 	event.preventDefault();
 	// Call POST /api/comments
+	const commentInputElement = document.querySelector('#content')
 	const addCommentForm = document.querySelector('#add-comment-form')
 	const formData = new FormData(addCommentForm)
 	const content = formData.get('content').trim(); //TODO #110 clear comment input after submission
@@ -37,6 +38,7 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 		contentElement.innerText = content;
 		commentLi.appendChild(contentElement);
 		contentContainer.appendChild(commentLi)
+		commentInputElement.value = ''
 	} else {
 		// display errors dynamically
 		console.log(data.error);
