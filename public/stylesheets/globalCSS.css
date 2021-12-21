@@ -6,7 +6,7 @@
 @import url(userProfile.css);
 @import url(signup.css);
 @import url(create-extension.css);
-
+@import url(edit-extension.css);
 html {
     background-color: #f1f1f1;
 }

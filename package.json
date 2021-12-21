@@ -19,6 +19,7 @@
     "heroku": "^7.59.2",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "nodemon": "^2.0.15",
     "per-env": "^1.0.2",
     "pg": "^8.6.0",
     "pug": "2.0.4",
@@ -27,7 +28,6 @@
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
-    "dotenv-cli": "^4.0.0",
-    "nodemon": "^2.0.6"
+    "dotenv-cli": "^4.0.0"
   }
 }
