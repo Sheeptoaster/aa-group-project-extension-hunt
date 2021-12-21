@@ -14,9 +14,13 @@
 	align-items: center;
 }
 
+#about-dropdown:hover {
+	display: none;
+}
 #about-text:hover #about-dropdown{
 	opacity: 1;
 }
+
 
 #about-dropdown {
 	opacity: 0;
