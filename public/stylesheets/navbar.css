@@ -17,6 +17,7 @@
 #about-dropdown:hover {
 	display: none;
 }
+
 #about-text:hover #about-dropdown{
 	opacity: 1;
 }
