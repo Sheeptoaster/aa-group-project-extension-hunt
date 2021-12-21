@@ -18,18 +18,28 @@ if (loginButton) {
 	})
 }
 
+function closeLoginPopup() {
+	document.querySelector('#login-popup').classList.add("hidden");
+	loginBackground.classList.add("hidden");
+	const usernameErrors = document.querySelector('#username-errors');
+	usernameErrors.innerHTML = "";
+	usernameErrors.classList.add("hidden");
+	const passwordErrors = document.querySelector("#password-errors");
+	passwordErrors.innerHTML = "";
+	passwordErrors.classList.add("hidden");
+}
+
 if (cancelPopupButton) {
 	cancelPopupButton.addEventListener("click", async event => {
 		event.preventDefault();
-		document.querySelector('#login-popup').classList.add("hidden");
-		loginBackground.classList.add("hidden");
+		closeLoginPopup();
 	})
 }
 
 if (loginBackground) {
 	loginBackground.addEventListener("click", async event => {
 		document.querySelector('#login-popup').classList.add("hidden");
-		loginBackground.classList.add("hidden");
+		closeLoginPopup();
 	})
 }
 
@@ -47,7 +57,7 @@ function loginDOM(user) {
 	`
 }
 
-document.querySelector("#login-submit").addEventListener("click", async event => { //TODO #83 pressing enter to submit login does not clear grey login background
+document.querySelector("#login-submit").addEventListener("click", async event => {
 	event.preventDefault()
 	const loginForm = document.querySelector('#login-form')
 	const loginData = new FormData(loginForm)
@@ -74,12 +84,16 @@ document.querySelector("#login-submit").addEventListener("click", async event =>
 		const popupElement = document.querySelector('#login-popup')
 		popupElement.classList.add("hidden");
 	} else {
-		const usernameErrors = document.querySelector('#username-errors');
-		usernameErrors.innerText = data.errors.usernameErrors[0];
-		usernameErrors.classList.remove("hidden");
-		const passwordErrors = document.querySelector("#password-errors");
-		passwordErrors.innerText = data.errors.passwordErrors[0];
-		passwordErrors.classList.remove("hidden");
+		if (data.errors.usernameErrors.length) {
+			const usernameErrors = document.querySelector('#username-errors');
+			usernameErrors.innerText = data.errors.usernameErrors.join(", ");
+			usernameErrors.classList.remove("hidden");
+		}
+		if (data.errors.passwordErrors.length) {
+			const passwordErrors = document.querySelector("#password-errors");
+			passwordErrors.innerText = data.errors.passwordErrors.join(", ");
+			passwordErrors.classList.remove("hidden");
+		}
 	}
 })
 
