@@ -44,17 +44,23 @@ if (loginBackground) {
 }
 
 function loginDOM(user) {
-		//DOM manipulate login and signout. replace with logout
-		const navBarLeft = document.querySelector('#nav-bar-left')
-		navBarLeft.innerHTML +=`<a href="/extensions/new"> Post an Extension </a>`
-		const welcomeContainer = document.querySelector('#nav-bar-right')
-		welcomeContainer.innerHTML = `
+	// Update navbar
+	const navBarLeft = document.querySelector('#nav-bar-left')
+	navBarLeft.innerHTML += `<a href="/extensions/new"> Post an Extension </a>`
+	const welcomeContainer = document.querySelector('#nav-bar-right')
+	welcomeContainer.innerHTML = `
 		<span>Welcome ${user.firstName}</span>
 		<a href="/profiles/${user.id}">Profile</a>
 		<form action="/users/logout" method="POST">
 			<button type="submit">Logout</button>
 		</form>
 	`
+
+	// Add upvote button borders
+	const upvoteButtons = document.querySelectorAll(".upvote-container");
+	upvoteButtons.forEach(button => {
+		button.setAttribute("style", "border: 1px solid rgba(0,0,0,.2)");
+	})
 }
 
 document.querySelector("#login-submit").addEventListener("click", async event => {
@@ -79,10 +85,7 @@ document.querySelector("#login-submit").addEventListener("click", async event =>
 
 	if (!data.errors) {
 		loginDOM(data.user);
-		//hide the login popup again
-		loginBackground.classList.add("hidden");
-		const popupElement = document.querySelector('#login-popup')
-		popupElement.classList.add("hidden");
+		closeLoginPopup();
 	} else {
 		if (data.errors.usernameErrors.length) {
 			const usernameErrors = document.querySelector('#username-errors');
