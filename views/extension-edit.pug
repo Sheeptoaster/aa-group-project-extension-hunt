@@ -7,19 +7,20 @@ block content
         if errors
             each error in errors
                 li= error
-    h1 Edit #{extensionName}
-    form(action=`/extensions/${id}/edit` method='POST')
-        input(type='hidden' name='_csrf' value=csrfToken)
-        +field('Extension Name', 'editName', extensionName, 'form-group', 'form-control')
-        +field('Description', 'editDescription', description, 'form-group', 'form-control')
-        +field('Icon URL', 'editIconURL', iconURL, 'form-group', 'form-control')
-        +field('Slogan', 'editSlogan', slogan, 'form-group', 'form-control')
-        div(id='categoriesCheckboxes')
-            for category in categories
-                label(category.name) #{category.name}
-                    input(type='checkbox', name='categoryIds', value=category.id, checked=categoryIds.includes(category.id))
-        div
-            button(type='submit') Update Extension
-            a(href=`/extensions/${id}`) Cancel
-    div(id='product-delete-btn')
-        a(class='delete-button' href=`/extensions/${id}/delete`) Delete
+    h1(class='create-extension-h1') Edit #{extensionName}
+    div(class='create-extension-section')
+        form(action=`/extensions/${id}/edit` method='POST')
+            input(type='hidden' name='_csrf' value=csrfToken)
+            +field('Extension Name', 'editName', extensionName, 'edit-extension-form-group', 'form-control')
+            +field('Description', 'editDescription', description, 'edit-extension-form-group', 'form-control')
+            +field('Icon URL', 'editIconURL', iconURL, 'edit-extension-form-group', 'form-control')
+            +field('Slogan', 'editSlogan', slogan, 'edit-extension-form-group', 'form-control')
+            div(id='categoriesCheckboxes')
+                for category in categories
+                    label(category.name) #{category.name}
+                        input(type='checkbox', name='categoryIds', value=category.id, checked=categoryIds.includes(category.id))
+            div(id='edit-extension-btn-section')
+                button(type='submit') Update Extension
+                a(href=`/extensions/${id}`) Cancel
+            div(id='product-delete-btn')
+                a(class='delete-button' href=`/extensions/${id}/delete`) Delete
