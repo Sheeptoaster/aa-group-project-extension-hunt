@@ -14,12 +14,17 @@
 	align-items: center;
 }
 
-#about-text:hover #about-dropdown{
-	opacity: 1;
+#about-dropdown:hover {
+	display: none;
 }
 
+#about-text:hover #about-dropdown{
+	display: block;
+}
+
+
 #about-dropdown {
-	opacity: 0;
+	display: none;
 	position: absolute;
 	z-index: 1;
 	border: 1px solid grey;
