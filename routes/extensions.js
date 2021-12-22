@@ -50,7 +50,10 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 }))
 
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
-	const currentUserId = req.session.auth.userId;
+	let currentUserId = null;
+	if (req.session.auth) {
+		currentUserId = req.session.auth.userId;
+	}
 	const extensionId = parseInt(req.params.id);
 	const extension = await db.Extension.findByPk(extensionId);
 	const comments = await db.Comment.findAll({
