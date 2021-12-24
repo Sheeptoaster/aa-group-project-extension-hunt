@@ -6,8 +6,12 @@ mixin field(labelText, fieldName, fieldValue, divClass, className, fieldType = '
         else
             input(type=fieldType id=fieldName name=fieldName value=fieldValue placeholder=placeholder class=className)
 
-//- TODO #116 remove border from upvote buttons when user is not logged in
 mixin upvoteButton(extension, authenticated)
-    div.upvote-container(extensionId=`${extension.id}`)
-        div.triangle
-        upvote.upvotes(id=`${extension.id}`) #{extension.upvotes}
+    if authenticated
+        div.upvote-container(extensionId=`${extension.id}` style={border: "1px solid rgba(0,0,0,.2)"})
+            div.triangle
+            div.upvotes(id=`${extension.id}`) #{extension.upvotes}
+    else
+        div.upvote-container(extensionId=`${extension.id}` style={border: "none"})
+            div.triangle
+            div.upvotes(id=`${extension.id}`) #{extension.upvotes}
