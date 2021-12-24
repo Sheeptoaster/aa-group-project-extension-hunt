@@ -18,8 +18,11 @@ block content
 				img(src= extension.extensionImg id='extension-img')
 				p(id='extension-description')= extension.description
 			div(id='extension-btn-container')
-				button(type="disabled" id='upvote-btn-extension') Upvote
-				button(type="disabled" id='downvote-btn-extension') Down Vote
+				button(type="disabled" id='upvote-btn-extension' extensionId=`${extension.id}`)
+					div.triangle
+					text#upvote-btn-text Upvote
+					upvote.extension-upvotes #{extension.upvotes}
+				//- button(type="disabled" id='downvote-btn-extension') Down Vote
 			div(id='comments-container')
 				div
 					form(action="" id='add-comment-form')
