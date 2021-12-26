@@ -10,7 +10,7 @@ router.get('/new', requireAuth, csrfProtection, asyncHandler(async (req, res) =>
 	//Finds All Categories
 	const categories = await db.Category.findAll()
 	//Renders Create Extension Page
-	res.render('create-extension', { csrfToken: req.csrfToken(), title: "Create New Extension", categories })
+	res.render('create-extension', { csrfToken: req.csrfToken(), title: "Create New Extension", categories, categoryIds: [] })
 }))
 
 const extensionValidation = [
@@ -21,7 +21,10 @@ const extensionValidation = [
 		.withMessage("Extension Name must be shorter than 50 characters"),
 	check("newDescription")
 		.exists({ checkFalsy: true })
-		.withMessage("Please provide a description")
+		.withMessage("Please provide a description"),
+	check("categoryIds") //TODO catch 0 categories provided
+		.exists({ checkFalsy: true })
+		.withMessage("Please select extension categories")
 ];
 
 router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req, res) => {
@@ -33,7 +36,7 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 		categoryIds
 	} = req.body;
 	const ownerId = req.session.auth.userId;
-	const extension = await db.Extension.build({ name: newName, description: newDescription, iconURL: newIconURL, slogan: newSlogan, upvotes: 0, ownerId });
+	const extension = await db.Extension.build({ name: newName, description: newDescription, iconURL: newIconURL || `/images/extensionIcons/placeholderIcon.png`, slogan: newSlogan, upvotes: 0, ownerId });
 
 	const validatorErrors = validationResult(req)
 	if (validatorErrors.isEmpty()) {
@@ -45,7 +48,7 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 	} else {
 		const categories = await db.Category.findAll();
 		const errors = validatorErrors.array().map(error => error.msg);
-		res.render("create-extension", { errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories });
+		res.render("create-extension", { name: newName, description: newDescription, errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories, categoryIds: categoryIds || [] });
 	}
 }))
 
@@ -78,7 +81,7 @@ router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
 	const extensionCategories = await db.ExtensionCategories.findAll({
 		where: { extensionId }
 	})
-	let categoryIds = extensionCategories.map((category) => category.categoryId)
+	let categoryIds = extensionCategories.map((category) => category.dataValues.categoryId);
 
 	res.render('extension-edit', {
 		errors: [],
@@ -101,10 +104,12 @@ const updateExtensionValidation = [
 		.withMessage("Extension Name must be shorter than 50 characters"),
 	check("editDescription")
 		.exists({ checkFalsy: true })
-		.withMessage("Please provide a description")
+		.withMessage("Please provide a description"),
+	check("categoryIds")
+		.exists({ checkFalsy: true })
+		.withMessage("Please select extension categories")
 ];
 
-//TODONOW checkboxes have duplicate id and value attributes
 router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncHandler(async (req, res) => {
 	const { editName, editDescription, editIconURL, editSlogan, categoryIds } = req.body;
 	const extensionId = parseInt(req.params.id);
@@ -128,8 +133,11 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 			await row.destroy();
 		})
 		if (categoryIds) {
-			for (const categoryId of categoryIds) {
-				console.log(categoryId);
+			let idArray = categoryIds;
+			if (!Array.isArray(categoryIds)) {
+				idArray = [categoryIds];
+			}
+			for (const categoryId of idArray) {
 				await db.ExtensionCategories.create({ extensionId, categoryId })
 			}
 		}
@@ -137,6 +145,12 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 	} else {
 		const errors = validatorErrors.array().map(error => error.msg);
 		const categories = await db.Category.findAll();
+		const extensionCategories = await db.ExtensionCategories.findAll({
+			where: { extensionId }
+		})
+		let idArray = extensionCategories.map(extensionCategory => {
+			return extensionCategory.dataValues.categoryId;
+		});
 		res.render('extension-edit', {
 			errors,
 			csrfToken: req.csrfToken(),
@@ -146,7 +160,7 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 			iconURL: editIconURL,
 			slogan: editSlogan,
 			categories,
-			categoryIds: categoryIds || []
+			categoryIds: idArray
 		})
 	}
 }))
