@@ -1,25 +1,3 @@
-/* main-extension-container
-    Extension-Card
-    extension-page-header
-        extension-name
-        slogan-
-        extension-icon
-    Try with Grid
-    extension-page-body
-        extension-details
-            extension-img
-            extension-description
-        extension-btn-container
-            te-btn-extension
-            downvote-btn-extension
-        comments-container
-            create-comment
-                add-comment-form
-            comment-section
-                    comment-li
-                        comment-avatar-img
-                        comment-username
-                        comment-content */
 
 #main-extension-container {
     display: inline-flex;
@@ -84,7 +62,7 @@
 }
 
 #extension-btn-container {
-    grid-area: buttons;
+    display: flex;
 }
 
 #upvote-btn-extension {
@@ -105,6 +83,8 @@
 }
 
 #downvote-btn-extension {
+    width: 200px;
+    height: 50px;
     background-color: #007acc;
     padding: 2% 10%;
     border-radius: .35em;

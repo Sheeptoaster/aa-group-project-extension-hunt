@@ -27,7 +27,7 @@ block content
                                 div.category-container
                                     each category in extension.Categories
                                         div.category-name #{category.name}
-                            +upvoteButton(extension, authenticated)
+                            //- +upvoteButton(extension, authenticated)
             ul#comment-list
                 div#comment-header #{profileUser.username}'s comments
                 each comment in comments
