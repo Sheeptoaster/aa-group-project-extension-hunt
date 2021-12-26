@@ -48,7 +48,7 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 	} else {
 		const categories = await db.Category.findAll();
 		const errors = validatorErrors.array().map(error => error.msg);
-		res.render("create-extension", { name: newName, description: newDescription, errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories, categoryIds });
+		res.render("create-extension", { name: newName, description: newDescription, errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories, categoryIds: categoryIds || [] });
 	}
 }))
 
