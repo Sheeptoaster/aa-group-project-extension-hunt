@@ -133,7 +133,11 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 			await row.destroy();
 		})
 		if (categoryIds) {
-			for (const categoryId of categoryIds) {
+			let idArray = categoryIds;
+			if (!Array.isArray(categoryIds)) {
+				idArray = [categoryIds];
+			}
+			for (const categoryId of idArray) {
 				await db.ExtensionCategories.create({ extensionId, categoryId })
 			}
 		}
@@ -141,16 +145,23 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 	} else {
 		const errors = validatorErrors.array().map(error => error.msg);
 		const categories = await db.Category.findAll();
+		const extensionCategories = await db.ExtensionCategories.findAll({
+			where: { extensionId }
+		})
+		let idArray = extensionCategories.map(extensionCategory => {
+			return extensionCategory.dataValues.categoryId;
+		});
+		console.log(categoryIds);
 		res.render('extension-edit', {
 			errors,
 			csrfToken: req.csrfToken(),
 			id: extensionId,
-			extensionName: editName,
-			description: editDescription,
+			extensionName: editName || extension.name,
+			description: editDescription || extension.description,
 			iconURL: editIconURL,
 			slogan: editSlogan,
 			categories,
-			categoryIds: categoryIds || []
+			categoryIds: idArray
 		})
 	}
 }))
