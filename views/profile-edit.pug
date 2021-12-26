@@ -7,14 +7,16 @@ block content
         if errors
             each error in errors
                 li= error
-    form(action=`/profiles/${profileUser.id}/edit`, method='POST')
-        input(type='hidden' name='_csrf' value=csrfToken)
-        +field('Username', 'username', profileUser.username, 'form-group', 'form-control')
-        +field('First Name', 'firstName', profileUser.firstName, 'form-group', 'form-control')
-        +field('Last Name', 'lastName', profileUser.lastName, 'form-group', 'form-control')
-        +field('Email', 'email', profileUser.email, 'form-group', 'form-control')
-        +field('Bio', 'bio', profileUser.bio, 'form-group', 'form-control')
-        +field('AvatarURL', 'avatarURL', profileUser.avatarURL, 'form-group', 'form-control')
-        div
-            button(type="submit") Update Profile
-            a(href=`/profiles/${profileUser.id}`) Cancel
+    h1(class='edit-profile-h1') Edit Profile
+    div(class='edit-profile-section')
+        form(action=`/profiles/${profileUser.id}/edit`, method='POST')
+            input(type='hidden' name='_csrf' value=csrfToken)
+            +field('Username', 'editUsername', profileUser.username, 'edit-profile-form-group', 'form-control')
+            +field('First Name', 'editFirstName', profileUser.firstName, 'edit-profile-form-group', 'form-control')
+            +field('Last Name', 'editLastName', profileUser.lastName, 'edit-profile-form-group', 'form-control')
+            +field('Email', 'editEmail', profileUser.email, 'edit-profile-form-group', 'form-control')
+            +field('Bio', 'editBio', profileUser.bio, 'edit-profile-form-group', 'form-control')
+            +field('AvatarURL', 'editAvatarURL', profileUser.avatarURL, 'edit-profile-form-group', 'form-control')
+            div(id='edit-profile-btn-section')
+                button(type="submit" id='edit-profile-submit-btn') Update Profile
+                a(href=`/profiles/${profileUser.id}` id='edit-profile-cancel-btn') Cancel
