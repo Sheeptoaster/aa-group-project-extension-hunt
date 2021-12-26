@@ -21,7 +21,10 @@ const extensionValidation = [
 		.withMessage("Extension Name must be shorter than 50 characters"),
 	check("newDescription")
 		.exists({ checkFalsy: true })
-		.withMessage("Please provide a description")
+		.withMessage("Please provide a description"),
+	check("categoryIds")
+		.exists({ checkFalsy: true })
+		.withMessage("Please select extension categories")
 ];
 
 router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req, res) => {
@@ -101,7 +104,10 @@ const updateExtensionValidation = [
 		.withMessage("Extension Name must be shorter than 50 characters"),
 	check("editDescription")
 		.exists({ checkFalsy: true })
-		.withMessage("Please provide a description")
+		.withMessage("Please provide a description"),
+	check("categoryIds")
+		.exists({ checkFalsy: true })
+		.withMessage("Please select extension categories")
 ];
 
 //TODONOW checkboxes have duplicate id and value attributes
