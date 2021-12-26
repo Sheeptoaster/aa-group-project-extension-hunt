@@ -35,9 +35,8 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 		newSlogan,
 		categoryIds
 	} = req.body;
-	console.log(newName)
 	const ownerId = req.session.auth.userId;
-	const extension = await db.Extension.build({ name: newName, description: newDescription, iconURL: newIconURL, slogan: newSlogan, upvotes: 0, ownerId });
+	const extension = await db.Extension.build({ name: newName, description: newDescription, iconURL: newIconURL || `/images/extensionIcons/placeholderIcon.png`, slogan: newSlogan, upvotes: 0, ownerId });
 
 	const validatorErrors = validationResult(req)
 	if (validatorErrors.isEmpty()) {
@@ -111,7 +110,6 @@ const updateExtensionValidation = [
 		.withMessage("Please select extension categories")
 ];
 
-//TODONOW checkboxes have duplicate id and value attributes
 router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncHandler(async (req, res) => {
 	const { editName, editDescription, editIconURL, editSlogan, categoryIds } = req.body;
 	const extensionId = parseInt(req.params.id);
@@ -136,7 +134,6 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 		})
 		if (categoryIds) {
 			for (const categoryId of categoryIds) {
-				console.log(categoryId);
 				await db.ExtensionCategories.create({ extensionId, categoryId })
 			}
 		}
