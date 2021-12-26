@@ -1,8 +1,11 @@
+
 const loginButton = document.querySelector('#login-button')
 const cancelPopupButton = document.querySelector("#cancel-popup-button")
 const loginBackground = document.querySelector("#login-popup-background");
 const loginSignup = document.querySelector('#login-from-signup')
 const demoSignin = document.querySelector("#demo-sign-in");
+const extensionEditBTN = document.querySelector('.extension-edit-btn')
+const commentSendBTN = document.querySelector('#create-comment')
 
 if (loginSignup) {
 	loginSignup.addEventListener("click", async event => {
@@ -61,6 +64,18 @@ function loginDOM(user) {
 	upvoteButtons.forEach(button => {
 		button.setAttribute("style", "border: 1px solid rgba(0,0,0,.2)");
 	})
+
+	// Edit button displayed on login
+	if (extensionEditBTN) {
+		const extensionOwner = extensionEditBTN.getAttribute('owner')
+		if (user.id == extensionOwner) {
+			extensionEditBTN.style.display = 'block'
+		}
+	}
+
+	// Comment send button is not grayed out when you log in
+	commentSendBTN.disabled = false
+
 }
 
 document.querySelector("#login-submit").addEventListener("click", async event => {
@@ -98,6 +113,7 @@ document.querySelector("#login-submit").addEventListener("click", async event =>
 			passwordErrors.classList.remove("hidden");
 		}
 	}
+
 })
 
 if (demoSignin) {
@@ -106,12 +122,14 @@ if (demoSignin) {
 		const loginForm = document.querySelector('#login-form')
 		const loginData = new FormData(loginForm)
 		const csrf = loginData.get('_csrf')
+		const extensionId = window.location.href.split("/")[4]
 		let res = await fetch('/api/auth/login', {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
+				extensionId,
 				username: "Demo User",
 				password: "a",
 				_csrf: csrf
@@ -122,5 +140,6 @@ if (demoSignin) {
 		if (!data.errors) {
 			loginDOM(data.user);
 		}
+
 	})
 }

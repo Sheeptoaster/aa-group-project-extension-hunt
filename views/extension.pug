@@ -19,9 +19,13 @@ block content
 					text#upvote-btn-text Upvote
 					upvote.extension-upvotes #{extension.upvotes}
 					if currentUserId === extension.ownerId
-						div(id='extension-edit-btn')
+						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
 								button(type="submit" id='edit-btn-extension') Edit Extension
+					else
+						div(id='extension-edit-btn')
+							form(action=`/extensions/${extension.id}/edit` method='GET')
+								button.extension-edit-btn(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
 			div(id='comments-container')
 				div
 					form(action="" id='add-comment-form')

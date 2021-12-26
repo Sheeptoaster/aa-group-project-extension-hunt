@@ -89,6 +89,10 @@
     margin: 0 .5em;
 }
 
+.extension-edit-btn {
+    display: none;
+}
+
 #downvote-btn-extension:hover {
     background-color: #0175c2;
     box-shadow:inset .75px 1.5px 2.5px -1px #000000;
