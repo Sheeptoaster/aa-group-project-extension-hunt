@@ -160,7 +160,7 @@ router.post('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
 		}
 	})
 
-	await db.Extension.destroy({
+	const deletedRecord = await db.Extension.destroy({
 		where: {
 			id: extensionId
 		}
