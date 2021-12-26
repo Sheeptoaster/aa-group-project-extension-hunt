@@ -3,7 +3,6 @@ extends layout
 include utils.pug
 
 block content
-    script(src="/javascripts/apiUpvote.js" type="module")
     h2.extension-h2 Your next favorite extension 👇
 
     ul
@@ -14,7 +13,7 @@ block content
                     //-TODO #85 comment deadzone between content and upvote button
                     div.img-container
                         img.list-img(src=`${item.iconURL}`, alt="")
-                    content.list-content
+                    div.list-content
                         div.extension-name #{item.name}
                         div.extension-descrirption #{item.slogan}
                         div.category-container

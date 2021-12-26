@@ -1,0 +1,70 @@
+.edit-profile-h1 {
+    text-align: center;
+    font-size: 5em;
+    margin: .5em;
+}
+
+.edit-profile-section {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 3em;
+    box-shadow: .125em .125em .25em .025em rgba(0,0,0,0.8);
+    height: fit-content;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: white;
+    padding: 1.5em;
+}
+
+.edit-profile-form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: start;
+    line-height: 3em;
+    align-items: center;
+}
+
+#editUsername {
+    margin: 1em;
+}
+
+#editFirstName {
+    margin: 1em;
+}
+
+#editLastName {
+    margin: 1em;
+}
+
+#editEmail {
+    margin: 1em;
+    resize: none;
+}
+
+#editBio {
+    margin: 1em;
+    resize: none;
+}
+
+#editAvatarURL {
+    margin: 1em;
+    resize: none;
+}
+
+#edit-profile-btn-section {
+    display: flex;
+    align-items: center;
+    margin: 1em;
+    justify-content: space-evenly;
+}
+
+#edit-profile-submit-btn {
+    margin-right: 2em;
+    background-color: #007acc;
+    padding: 2% 10%;
+    border-radius: .35em;
+}

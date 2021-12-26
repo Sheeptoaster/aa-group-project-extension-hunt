@@ -6,169 +6,169 @@ module.exports = {
    return queryInterface.bulkInsert('Comments', [
     {
       "content": "Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue.",
-      "extensionId": 10,
+      "extensionId": 201,
       "userId": 35,
       "createdAt": "11/8/2021",
       "updatedAt": "11/27/2021"
     }, {
       "content": "Duis mattis egestas metus.",
-      "extensionId": 4,
+      "extensionId": 201,
       "userId": 10,
       "createdAt": "5/21/2021",
       "updatedAt": "10/17/2021"
     }, {
       "content": "Etiam faucibus cursus urna.",
-      "extensionId": 3,
+      "extensionId": 201,
       "userId": 47,
       "createdAt": "10/4/2020",
       "updatedAt": "11/12/2021"
     }, {
       "content": "Vivamus vestibulum sagittis sapien.",
-      "extensionId": 8,
+      "extensionId": 201,
       "userId": 40,
       "createdAt": "5/28/2021",
       "updatedAt": "3/21/2021"
     }, {
       "content": "Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.",
-      "extensionId": 4,
+      "extensionId": 201,
       "userId": 33,
       "createdAt": "10/21/2021",
       "updatedAt": "12/3/2021"
     }, {
       "content": "Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
-      "extensionId": 5,
+      "extensionId": 200,
       "userId": 25,
       "createdAt": "11/15/2020",
       "updatedAt": "4/10/2021"
     }, {
       "content": "Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.",
-      "extensionId": 7,
+      "extensionId": 200,
       "userId": 35,
       "createdAt": "10/7/2021",
       "updatedAt": "7/13/2021"
     }, {
       "content": "Nam tristique tortor eu pede.",
-      "extensionId": 7,
+      "extensionId": 200,
       "userId": 37,
       "createdAt": "10/28/2020",
       "updatedAt": "5/1/2021"
     }, {
       "content": "Duis mattis egestas metus. Aenean fermentum.",
-      "extensionId": 4,
+      "extensionId": 200,
       "userId": 31,
       "createdAt": "5/30/2021",
       "updatedAt": "9/22/2021"
     }, {
       "content": "Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",
-      "extensionId": 5,
+      "extensionId": 200,
       "userId": 5,
       "createdAt": "2/1/2021",
       "updatedAt": "9/12/2021"
     }, {
       "content": "Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy.",
-      "extensionId": 8,
+      "extensionId": 200,
       "userId": 9,
       "createdAt": "1/15/2021",
       "updatedAt": "3/30/2021"
     }, {
       "content": "Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
-      "extensionId": 10,
+      "extensionId": 200,
       "userId": 23,
       "createdAt": "7/5/2021",
       "updatedAt": "3/13/2021"
     }, {
       "content": "Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
-      "extensionId": 8,
+      "extensionId": 199,
       "userId": 5,
       "createdAt": "3/26/2021",
       "updatedAt": "12/9/2021"
     }, {
       "content": "In quis justo. Maecenas rhoncus aliquam lacus.",
-      "extensionId": 1,
+      "extensionId": 199,
       "userId": 48,
       "createdAt": "10/4/2020",
       "updatedAt": "2/3/2021"
     }, {
       "content": "In congue.",
-      "extensionId": 9,
+      "extensionId": 199,
       "userId": 17,
       "createdAt": "11/25/2021",
       "updatedAt": "12/16/2020"
     }, {
       "content": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.",
-      "extensionId": 5,
+      "extensionId": 199,
       "userId": 34,
       "createdAt": "12/11/2021",
       "updatedAt": "3/23/2021"
     }, {
       "content": "In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio.",
-      "extensionId": 7,
+      "extensionId": 199,
       "userId": 38,
       "createdAt": "7/2/2021",
       "updatedAt": "1/6/2021"
     }, {
       "content": "Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus.",
-      "extensionId": 4,
+      "extensionId": 198,
       "userId": 37,
       "createdAt": "10/7/2020",
       "updatedAt": "7/13/2021"
     }, {
       "content": "Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh. In quis justo.",
-      "extensionId": 1,
+      "extensionId": 198,
       "userId": 25,
       "createdAt": "12/10/2021",
       "updatedAt": "1/15/2021"
     }, {
       "content": "Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat. Praesent blandit. Nam nulla.",
-      "extensionId": 2,
+      "extensionId": 198,
       "userId": 48,
       "createdAt": "8/5/2021",
       "updatedAt": "11/27/2021"
     }, {
       "content": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio.",
-      "extensionId": 5,
+      "extensionId": 198,
       "userId": 31,
       "createdAt": "5/19/2021",
       "updatedAt": "12/22/2020"
     }, {
       "content": "Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.",
-      "extensionId": 1,
+      "extensionId": 198,
       "userId": 21,
       "createdAt": "9/28/2020",
       "updatedAt": "1/14/2021"
     }, {
       "content": "Donec vitae nisi.",
-      "extensionId": 2,
+      "extensionId": 197,
       "userId": 43,
       "createdAt": "10/6/2020",
       "updatedAt": "6/14/2021"
     }, {
       "content": "Praesent blandit lacinia erat.",
-      "extensionId": 1,
+      "extensionId": 197,
       "userId": 26,
       "createdAt": "4/7/2021",
       "updatedAt": "7/24/2021"
     }, {
       "content": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
-      "extensionId": 9,
+      "extensionId": 197,
       "userId": 19,
       "createdAt": "7/22/2021",
       "updatedAt": "1/19/2021"
     }, {
       "content": "Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.",
-      "extensionId": 3,
+      "extensionId": 197,
       "userId": 13,
       "createdAt": "8/10/2021",
       "updatedAt": "6/6/2021"
     }, {
       "content": "Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim.",
-      "extensionId": 3,
+      "extensionId": 197,
       "userId": 45,
       "createdAt": "12/18/2020",
       "updatedAt": "11/6/2021"
     }, {
       "content": "Praesent blandit.",
-      "extensionId": 4,
+      "extensionId": 197,
       "userId": 49,
       "createdAt": "1/31/2021",
       "updatedAt": "8/25/2021"

@@ -4,7 +4,7 @@ const { csrfProtection, asyncHandler } = require('./utils')
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs')
 
-const { loginUser, logoutUser, restoreUser, requireAuth } = require('../auth');
+const { loginUser, logoutUser, requireAuth } = require('../auth');
 
 const router = express.Router();
 
@@ -88,11 +88,9 @@ router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (re
 		signupLastName,
 		signupUsername,
 		signupPassword,
-		signupConfirmPassword,
 		signupEmail
 	} = req.body;
 	console.log(req.body)
-	//TODO #13 errors (if any are empty or if passwords don't match)
 	const hashedPassword = await bcrypt.hash(signupPassword, 12);
 	const user = await db.User.build({ firstName: signupFirstName, lastName: signupLastName, username: signupUsername, email: signupEmail, hashedPassword });
 	const validatorErrors = validationResult(req);
@@ -100,8 +98,8 @@ router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (re
 		await user.save();
 		loginUser(req, res, user)
 		res.redirect("/");
-	} else { //TODO #14 display errors
-		const errors = (validatorErrors.array().map(error => error.msg));//TODO #66 catch sequelize unique errors
+	} else {
+		const errors = (validatorErrors.array().map(error => error.msg));
 		res.render("sign-up", { errors, signupFirstName, signupLastName, signupUsername, signupEmail, csrfToken: req.csrfToken() });
 	}
 }))
