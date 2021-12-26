@@ -9,10 +9,6 @@ block content
 			h1(id='extension-name')= extension.name
 			p(id='slogan')= extension.slogan
 			img(src= extension.iconURL id='extension-icon')
-		if currentUserId === extension.ownerId
-			div(id='extension-edit-btn')
-				a(href=`/extensions/${extension.id}/edit`)
-					button(type="submit") Edit Extension
 		div(id='extension-page-body')
 			div(id='extension-details')
 				img(src= extension.extensionImg id='extension-img')
@@ -22,7 +18,10 @@ block content
 					div.triangle
 					text#upvote-btn-text Upvote
 					upvote.extension-upvotes #{extension.upvotes}
-				//- button(type="disabled" id='downvote-btn-extension') Down Vote
+					if currentUserId === extension.ownerId
+						div(id='extension-edit-btn')
+							form(action=`/extensions/${extension.id}/edit` method='GET')
+								button(type="submit" id='downvote-btn-extension') Edit Extension
 			div(id='comments-container')
 				div
 					form(action="" id='add-comment-form')
