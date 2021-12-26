@@ -82,18 +82,18 @@ router.post(
     const userId = req.params.id;
     const profileUser = await db.User.findByPk(userId);
 
-    const { firstName, lastName, username, email, bio, avatarURL } = req.body;
+    const { editFirstName, editLastName, editUsername, editEmail, editBio, editAvatarURL } = req.body;
 
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
       const updatedUser = await profileUser.update({
-        firstName,
-        lastName,
-        username,
-        email,
-        bio,
-        avatarURL,
+        firstName: editFirstName,
+        lastName: editLastName,
+        username: editUsername,
+        email: editEmail,
+        bio: editBio,
+        avatarURL: editAvatarURL,
       });
 
       res.redirect(`/profiles/${userId}`);
