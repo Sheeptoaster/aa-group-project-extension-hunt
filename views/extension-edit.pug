@@ -22,5 +22,7 @@ block content
             div(id='edit-extension-btn-section')
                 button(type='submit') Update Extension
                 a(href=`/extensions/${id}`) Cancel
-            div(id='product-delete-btn')
-                a(class='delete-button' href=`/extensions/${id}/delete`) Delete
+        form(action=`/extensions/${id}/delete` method='POST')
+            div
+                button(type="submit" id='product-delete-btn') Delete
+                a(href=`/extensions/${id}/delete`)

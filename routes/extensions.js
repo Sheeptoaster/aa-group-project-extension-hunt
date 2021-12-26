@@ -151,13 +151,35 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 	}
 }))
 
-router.post('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
 	const extensionId = parseInt(req.params.id)
 
-	const deletedExtension = await db.Extension.findByPk(extensionId)
-	await deletedExtension.destroy()
+	await db.ExtensionCategories.destroy({
+		where: {
+			extensionId
+		}
+	})
 
-	res.redirect('/')
+	const deletedRecord = await db.Extension.destroy({
+		where: {
+			id: extensionId
+		}
+	})
+	.then(async function (deletedRecord) {
+		if(deletedRecord === 1) {
+			await db.Comment.destroy({
+				where: {
+					extensionId
+				}
+			})
+			res.redirect('/')
+		} else {
+			return next(err)
+		}
+	})
+	.catch(function (error) {
+		res.status(500).json(error)
+	})
 }))
 
 module.exports = router
