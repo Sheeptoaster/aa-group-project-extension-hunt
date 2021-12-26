@@ -35,6 +35,7 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 		newSlogan,
 		categoryIds
 	} = req.body;
+	console.log(newName)
 	const ownerId = req.session.auth.userId;
 	const extension = await db.Extension.build({ name: newName, description: newDescription, iconURL: newIconURL, slogan: newSlogan, upvotes: 0, ownerId });
 
@@ -48,7 +49,7 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 	} else {
 		const categories = await db.Category.findAll();
 		const errors = validatorErrors.array().map(error => error.msg);
-		res.render("create-extension", { errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories });
+		res.render("create-extension", { name: newName, description: newDescription, errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories });
 	}
 }))
 
@@ -147,8 +148,8 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 			errors,
 			csrfToken: req.csrfToken(),
 			id: extensionId,
-			extensionName: editName || extension.name,
-			description: editDescription || extension.description,
+			extensionName: editName,
+			description: editDescription,
 			iconURL: editIconURL,
 			slogan: editSlogan,
 			categories,
