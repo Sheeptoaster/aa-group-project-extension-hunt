@@ -10,7 +10,7 @@ router.get('/new', requireAuth, csrfProtection, asyncHandler(async (req, res) =>
 	//Finds All Categories
 	const categories = await db.Category.findAll()
 	//Renders Create Extension Page
-	res.render('create-extension', { csrfToken: req.csrfToken(), title: "Create New Extension", categories })
+	res.render('create-extension', { csrfToken: req.csrfToken(), title: "Create New Extension", categories, categoryIds: [] })
 }))
 
 const extensionValidation = [
@@ -22,7 +22,7 @@ const extensionValidation = [
 	check("newDescription")
 		.exists({ checkFalsy: true })
 		.withMessage("Please provide a description"),
-	check("categoryIds")
+	check("categoryIds") //TODO catch 0 categories provided
 		.exists({ checkFalsy: true })
 		.withMessage("Please select extension categories")
 ];
@@ -48,7 +48,7 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 	} else {
 		const categories = await db.Category.findAll();
 		const errors = validatorErrors.array().map(error => error.msg);
-		res.render("create-extension", { name: newName, description: newDescription, errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories });
+		res.render("create-extension", { name: newName, description: newDescription, errors, csrfToken: req.csrfToken(), title: "Create New Extension", categories, categoryIds });
 	}
 }))
 
@@ -81,7 +81,7 @@ router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
 	const extensionCategories = await db.ExtensionCategories.findAll({
 		where: { extensionId }
 	})
-	let categoryIds = extensionCategories.map((category) => category.categoryId)
+	let categoryIds = extensionCategories.map((category) => category.dataValues.categoryId);
 
 	res.render('extension-edit', {
 		errors: [],
@@ -151,7 +151,6 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 		let idArray = extensionCategories.map(extensionCategory => {
 			return extensionCategory.dataValues.categoryId;
 		});
-		console.log(categoryIds);
 		res.render('extension-edit', {
 			errors,
 			csrfToken: req.csrfToken(),
