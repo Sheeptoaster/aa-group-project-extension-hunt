@@ -74,8 +74,9 @@ function loginDOM(user) {
 	}
 
 	// Comment send button is not grayed out when you log in
-	commentSendBTN.disabled = false
-
+	if (commentSendBTN) {
+		commentSendBTN.disabled = false
+	}
 }
 
 document.querySelector("#login-submit").addEventListener("click", async event => {
