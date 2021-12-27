@@ -22,22 +22,25 @@ upvoteButtons.forEach(button => {
 	})
 })
 
-extensionUpvote.addEventListener('click', async (event) => {
-	const extensionId = extensionUpvote.getAttribute('extensionId')
+if(extensionUpvote) {
 
-	const res = await fetch('/api/upvote', {
-		method: 'PATCH',
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({
-			extensionId
+	extensionUpvote.addEventListener('click', async (event) => {
+		const extensionId = extensionUpvote.getAttribute('extensionId')
+
+		const res = await fetch('/api/upvote', {
+			method: 'PATCH',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				extensionId
+			})
 		})
-	})
 
-	const data = await res.json()
-	if (data.upvotes) {
-		const upvoteElement = document.querySelector(`.extension-upvotes`)
-		upvoteElement.innerText = data.upvotes
-	}
-})
+		const data = await res.json()
+		if (data.upvotes) {
+			const upvoteElement = document.querySelector(`.extension-upvotes`)
+			upvoteElement.innerText = data.upvotes
+		}
+	})
+}
