@@ -1,5 +1,5 @@
 # Extension Hunt
-This student project is a [Live Site](https://extension-hunt.herokuapp.com/) inspired by [Product Hunt](https://www.producthunt.com/). It allows users to create pages for VS Code extensions and comment and upvote those pages. The project was made by [Nathaniel Tseng](https://github.com/ntseng), [Srdan Vorkapic](https://github.com/srvorkap), [Jake Weber](https://github.com/Sheeptoaster), and [Christopher Young](https://github.com/Noslepr). With the MVP and some bonus features being completed between Dec 5th 2021 and Jan 2nd 2022. Some additional features and polish were added between (insert dates of 2 week sprint).
+This student project is a [site](https://extension-hunt.herokuapp.com/) inspired by [Product Hunt](https://www.producthunt.com/). It allows users to create pages for VS Code extensions and comment and upvote those pages. The project was made by [Nathaniel Tseng](https://github.com/ntseng), [Srdan Vorkapic](https://github.com/srvorkap), [Jake Weber](https://github.com/Sheeptoaster), and [Christopher Young](https://github.com/Noslepr). With the MVP and some bonus features being completed between Dec 5th 2021 and Jan 2nd 2022. Some additional features and polish were added between (insert dates of 2 week sprint).
 
 ## Local Viewing Instructions
 1. Clone this repo
