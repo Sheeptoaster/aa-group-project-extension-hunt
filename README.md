@@ -8,7 +8,7 @@ This student project is a [site](https://extension-hunt.herokuapp.com/) inspired
 4. Make a copy of `.env.example` in root and rename it to `.env`
 5. Populate the new `.env` with your database values
 6. Run `npm start`
-7. Go to `http://localhost:8080/` in any browser
+7. Go to `localhost:8080/` in any browser
 
 ## Time Budget
 Time Alloted: 160 person*hours
