@@ -66,6 +66,7 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 			as: "User"
 		}
 	})
+	console.log(comments[0].User);
 	res.render("extension", {
 		currentUserId,
 		extension,
