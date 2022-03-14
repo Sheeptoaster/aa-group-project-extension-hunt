@@ -4,6 +4,7 @@ const { csrfProtection, asyncHandler } = require('./utils')
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs')
 const { loginUser, logoutUser, restoreUser, requireAuth } = require('../auth');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ const loginValidators = [
 
 router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, res) => {
 	const {
-		username,
+		username: credential,
 		password,
 	} = req.body;
 
@@ -29,7 +30,7 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
 	const validatorErrors = validationResult(req);
 
 	if (validatorErrors.isEmpty()) {
-		const user = await db.User.findOne({ where: { username } });
+		const user = await db.User.findOne({ where: { [Op.or]: [{ username: credential }, { email: credential }] } });
 
 		if (user !== null) {
 			const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
