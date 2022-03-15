@@ -67,27 +67,28 @@ block content
 
 					script.
 						const submitEdit = async (id) => {
-							const editText = document.querySelector(`#comment-edit${id}`)
-
-							const res = await fetch(`/api/comments/${id}/edit`, {
-								method: "POST",
-								headers: {
-									"Content-Type": "application/json",
-								},
-								body: JSON.stringify({
-									_csrf: csrfToken.value,
-									content: editText.innerHTML,
-								}),
-							})
-
+							console.log(id)
 							const submitBtn = document.querySelector(`#comment-edit-submit-btn${id}`)
+							const editText = document.querySelector(`#comment-edit${id}`)
+							console.log(editText)
+							if (editText !== null) {
+								editText.classList.remove('comment-edit-input')
+								editText.setAttribute('contenteditable', 'false')
+								submitBtn.setAttribute("hidden", "")
+								const res = await fetch(`/api/comments/${id}/edit`, {
+									method: "POST",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify({
+										_csrf: csrfToken.value,
+										content: editText.innerText,
+									}),
+								})
 
 
-							editText.classList.remove('comment-edit-input')
-							editText.setAttribute('contenteditable', 'false')
 
-							submitBtn.setAttribute("hidden", "")
-
+							}
 						}
 					ul#content-container
 						each comment in comments
