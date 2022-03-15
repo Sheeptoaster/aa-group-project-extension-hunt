@@ -90,7 +90,6 @@ router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (re
 		signupPassword,
 		signupEmail
 	} = req.body;
-	console.log(req.body)
 	const hashedPassword = await bcrypt.hash(signupPassword, 12);
 	const user = await db.User.build({ firstName: signupFirstName, lastName: signupLastName, username: signupUsername, email: signupEmail, hashedPassword });
 	const validatorErrors = validationResult(req);

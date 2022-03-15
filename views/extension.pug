@@ -37,9 +37,84 @@ block content
 						else
 							button(type="submit" disabled= true)#create-comment SEND
 				div(id='comment-section')
+					script.
+						const deleteComment = async (idTag, id) => {
+							const removed = document.querySelector(idTag.toString())
+							if(removed !== null) {
+								removed.remove()
+							}
+							const res = await fetch(`/api/comments/${id}/delete`, {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({
+									_csrf: csrfToken.value,
+								}),
+							})
+						}
+
+					script.
+						const editComment = async (id) => {
+							const edit = document.querySelector(`#comment-edit${id}`)
+							const btn = document.querySelector(`#comment-edit-submit-btn${id}`)
+
+							edit.classList.add("comment-edit-input")
+							edit.setAttribute('contenteditable', 'true')
+
+							btn.removeAttribute('hidden')
+						}
+
+					script.
+						const submitEdit = async (id) => {
+							console.log(id)
+							const submitBtn = document.querySelector(`#comment-edit-submit-btn${id}`)
+							const editText = document.querySelector(`#comment-edit${id}`)
+							console.log(editText)
+							if (editText !== null) {
+								editText.classList.remove('comment-edit-input')
+								editText.setAttribute('contenteditable', 'false')
+								submitBtn.setAttribute("hidden", "")
+								const res = await fetch(`/api/comments/${id}/edit`, {
+									method: "POST",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify({
+										_csrf: csrfToken.value,
+										content: editText.innerText,
+									}),
+								})
+
+
+
+							}
+						}
 					ul#content-container
 						each comment in comments
-							li(class='comment-li')
-								img(src=comment.User.avatarURL, class='comment-avatar-img')
-								a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
-								span(class='comment-content')= comment.content
+							if comment.userId == currentUserId
+								li(class=`comment-li` id=`comment${comment.id}`)
+									img(src=comment.User.avatarURL, class='comment-avatar-img')
+									a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
+									span(class='comment-content' id=`comment-edit${comment.id}` contenteditable='false')= comment.content
+									button(
+										type='submit' class="comment-edit-submit-btn" id=`comment-edit-submit-btn${comment.id}`
+										hidden
+										onclick=`submitEdit(${comment.id})`
+									) Edit
+									div.comment-btns
+										i.fa.fa-undo(
+											aria-hidden='true' class='edit-comment-btn'
+											id=`edit-btn${comment.id}-submit`
+											onclick=`editComment(${comment.id})`
+										)
+
+										i.fa.fa-trash(
+											aria-hidden='true' class='delete-comment-btn'
+											onClick=`deleteComment('#comment${comment.id}', ${comment.id})`
+										)
+							else
+								li(class='comment-li')
+									img(src=comment.User.avatarURL, class='comment-avatar-img')
+									a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
+									span(class='comment-content')= comment.content

@@ -21,15 +21,50 @@ router.post("/", requireAuth, csrfProtection, commentValidators, asyncHandler(as
 	const validationErrors = validationResult(req);
 
 	if (validationErrors.isEmpty()) {
-		await db.Comment.create({ content, extensionId, userId });
+		const comment = await db.Comment.create({ content, extensionId, userId });
 		let user = await db.User.findByPk(userId);
 		res.json({
+			id: comment.id,
 			username: user.username,
 			profileURL: user.avatarURL
 		});
 	} else {
 		const error = validationErrors.array()[0];
 		res.json({ error });
+	}
+}))
+
+router.post("/:id(\\d+)/delete", csrfProtection, asyncHandler(async (req, res) => {
+	let commentId = parseInt(req.params.id)
+	await db.Comment.destroy({
+		where: {
+			id: commentId
+		}
+	})
+	return;
+}))
+
+router.post("/:id(\\d+)/edit", csrfProtection, commentValidators, asyncHandler(async (req, res) => {
+	const commentId = parseInt(req.params.id)
+	const userId = req.session.auth.userId;
+	const {content} = req.body;
+
+	const validationErrors = validationResult(req)
+
+	if (validationErrors.isEmpty()) {
+		const comment = await db.Comment.findByPk(commentId)
+		comment.update({
+			content: content
+		});
+		let user = await db.User.findByPk(userId);
+		res.json({
+			id: comment.id,
+			username: user.username,
+			profileURL: user.avatarURL
+		});
+	} else {
+		const error = validationErrors.array()[0];
+		res.json({ error })
 	}
 }))
 

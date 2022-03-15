@@ -35,10 +35,49 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 		commentLi.appendChild(usernameElement);
 		const contentElement = document.createElement("span");
 		contentElement.classList.add("comment-content");
+		contentElement.id=`comment-edit${data.id}`
 		contentElement.innerText = content;
+		commentInputElement.value = ''
+
+		const commentDiv = document.createElement('div');
+		commentDiv.classList.add("comment-btns")
+
+		const submitBtn = document.createElement("button");
+		submitBtn.classList.add("comment-edit-submit-btn");
+		submitBtn.id=`comment-edit-submit-btn${data.id}`;
+		submitBtn.setAttribute("hidden", "");
+
+		const eTag = document.createElement('i');
+		eTag.classList.add("fa");
+		eTag.classList.add("fa-undo");
+		eTag.classList.add("edit-comment-btn");
+		eTag.ariaHidden="true";
+		eTag.addEventListener("click", function() {
+			contentElement.classList.add("comment-edit-input");
+			contentElement.setAttribute("contenteditable", "true");
+			submitBtn.removeAttribute("hidden");
+			submitBtn.innerText = "Edit";
+			submitBtn.addEventListener("click", function() {
+				submitEdit(data.id)
+			})
+		})
+
+		const dTag = document.createElement('i');
+		dTag.classList.add("fa")
+		dTag.classList.add("fa-trash")
+		dTag.classList.add("delete-comment-btn")
+		dTag.ariaHidden="true";
+		dTag.addEventListener("click", function() {
+			commentLi.style.display = 'none';
+			deleteComment(`#comment${data.id}`, data.id)
+		})
+
+		commentLi.append(submitBtn);
+		commentDiv.appendChild(eTag);
+		commentDiv.appendChild(dTag);
+		commentLi.appendChild(commentDiv);
 		commentLi.appendChild(contentElement);
 		contentContainer.appendChild(commentLi)
-		commentInputElement.value = ''
 	} else {
 		// display errors dynamically
 		console.log(data.error);
