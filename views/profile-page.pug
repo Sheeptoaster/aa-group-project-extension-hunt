@@ -18,7 +18,7 @@ block content
                 div#extension-header #{profileUser.username}'s extensions
                 each extension in extensions
                     a(href=`/extensions/${extension.id}`)
-                        li.extension-container#extension-container
+                        li.extension-card#extension-container
                             div.img-container
                                 img.list-img(src=`${extension.iconURL}`, alt="")
                             content.list-content

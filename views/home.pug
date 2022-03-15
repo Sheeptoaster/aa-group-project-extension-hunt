@@ -4,16 +4,17 @@ include utils.pug
 
 block content
 	div#home-container
-		h2.extension-h2= heading
+		h2#extension-h2= heading
 
-		each item in extensions
-			div.extension-container.gradient
-				a(href=`/extensions/${item.id}`).extension-link
-					img.list-img(src=`${item.iconURL}`, alt=`${item.name}`)
-					div.list-content
-						div.extension-name #{item.name}
-						div.extension-descrirption #{item.slogan}
-						div.category-container
-							each category in item.Categories
-								div.category-name #{category.name}
-				+upvoteButton(item, authenticated)
+		div#extensions-container
+			each item in extensions
+				div.extension-card.gradient
+					a(href=`/extensions/${item.id}`).extension-link
+						img.list-img(src=`${item.iconURL}`, alt=`${item.name}`)
+						div.list-content
+							div.extension-name #{item.name}
+							div.extension-descrirption #{item.slogan}
+							div.category-container
+								each category in item.Categories
+									div.category-name #{category.name}
+					+upvoteButton(item, authenticated)

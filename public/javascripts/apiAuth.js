@@ -1,4 +1,3 @@
-
 const loginButton = document.querySelector('#login-button')
 const cancelPopupButton = document.querySelector("#cancel-popup-button")
 const loginBackground = document.querySelector("#login-popup-background");
