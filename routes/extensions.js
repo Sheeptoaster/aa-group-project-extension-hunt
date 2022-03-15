@@ -66,7 +66,6 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 			as: "User"
 		}
 	})
-	console.log(comments[0].User);
 	res.render("extension", {
 		currentUserId,
 		extension,
@@ -166,7 +165,7 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 	}
 }))
 
-router.post('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
+router.post('/delete/:id(\\d+)', asyncHandler(async (req, res, next) => {
 	const extensionId = parseInt(req.params.id)
 
 	await db.ExtensionCategories.destroy({

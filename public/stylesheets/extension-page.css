@@ -144,3 +144,17 @@
 .comment-content {
     grid-area: content;
 }
+
+.comment-btns {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1px;
+}
+
+.edit-comment-btn, .delete-comment-btn {
+    cursor: pointer;
+}
+
+.comment-input {
+    text-decoration: none;
+}

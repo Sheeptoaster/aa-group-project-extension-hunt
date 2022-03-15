@@ -36,12 +36,32 @@ document.querySelector("#create-comment").addEventListener("click", async event 
 		const contentElement = document.createElement("span");
 		contentElement.classList.add("comment-content");
 		contentElement.innerText = content;
+		commentInputElement.value = ''
+		const commentDiv = document.createElement('div');
+		commentDiv.classList.add("comment-btns")
+		const eTag = document.createElement('i');
+		eTag.classList.add("fa")
+		eTag.classList.add("fa-undo")
+		eTag.classList.add("edit-comment-btn")
+		eTag.ariaHidden="true";
+		const dTag = document.createElement('i');
+		dTag.classList.add("fa")
+		dTag.classList.add("fa-trash")
+		dTag.classList.add("delete-comment-btn")
+		dTag.ariaHidden="true";
+		dTag.addEventListener("click", function() {
+			commentLi.style.display = 'none';
+			deleteComment(`#comment${data.id}`, data.id)
+		})
+		commentDiv.appendChild(eTag);
+		commentDiv.appendChild(dTag);
+		commentLi.appendChild(commentDiv);
 		commentLi.appendChild(contentElement);
 		contentContainer.appendChild(commentLi)
-		commentInputElement.value = ''
 	} else {
 		// display errors dynamically
 		console.log(data.error);
 		// document.querySelector("#comment-errors").appendChild(); //TODO #62 create dispaly for comment error message
 	}
 })
+
