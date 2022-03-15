@@ -40,7 +40,7 @@ html
 			h1 Login
 			form(id="login-form")
 				input(type='hidden' name='_csrf' value=csrfToken)
-				+field('Username', 'username', username, 'form-group', 'form-control')
+				+field('Username or Email', 'username', username, 'form-group', 'form-control')
 				div(class="hidden")#username-errors
 				+field('Password', 'password', password, 'form-group', 'form-control', 'password')
 				div(class="hidden")#password-errors
