@@ -4,14 +4,14 @@ const router = express.Router();
 const { csrfProtection, asyncHandler } = require('./utils')
 
 /* GET home page. */
-router.get('/', csrfProtection, asyncHandler(async(req, res, next) => {
+router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
 	const extensions = await db.Extension.findAll({
 		include: db.Category,
-		order: [ ['id', 'DESC'] ],
+		order: [['id', 'DESC']],
 		limit: 10
 	});
-	//TODO #117 rendering home rejects a promise
-	res.render('home', { title: 'Extension Hunt', extensions, csrfToken: req.csrfToken(), authenticated: !!res?.locals.authenticated });
+	let headings = ["Is the next 🦄 here?", "Your next favorite extension 👇"];
+	res.render('home', { title: 'Extension Hunt', heading: headings[Math.floor(Math.random() * headings.length)], extensions, csrfToken: req.csrfToken(), authenticated: !!res?.locals.authenticated });
 }));
 
 module.exports = router;

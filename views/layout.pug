@@ -15,7 +15,7 @@ html
 		ul#nav-bar
 			li#nav-bar-left
 				img#logo(src="/images/extension-hunt-logo.png")
-				//- input(type="text")#nav-bar-search
+				input(type="text" placeholder="Search Extension Hunt")#navbar-search
 				a(href="/") Home
 				span#about-text About
 					ul#about-dropdown
@@ -41,7 +41,7 @@ html
 			h1 Login
 			form(id="login-form")
 				input(type='hidden' name='_csrf' value=csrfToken)
-				+field('Username', 'username', username, 'form-group', 'form-control')
+				+field('Username or Email', 'username', username, 'form-group', 'form-control')
 				div(class="hidden")#username-errors
 				+field('Password', 'password', password, 'form-group', 'form-control', 'password')
 				div(class="hidden")#password-errors

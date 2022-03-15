@@ -8,10 +8,10 @@ mixin field(labelText, fieldName, fieldValue, divClass, className, fieldType = '
 
 mixin upvoteButton(extension, authenticated)
     if authenticated
-        div.upvote-container(extensionId=`${extension.id}` style={border: "1px solid rgba(0,0,0,.2)"})
+        div.upvote-container.upvote-active(extensionId=`${extension.id}`)
             div.triangle
             div.upvotes(id=`${extension.id}`) #{extension.upvotes}
     else
-        div.upvote-container(extensionId=`${extension.id}` style={border: "none"})
+        div.upvote-container.upvote-inactive(extensionId=`${extension.id}`)
             div.triangle
             div.upvotes(id=`${extension.id}`) #{extension.upvotes}

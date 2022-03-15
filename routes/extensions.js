@@ -3,6 +3,7 @@ const db = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils')
 const { requireAuth } = require('../auth');
 const { check, validationResult } = require('express-validator');
+const { Op } = require('sequelize');
 
 const router = express.Router()
 
@@ -22,7 +23,7 @@ const extensionValidation = [
 	check("newDescription")
 		.exists({ checkFalsy: true })
 		.withMessage("Please provide a description"),
-	check("categoryIds") //TODO catch 0 categories provided
+	check("categoryIds") //TODO #154 catch 0 categories provided
 		.exists({ checkFalsy: true })
 		.withMessage("Please select extension categories")
 ];
@@ -94,6 +95,21 @@ router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
 		categories,
 		categoryIds
 	})
+}))
+
+router.get("/search/:searchTerm", csrfProtection, asyncHandler(async (req, res) => {
+	const { searchTerm } = req.params;
+	const extensions = await db.Extension.findAll({
+		where: {
+			[Op.or]: [
+				{ name: { [Op.iLike]: `%${searchTerm}%` } },
+				{ slogan: { [Op.iLike]: `%${searchTerm}%` } }
+			]
+		},
+		include: db.Category,
+		limit: 10
+	})
+	res.json({ heading: `Search: ${searchTerm}`, extensions, authenticated: !!res?.locals.authenticated });
 }))
 
 const updateExtensionValidation = [
@@ -179,21 +195,21 @@ router.post('/delete/:id(\\d+)', asyncHandler(async (req, res, next) => {
 			id: extensionId
 		}
 	})
-	.then(async function (deletedRecord) {
-		if(deletedRecord === 1) {
-			await db.Comment.destroy({
-				where: {
-					extensionId
-				}
-			})
-			res.redirect('/')
-		} else {
-			return next(err)
-		}
-	})
-	.catch(function (error) {
-		res.status(500).json(error)
-	})
+		.then(async function (deletedRecord) {
+			if (deletedRecord === 1) {
+				await db.Comment.destroy({
+					where: {
+						extensionId
+					}
+				})
+				res.redirect('/')
+			} else {
+				return next(err)
+			}
+		})
+		.catch(function (error) {
+			res.status(500).json(error)
+		})
 }))
 
 module.exports = router
