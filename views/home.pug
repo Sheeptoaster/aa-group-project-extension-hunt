@@ -9,7 +9,7 @@ block content
 		each item in extensions
 			div.extension-container.gradient
 				a(href=`/extensions/${item.id}`).extension-link
-					img.list-img(src=`${item.iconURL}`, alt="")
+					img.list-img(src=`${item.iconURL}`, alt=`${item.name}`)
 					div.list-content
 						div.extension-name #{item.name}
 						div.extension-descrirption #{item.slogan}
