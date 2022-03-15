@@ -53,33 +53,41 @@ block content
 								}),
 							})
 						}
+
 					script.
 						const editComment = async (id) => {
-							const edit = document.querySelector(`#edit-btn${id}-submit`)
-							edit.classList.remove('fa')
-							edit.classList.remove('fa-undo')
-							const updated = document.querySelector(`#c-edit${id}`)
-							updated.setAttribute('contenteditable', 'true')
-							updated.style.border = '1px solid black';
-							updated.style.padding = '2px';
-							updated.style.width = '50%';
-							edit.classList.add("fa");
-							edit.classList.add('fa-check')
-							edit.setAttribute('contenteditable', 'false');
-							edit.onclick=`handleEdit(${id}, ${updated.innerText})`
+							const edit = document.querySelector(`#comment-edit${id}`)
+							const btn = document.querySelector(`#comment-edit-submit-btn${id}`)
+
+							edit.classList.add("comment-edit-input")
+							edit.setAttribute('contenteditable', 'true')
+
+							btn.removeAttribute('hidden')
 						}
+
 					script.
-						const handleEdit = async (id, content) => {
+						const submitEdit = async (id) => {
+							const editText = document.querySelector(`#comment-edit${id}`)
+
 							const res = await fetch(`/api/comments/${id}/edit`, {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json",
 								},
 								body: JSON.stringify({
-									_csrf: csrfToken,
-									content,
-								})
+									_csrf: csrfToken.value,
+									content: editText.innerHTML,
+								}),
 							})
+
+							const submitBtn = document.querySelector(`#comment-edit-submit-btn${id}`)
+
+
+							editText.classList.remove('comment-edit-input')
+							editText.setAttribute('contenteditable', 'false')
+
+							submitBtn.setAttribute("hidden", "")
+
 						}
 					ul#content-container
 						each comment in comments
@@ -87,7 +95,12 @@ block content
 								li(class=`comment-li` id=`comment${comment.id}`)
 									img(src=comment.User.avatarURL, class='comment-avatar-img')
 									a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
-									span(class=`comment-content` id=`c-edit${comment.id}` contenteditable=false)= comment.content
+									span(class='comment-content' id=`comment-edit${comment.id}` contenteditable='false')= comment.content
+									button(
+										type='submit' class="comment-edit-submit-btn" id=`comment-edit-submit-btn${comment.id}`
+										hidden
+										onclick=`submitEdit(${comment.id})`
+									) Edit
 									div.comment-btns
 										i.fa.fa-undo(
 											aria-hidden='true' class='edit-comment-btn'
