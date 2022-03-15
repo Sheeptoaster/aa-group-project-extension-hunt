@@ -16,14 +16,13 @@ upvoteButtons.forEach(button => {
 		})
 		const data = await res.json()
 		if (data.upvotes) {
-			const upvoteElement = document.getElementById(`${extensionId}`)
-			upvoteElement.innerText = data.upvotes
+			const upvoteElement = document.getElementById(`${extensionId}`);
+			upvoteElement.innerText = data.upvotes;
 		}
 	})
 })
 
 if(extensionUpvote) {
-
 	extensionUpvote.addEventListener('click', async (event) => {
 		const extensionId = extensionUpvote.getAttribute('extensionId')
 

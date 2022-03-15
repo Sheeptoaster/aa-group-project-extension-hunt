@@ -3,20 +3,17 @@ extends layout
 include utils.pug
 
 block content
-    h2.extension-h2 Your next favorite extension 👇
+	div#home-container
+		h2.extension-h2= heading
 
-    ul
-    each item in extensions
-        div.entire-list
-            li.extension-container.gradient
-                a(href=`/extensions/${item.id}`).extension-container
-                    //-TODO #85 comment deadzone between content and upvote button
-                    div.img-container
-                        img.list-img(src=`${item.iconURL}`, alt="")
-                    div.list-content
-                        div.extension-name #{item.name}
-                        div.extension-descrirption #{item.slogan}
-                        div.category-container
-                            each category in item.Categories
-                                div.category-name #{category.name}
-                +upvoteButton(item, authenticated)
+		each item in extensions
+			div.extension-container.gradient
+				a(href=`/extensions/${item.id}`).extension-link
+					img.list-img(src=`${item.iconURL}`, alt="")
+					div.list-content
+						div.extension-name #{item.name}
+						div.extension-descrirption #{item.slogan}
+						div.category-container
+							each category in item.Categories
+								div.category-name #{category.name}
+				+upvoteButton(item, authenticated)
