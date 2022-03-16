@@ -13,12 +13,13 @@ block content
 			div(id='extension-details')
 				img(src= extension.extensionImg id='extension-img')
 				p(id='extension-description')= extension.description
-			div(id='extension-btn-container')
-				button(type="disabled" id='upvote-btn-extension' extensionId=`${extension.id}`)
-					div.triangle
-					text#upvote-btn-text Upvote
-					upvote.extension-upvotes #{extension.upvotes}
-					if currentUserId === extension.ownerId
+			div
+				div(id='extension-btn-container')
+					button(type="disabled" id='upvote-btn-extension' extensionId=`${extension.id}`)
+						div.triangle
+						text#upvote-btn-text Upvote
+						upvote.extension-upvotes #{extension.upvotes}
+					if sessionUserId === extension.ownerId
 						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
 								button(type="submit" id='edit-btn-extension') Edit Extension
@@ -26,16 +27,23 @@ block content
 						div(id='extension-edit-btn')
 							form(action=`/extensions/${extension.id}/edit` method='GET')
 								button.extension-edit-btn(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
+				div.sidebar-container
+					h2 Maker
+					img(src=`${extension.User.avatarURL}` alt=`${extension.User.username}`).maker-img
+					a(href=`/profiles/${extension.User.id}`) #{extension.User.username}
+				div.sidebar-container
+					h2 Categories
+						div.category-container
+							each category in extension.Categories
+								div.category-name #{category.name}
 			div(id='comments-container')
 				div
 					form(action="" id='add-comment-form')
-						input(type="hidden" name="_csrf" value=csrfToken)#csrfToken
+						input(type="hidden" name="_csrf" value=csrfToken)
+						img(src=`${sessionUserAvatar ? sessionUserAvatar : "/images/extension-hunt-logo.png"}` alt="user avatar").maker-img
 						+field('', 'content', "", 'form-group', 'extension-comment-field', "text", "What do you think of this extension?")
 						//- TODO #60 SEND button opens sign-up if not logged in
-						if locals.authenticated
-							button(type="submit" disabled= false)#create-comment SEND
-						else
-							button(type="submit" disabled= true)#create-comment SEND
+						button(type="submit" disabled= !locals.authenticated).cta-button#send-comment SEND
 				div(id='comment-section')
 					script.
 						const deleteComment = async (idTag, id) => {
@@ -92,7 +100,7 @@ block content
 						}
 					ul#content-container
 						each comment in comments
-							if comment.userId == currentUserId
+							if comment.userId == sessionUserId
 								li(class=`comment-li` id=`comment${comment.id}`)
 									img(src=comment.User.avatarURL, class='comment-avatar-img')
 									a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username

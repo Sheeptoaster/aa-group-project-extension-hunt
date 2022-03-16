@@ -4,7 +4,7 @@ const loginBackground = document.querySelector("#login-popup-background");
 const loginSignup = document.querySelector('#login-from-signup')
 const demoSignin = document.querySelector("#demo-sign-in");
 const extensionEditBTN = document.querySelector('.extension-edit-btn')
-const commentSendBTN = document.querySelector('#create-comment')
+const sendCommentButton = document.querySelector('#send-comment')
 
 if (loginSignup) {
 	loginSignup.addEventListener("click", async event => {
@@ -73,8 +73,8 @@ function loginDOM(user) {
 	}
 
 	// Comment send button is not grayed out when you log in
-	if (commentSendBTN) {
-		commentSendBTN.disabled = false
+	if (sendCommentButton) {
+		sendCommentButton.disabled = false
 	}
 }
 
