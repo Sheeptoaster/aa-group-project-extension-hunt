@@ -13,7 +13,7 @@ block content
 			div(id='extension-details')
 				img(src= extension.extensionImg id='extension-img')
 				p(id='extension-description')= extension.description
-			div
+			div#extension-actions
 				div(id='extension-btn-container')
 					button(type="disabled" id='upvote-btn-extension' extensionId=`${extension.id}`)
 						div.triangle
@@ -24,15 +24,15 @@ block content
 							form(action=`/extensions/${extension.id}/edit` method='GET')
 								button(type="submit" id='edit-btn-extension') Edit Extension
 					else
-						div(id='extension-edit-btn')
+						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
-								button.extension-edit-btn(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
+								button.hidden(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
 				div.sidebar-container
-					h2 Maker
+					h2.sidebar-h2 Maker
 					img(src=`${extension.User.avatarURL}` alt=`${extension.User.username}`).maker-img
-					a(href=`/profiles/${extension.User.id}`) #{extension.User.username}
+					a(href=`/profiles/${extension.User.id}`).comment-username.maker-name #{extension.User.username}
 				div.sidebar-container
-					h2 Categories
+					h2.sidebar-h2 Categories
 						div.category-container
 							each category in extension.Categories
 								div.category-name #{category.name}

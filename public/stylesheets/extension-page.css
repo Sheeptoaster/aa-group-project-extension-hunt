@@ -11,13 +11,13 @@
     color: white;
     display: grid;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
     grid-template-areas:
     "picture title"
     "picture ."
     "picture description";
-    grid-template-rows: 4em;
-    grid-template-columns: 10em;
+    grid-template-rows: 5%;
+    grid-template-columns: 10%;
 }
 
 #extension-name {
@@ -41,8 +41,8 @@
     grid-template-areas:
     "details buttons"
     "comments . ";
-    grid-template-columns: 2fr 1fr;
-    margin: .25em .75em;
+    grid-template-columns: 1.5fr 1fr;
+    margin: 0.5% 10%;
 }
 
 #extension-details {
@@ -58,6 +58,12 @@
 
 #extension-description {
     text-align: left;
+}
+
+#extension-actions {
+	padding-left: 40px;
+	padding-right: 40px;
+	min-width: 30%;
 }
 
 #extension-btn-container {
@@ -88,18 +94,19 @@
     margin: 0 .5em;
 }
 
-.extension-edit-btn {
-    display: none;
-}
-
-#downvote-btn-extension:hover {
-    background-color: #0175c2;
-    box-shadow:inset .75px 1.5px 2.5px -1px #000000;
-}
-
 .sidebar-container {
 	margin-top: 10px;
 	margin-bottom: 10px;
+	padding: 10px;
+}
+
+.sidebar-h2 {
+	font-size: 14pt;
+}
+
+.maker-name {
+	vertical-align: top;
+	margin-left: 4px;
 }
 
 .maker-img {
@@ -127,11 +134,11 @@
 }
 
 .extension-comment-field {
-    width: 20em;
-    max-width: 30em;
-    height: 2em;
-    max-height: 3em;
+    width: 72em;
+    height: 35px;
     margin: .5em;
+	border-radius: 4px;
+	border: 1px solid grey;
 }
 
 #comment-section {

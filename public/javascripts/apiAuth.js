@@ -3,7 +3,7 @@ const cancelPopupButton = document.querySelector("#cancel-popup-button")
 const loginBackground = document.querySelector("#login-popup-background");
 const loginSignup = document.querySelector('#login-from-signup')
 const demoSignin = document.querySelector("#demo-sign-in");
-const extensionEditBTN = document.querySelector('.extension-edit-btn')
+const extensionEditBTN = document.querySelector('#edit-btn-extension')
 const sendCommentButton = document.querySelector('#send-comment')
 
 if (loginSignup) {
@@ -68,7 +68,7 @@ function loginDOM(user) {
 	if (extensionEditBTN) {
 		const extensionOwner = extensionEditBTN.getAttribute('owner')
 		if (user.id == extensionOwner) {
-			extensionEditBTN.style.display = 'block'
+			extensionEditBTN.classList.remove("hidden");
 		}
 	}
 
