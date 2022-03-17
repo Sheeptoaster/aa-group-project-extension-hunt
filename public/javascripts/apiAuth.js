@@ -79,20 +79,17 @@ function loginDOM(user) {
 
 document.querySelector("#login-submit").addEventListener("click", async event => {
 	event.preventDefault()
-	const loginForm = document.querySelector('#login-form')
-	const loginData = new FormData(loginForm)
-	const username = loginData.get('username')
-	const password = loginData.get('password')
-	const csrf = loginData.get('_csrf')
+	const loginForm = document.querySelector('#login-form');
+	const loginData = new FormData(loginForm);
 	let res = await fetch('/api/auth/login', {
 		method: 'POST',
 		headers: {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify({
-			username,
-			password,
-			_csrf: csrf
+			username: loginData.get('username'),
+			password: loginData.get('password'),
+			_csrf: loginData.get('_csrf')
 		})
 	})
 	const data = await res.json()
@@ -117,21 +114,17 @@ document.querySelector("#login-submit").addEventListener("click", async event =>
 const demoLogin = document.querySelector("#demo-sign-in");
 if (demoLogin) {
 	demoLogin.addEventListener("click", async event => {
-		event.preventDefault()
-		const loginForm = document.querySelector('#login-form')
-		const loginData = new FormData(loginForm)
-		const csrf = loginData.get('_csrf')
-		const extensionId = window.location.href.split("/")[4]
+		const loginForm = document.querySelector('#login-form');
+		const loginData = new FormData(loginForm);
 		let res = await fetch('/api/auth/login', {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				extensionId,
 				username: "Demo User",
 				password: "a",
-				_csrf: csrf
+				_csrf: loginData.get('_csrf')
 			})
 		})
 		const data = await res.json()

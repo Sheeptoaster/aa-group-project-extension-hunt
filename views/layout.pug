@@ -29,8 +29,7 @@ html
 			if locals.authenticated
 				li#nav-bar-right
 					span Welcome #{user.firstName}
-					- let profileURL = `/profiles/${user.id}`;
-					a(href= profileURL) Profile
+					a(href= `/profiles/${user.id}`) Profile
 					form(action="/users/logout" method="POST")
 						button.cta-button.logout-button(type="submit") Logout
 			else
