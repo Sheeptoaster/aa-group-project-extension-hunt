@@ -32,7 +32,7 @@ html
 					- let profileURL = `/profiles/${user.id}`;
 					a(href= profileURL) Profile
 					form(action="/users/logout" method="POST")
-						button(type="submit") Logout
+						button.cta-button.logout-button(type="submit") Logout
 			else
 				li#nav-bar-right
 					button#demo-sign-in Demo User
