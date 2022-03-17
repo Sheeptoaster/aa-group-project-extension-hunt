@@ -1,9 +1,4 @@
-const loginButton = document.querySelector('#login-button')
-const cancelPopupButton = document.querySelector("#cancel-popup-button")
-const loginBackground = document.querySelector("#login-popup-background");
 const loginSignup = document.querySelector('#login-from-signup')
-const demoSignin = document.querySelector("#demo-sign-in");
-
 if (loginSignup) {
 	loginSignup.addEventListener("click", async event => {
 		const popupElement = document.querySelector('#login-popup')
@@ -11,6 +6,8 @@ if (loginSignup) {
 		loginBackground.classList.remove('hidden');
 	})
 }
+
+const loginButton = document.querySelector('#login-button')
 if (loginButton) {
 	loginButton.addEventListener("click", async event => {
 		document.querySelector('#login-popup').classList.remove("hidden");
@@ -29,6 +26,7 @@ function closeLoginPopup() {
 	passwordErrors.classList.add("hidden");
 }
 
+const cancelPopupButton = document.querySelector("#cancel-popup-button");
 if (cancelPopupButton) {
 	cancelPopupButton.addEventListener("click", async event => {
 		event.preventDefault();
@@ -36,6 +34,7 @@ if (cancelPopupButton) {
 	})
 }
 
+const loginBackground = document.querySelector("#login-popup-background");
 if (loginBackground) {
 	loginBackground.addEventListener("click", async event => {
 		document.querySelector('#login-popup').classList.add("hidden");
@@ -45,39 +44,33 @@ if (loginBackground) {
 
 function loginDOM(user) {
 	// Update navbar
-	const navBarLeft = document.querySelector('#nav-bar-left')
-	navBarLeft.innerHTML += `<a href="/extensions/new"> Post an Extension </a>`
-	const welcomeContainer = document.querySelector('#nav-bar-right')
-	welcomeContainer.innerHTML = `
+	document.querySelector('#nav-bar-left').innerHTML += `<a href="/extensions/new"> Post an Extension </a>`;
+	document.querySelector('#nav-bar-right').innerHTML = `
 		<span>Welcome ${user.firstName}</span>
 		<a href="/profiles/${user.id}">Profile</a>
 		<form action="/users/logout" method="POST">
-			<button class="cta-button logout-button" type="submit">Logout</button>
-		</form>
-	` //TODO #157 double logout bug
+			<button class="cta-button" type="submit">Logout</button>
+		</form>`;
 
-	// Add upvote button borders
-	const upvoteButtons = document.querySelectorAll(".upvote-container");
-	upvoteButtons.forEach(button => {
-		button.setAttribute("style", "border: 1px solid rgba(0,0,0,.2)");
+	// Activate upvote buttons on home page
+	document.querySelectorAll(".upvote-container").forEach(button => {
+		button.classList.remove("upvote-inactive");
+		button.classList.add("upvote-active");
 	})
 
-	// Comment avatar displayed on login
+	// Change extension page's comment avatar to user's avatar
 	const userAvatar = document.querySelector("#user-avatar");
 	if (userAvatar) {
 		userAvatar.setAttribute("src", user.avatarURL);
 	}
 
-	// Edit button displayed on login
+	// Add Edit Extension button to extension page
 	const extensionEditBTN = document.querySelector('#edit-btn-extension');
-	if (extensionEditBTN) {
-		const extensionOwner = extensionEditBTN.getAttribute('owner');
-		if (user.id == extensionOwner) {
-			extensionEditBTN.classList.remove("hidden");
-		}
+	if (extensionEditBTN && user.id == extensionEditBTN.getAttribute('owner')) {
+		extensionEditBTN.classList.remove("hidden");
 	}
 
-	// Comment send button is not grayed out when you log in
+	// Enable extension page's send comment button
 	const sendCommentButton = document.querySelector('#send-comment');
 	if (sendCommentButton) {
 		sendCommentButton.disabled = false;
@@ -119,11 +112,11 @@ document.querySelector("#login-submit").addEventListener("click", async event =>
 			passwordErrors.classList.remove("hidden");
 		}
 	}
-
 })
 
-if (demoSignin) {
-	demoSignin.addEventListener("click", async event => {
+const demoLogin = document.querySelector("#demo-sign-in");
+if (demoLogin) {
+	demoLogin.addEventListener("click", async event => {
 		event.preventDefault()
 		const loginForm = document.querySelector('#login-form')
 		const loginData = new FormData(loginForm)
@@ -146,6 +139,5 @@ if (demoSignin) {
 		if (!data.errors) {
 			loginDOM(data.user);
 		}
-
 	})
 }

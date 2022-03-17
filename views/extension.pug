@@ -75,10 +75,8 @@ block content
 
 					script.
 						const submitEdit = async (id) => {
-							console.log(id)
 							const submitBtn = document.querySelector(`#comment-edit-submit-btn${id}`)
 							const editText = document.querySelector(`#comment-edit${id}`)
-							console.log(editText)
 							if (editText !== null) {
 								editText.classList.remove('comment-edit-input')
 								editText.setAttribute('contenteditable', 'false')
@@ -93,9 +91,6 @@ block content
 										content: editText.innerText,
 									}),
 								})
-
-
-
 							}
 						}
 					ul#content-container
