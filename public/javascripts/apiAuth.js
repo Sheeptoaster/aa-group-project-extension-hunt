@@ -43,8 +43,9 @@ if (cancelPopupButton) {
 
 function loginDOM(user) {
 	// Update navbar
-	document.querySelector('#nav-bar-left').innerHTML += `<a href="/extensions/new"> Post an Extension </a>`;
-	document.querySelector('#nav-bar-right').innerHTML = `
+	const welcomeContainer = document.querySelector('#nav-bar-right')
+	welcomeContainer.innerHTML = `
+		<a class="secondary-button" href="/extensions/new"> Post an Extension </a>
 		<span>Welcome ${user.firstName}</span>
 		<a href="/profiles/${user.id}">Profile</a>
 		<form action="/users/logout" method="POST">

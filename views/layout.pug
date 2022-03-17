@@ -24,10 +24,9 @@ html
 						li.about-link: a(href="https://github.com/srvorkap") Srdan Vorkapic
 						li.about-link: a(href="https://github.com/Sheeptoaster") Jake Weber
 						li.about-link: a(href="https://github.com/Noslepr") Chris Young
-				if locals.authenticated
-					a(href="/extensions/new") Post an Extension
 			if locals.authenticated
 				li#nav-bar-right
+					a.secondary-button(href="/extensions/new") Post an Extension
 					span Welcome #{user.firstName}
 					a(href= `/profiles/${user.id}`) Profile
 					form(action="/users/logout" method="POST")
