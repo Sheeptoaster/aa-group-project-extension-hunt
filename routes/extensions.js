@@ -55,10 +55,6 @@ router.post('/new', csrfProtection, extensionValidation, asyncHandler(async (req
 
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 	const extensionId = parseInt(req.params.id);
-	let sessionUser;
-	if (req.session.auth) {
-		sessionUser = await db.User.findOne({ where: { id: req.session.auth.userId } });
-	}
 	const extension = await db.Extension.findOne({
 		where: { id: extensionId },
 		include: [db.User, db.Category]
@@ -71,8 +67,7 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 		}
 	})
 	res.render("extension", {
-		sessionUserId: sessionUser?.id,
-		sessionUserAvatar: sessionUser?.avatarURL,
+		user: res.locals?.user,
 		extension,
 		comments,
 		csrfToken: req.csrfToken()

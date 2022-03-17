@@ -1,8 +1,15 @@
+const loginBackground = document.querySelector("#login-popup-background");
+if (loginBackground) {
+	loginBackground.addEventListener("click", async event => {
+		document.querySelector('#login-popup').classList.add("hidden");
+		closeLoginPopup();
+	})
+}
+
 const loginSignup = document.querySelector('#login-from-signup')
 if (loginSignup) {
 	loginSignup.addEventListener("click", async event => {
-		const popupElement = document.querySelector('#login-popup')
-		popupElement.classList.remove("hidden");
+		document.querySelector('#login-popup').classList.remove("hidden");
 		loginBackground.classList.remove('hidden');
 	})
 }
@@ -30,14 +37,6 @@ const cancelPopupButton = document.querySelector("#cancel-popup-button");
 if (cancelPopupButton) {
 	cancelPopupButton.addEventListener("click", async event => {
 		event.preventDefault();
-		closeLoginPopup();
-	})
-}
-
-const loginBackground = document.querySelector("#login-popup-background");
-if (loginBackground) {
-	loginBackground.addEventListener("click", async event => {
-		document.querySelector('#login-popup').classList.add("hidden");
 		closeLoginPopup();
 	})
 }

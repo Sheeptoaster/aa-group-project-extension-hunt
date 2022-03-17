@@ -57,4 +57,4 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
 	res.json({ errors })
 }))
 
-module.exports = router
+module.exports = router;
