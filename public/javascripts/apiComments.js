@@ -1,10 +1,10 @@
-document.querySelector("#create-comment").addEventListener("click", async event => {
+document.querySelector("#send-comment").addEventListener("click", async event => {
 	event.preventDefault();
 	// Call POST /api/comments
 	const commentInputElement = document.querySelector('#content')
 	const addCommentForm = document.querySelector('#add-comment-form')
 	const formData = new FormData(addCommentForm)
-	const content = formData.get('content').trim(); //TODO #110 clear comment input after submission
+	const content = formData.get('content').trim();
 	const csrf = formData.get('_csrf')
 	const extensionId = window.location.href.split("/")[4];
 	let res = await fetch("/api/comments", {

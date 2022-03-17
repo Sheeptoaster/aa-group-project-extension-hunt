@@ -1,13 +1,29 @@
 h1 {
-    color: #555555;
+	color: #555555;
 }
 
 #login-popup {
-    border: 1px solid black
+	border: 1px solid black
 }
 
 .hidden {
-    visibility: hidden;
+	visibility: hidden;
+}
+
+.cta-button {
+	background-color: #007acc;
+	color: white;
+	border: none;
+	border-radius: 4px;
+}
+
+.cta-button:hover {
+	background-color: #0175c2;
+	box-shadow: inset .75px 1.5px 2.5px -1px #000000;
+}
+
+.cta-button:disabled {
+	opacity: 0.5;
 }
 
 #username-errors {

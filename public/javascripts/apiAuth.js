@@ -3,8 +3,6 @@ const cancelPopupButton = document.querySelector("#cancel-popup-button")
 const loginBackground = document.querySelector("#login-popup-background");
 const loginSignup = document.querySelector('#login-from-signup')
 const demoSignin = document.querySelector("#demo-sign-in");
-const extensionEditBTN = document.querySelector('.extension-edit-btn')
-const commentSendBTN = document.querySelector('#create-comment')
 
 if (loginSignup) {
 	loginSignup.addEventListener("click", async event => {
@@ -54,9 +52,9 @@ function loginDOM(user) {
 		<span>Welcome ${user.firstName}</span>
 		<a href="/profiles/${user.id}">Profile</a>
 		<form action="/users/logout" method="POST">
-			<button type="submit">Logout</button>
+			<button class="cta-button logout-button" type="submit">Logout</button>
 		</form>
-	`
+	` //TODO #157 double logout bug
 
 	// Add upvote button borders
 	const upvoteButtons = document.querySelectorAll(".upvote-container");
@@ -64,17 +62,25 @@ function loginDOM(user) {
 		button.setAttribute("style", "border: 1px solid rgba(0,0,0,.2)");
 	})
 
+	// Comment avatar displayed on login
+	const userAvatar = document.querySelector("#user-avatar");
+	if (userAvatar) {
+		userAvatar.setAttribute("src", user.avatarURL);
+	}
+
 	// Edit button displayed on login
+	const extensionEditBTN = document.querySelector('#edit-btn-extension');
 	if (extensionEditBTN) {
-		const extensionOwner = extensionEditBTN.getAttribute('owner')
+		const extensionOwner = extensionEditBTN.getAttribute('owner');
 		if (user.id == extensionOwner) {
-			extensionEditBTN.style.display = 'block'
+			extensionEditBTN.classList.remove("hidden");
 		}
 	}
 
 	// Comment send button is not grayed out when you log in
-	if (commentSendBTN) {
-		commentSendBTN.disabled = false
+	const sendCommentButton = document.querySelector('#send-comment');
+	if (sendCommentButton) {
+		sendCommentButton.disabled = false;
 	}
 }
 

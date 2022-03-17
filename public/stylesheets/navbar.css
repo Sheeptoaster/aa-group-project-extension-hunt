@@ -22,7 +22,6 @@
 	display: block;
 }
 
-
 #about-dropdown {
 	display: none;
 	position: absolute;
@@ -65,6 +64,11 @@
 	top: 0;
 	transform: translate(calc(50vw - 50%), calc(50vh - 50%));
 	border-radius: 0.5em;
+}
+
+.logout-button {
+	height: 35px;
+	width: 80px;
 }
 
 #username {
