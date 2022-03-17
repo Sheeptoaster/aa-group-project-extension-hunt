@@ -17,25 +17,33 @@ html
 			li#nav-bar-left
 				img#logo(src="/images/extension-hunt-logo.png")
 				input(type="text" placeholder="Search Extension Hunt")#navbar-search
-				a(href="/") Home
-				span#about-text About
-					ul#about-dropdown
-						li.about-link: a(href="https://github.com/ntseng") Nathaniel Tseng
-						li.about-link: a(href="https://github.com/srvorkap") Srdan Vorkapic
-						li.about-link: a(href="https://github.com/Sheeptoaster") Jake Weber
-						li.about-link: a(href="https://github.com/Noslepr") Chris Young
+				a.nav-anchor(href="/") Home
+				span#dropdown-text About
+					ul#dropdown-container
+						li.dropdown-link: a.nav-anchor(href="https://github.com/Sheeptoaster/aa-group-project-extension-hunt") Repository
+						li.dropdown-link: a.nav-anchor(href="https://www.producthunt.com/") Product Hunt (Original Site)
+						li.dropdown-link: a.nav-anchor(href="https://github.com/Sheeptoaster/aa-group-project-extension-hunt/wiki/MVP-Feature-List") Feature List
+						li.dropdown-link: a.nav-anchor(href="https://github.com/Sheeptoaster/aa-group-project-extension-hunt/wiki/Database-Schema") DB Schema
+				span#dropdown-text Developers
+					ul#dropdown-container
+						li.dropdown-link: a.nav-anchor(href="https://github.com/ntseng") Nathaniel Tseng
+						li.dropdown-link: a.nav-anchor(href="https://github.com/srvorkap") Srdan Vorkapic
+						li.dropdown-link: a.nav-anchor(href="https://github.com/Sheeptoaster") Jake Weber
+						li.dropdown-link: a.nav-anchor(href="https://github.com/Noslepr") Chris Young
 			if locals.authenticated
 				li#nav-bar-right
-					a.secondary-button(href="/extensions/new") Post an Extension
-					span Welcome #{user.firstName}
-					a(href= `/profiles/${user.id}`) Profile
-					form(action="/users/logout" method="POST")
-						button.cta-button.logout-button(type="submit") Logout
+					a.secondary-button#publish-button(href="/extensions/new") Post an Extension
+					span Welcome, #{user.firstName}
+					div#dropdown-text
+						img(src=user.avatarURL alt=user.username).maker-img
+						ul#user-dropdown
+							li.dropdown-link: a.nav-anchor(href= `/profiles/${user.id}`) Profile
+							li.dropdown-link: form(action="/users/logout" method="POST"): button.cta-button.logout-button(type="submit") Logout
 			else
 				li#nav-bar-right
-					button#demo-sign-in Demo User
-					button(id='login-button') Sign In
-					a(href="/users/sign-up") Sign-Up
+					a.nav-anchor(href="/users/sign-up") Sign-Up
+					a.nav-anchor(id='login-button') Login
+					button.cta-button#demo-sign-in Demo Login
 		div(id='login-popup' class="hidden")
 			h1 Login
 			form(id="login-form")
@@ -45,8 +53,9 @@ html
 				+field('Password', 'password', password, 'form-group', 'form-control', 'password')
 				div(class="hidden")#password-errors
 				div(class='py-4')
-					button(id='login-submit') Submit
-					button(id='cancel-popup-button') Cancel
+					button.cta-button.auth-button(id='login-submit') Submit
+					button.secondary-button.auth-button(id='cancel-popup-button') Cancel
 			div
-				p: a(href='/users/sign-up') Don't have an account? Register Here
+				p(id='sign-up-link-text') Don't have an account?
+					span: a.secondary-button#signup-from-login(href='/users/sign-up') Register here
 block content

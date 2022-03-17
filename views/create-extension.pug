@@ -21,5 +21,5 @@ block content
                         label(category.name class='categoryText') #{category.name}
                             input(type='checkbox', class='newCategory', name='categoryIds', value=category.id, checked=categoryIds.includes(category.id.toString()))
                 div(id='create-extension-btn-section')
-                    button(type='submit' id='create-extension-submit-btn') Create Extension
-                    a(href='/') Cancel
+                    button.cta-button(type='submit' id='create-extension-submit-btn') Create Extension
+                    a.secondary-button.auth-button(href='/') Cancel
