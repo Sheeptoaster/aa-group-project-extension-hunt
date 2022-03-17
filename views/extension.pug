@@ -19,7 +19,7 @@ block content
 						div.triangle
 						text#upvote-btn-text Upvote
 						upvote.extension-upvotes #{extension.upvotes}
-					if sessionUserId === extension.ownerId
+					if user && user.id === extension.ownerId
 						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
 								button.cta-button(type="submit" id='edit-btn-extension') Edit Extension
@@ -40,7 +40,7 @@ block content
 				div
 					form(action="" id='add-comment-form')
 						input(type="hidden" name="_csrf" value=csrfToken)
-						img(id="user-avatar" src=`${sessionUserAvatar ? sessionUserAvatar : "/images/extension-hunt-logo.png"}` alt="user avatar").maker-img
+						img(id="user-avatar" src=user ? user.avatarURL : "/images/extension-hunt-logo.png" alt=user ? user.username : "avatar").maker-img
 						+field('', 'content', "", 'form-group', 'extension-comment-field', "text", "What do you think of this extension?")
 						//- TODO #60 SEND button opens sign-up if not logged in
 						button(type="submit" disabled= !locals.authenticated).cta-button#send-comment SEND
@@ -75,10 +75,8 @@ block content
 
 					script.
 						const submitEdit = async (id) => {
-							console.log(id)
 							const submitBtn = document.querySelector(`#comment-edit-submit-btn${id}`)
 							const editText = document.querySelector(`#comment-edit${id}`)
-							console.log(editText)
 							if (editText !== null) {
 								editText.classList.remove('comment-edit-input')
 								editText.setAttribute('contenteditable', 'false')
@@ -93,14 +91,11 @@ block content
 										content: editText.innerText,
 									}),
 								})
-
-
-
 							}
 						}
 					ul#content-container
 						each comment in comments
-							if comment.userId == sessionUserId
+							if user && user.id === comment.userId
 								li(class=`comment-li` id=`comment${comment.id}`)
 									img(src=comment.User.avatarURL, class='comment-avatar-img')
 									a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
