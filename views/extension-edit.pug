@@ -20,9 +20,7 @@ block content
                     label(category.name) #{category.name}
                         input(type='checkbox', name='categoryIds', value=category.id, checked=categoryIds.includes(category.id))
             div(id='edit-extension-btn-section')
-                button(type='submit') Update Extension
-                a(href=`/extensions/${id}`) Cancel
-        form(action=`/extensions/${id}/delete` method='POST')
-            div
-                button(type="submit" id='product-delete-btn') Delete
-                a(href=`/extensions/${id}/delete`)
+                button.cta-button.auth-button(type='submit') Update Extension
+                a.secondary-button.auth-button(href=`/extensions/${id}`) Cancel
+        form(action=`/extensions/delete/${id}` method='POST')
+                button.secondary-button.auth-button(type="submit" id='product-delete-btn') Delete

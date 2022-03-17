@@ -70,4 +70,35 @@
 
 #login-from-signup {
     margin-left: 1em;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#login-from-signup:hover {
+    cursor: pointer;
+}
+
+#signup-from-login {
+    margin-left: 1em;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#signup-from-login:hover {
+    cursor: pointer;
+}
+
+.auth-button {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.auth-button:hover {
+    cursor: pointer;
 }

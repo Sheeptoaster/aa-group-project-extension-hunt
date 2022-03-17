@@ -14,27 +14,50 @@
 	align-items: center;
 }
 
-#about-dropdown:hover {
-	display: none;
+#navbar-search {
+	height: 40px;
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid grey;
 }
 
-#about-text:hover #about-dropdown{
-	display: block;
+#publish-button {
+	height: 40px;
+	width: 160px;
+	padding: 10px;
+	text-align: center;
 }
 
-#about-dropdown {
+#dropdown-container {
 	display: none;
 	position: absolute;
 	z-index: 1;
 	border: 1px solid grey;
 	background-color: #f1f1f1;
-	padding: 1em;
-	border-radius: 1em;
+	padding: 10px;
+	border-radius: 4px;
 	transition: opacity 0.25s ease-out 0s;
 }
 
-.about-link {
+#user-dropdown {
+	display: none;
+	position: absolute;
+	right: 20px;
+	z-index: 1;
+	border: 1px solid grey;
+	background-color: #f1f1f1;
+	padding: 10px;
+	border-radius: 4px;
+	transition: opacity 0.25s ease-out 0s;
+}
+
+#dropdown-text:hover #dropdown-container, #dropdown-text:hover #user-dropdown {
+	display: block;
+}
+
+.dropdown-link {
 	list-style: none;
+	color: black;
 	margin: 0.5em;
 }
 
@@ -79,10 +102,17 @@
 	margin: 1em;
 }
 
-#demo-sign-in, #login-button, #login-submit, #cancel-popup-button {
-	background-color: #007acc;
+#demo-sign-in {
 	padding: 2% 10%;
-	border-radius: .35em;
+	margin: 0 .5em;
+}
+
+.nav-anchor:hover {
+	color: #007acc;
+}
+
+#login-submit, #cancel-popup-button {
+	padding: 2% 10%;
 	margin: 0 .5em;
 }
 
