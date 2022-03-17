@@ -48,7 +48,7 @@ function loginDOM(user) {
 		<span>Welcome ${user.firstName}</span>
 		<a href="/profiles/${user.id}">Profile</a>
 		<form action="/users/logout" method="POST">
-			<button class="cta-button" type="submit">Logout</button>
+			<button class="cta-button logout-button" type="submit">Logout</button>
 		</form>`;
 
 	// Activate upvote buttons on home page

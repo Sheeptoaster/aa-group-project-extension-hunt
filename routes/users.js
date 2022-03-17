@@ -98,12 +98,11 @@ router.post("/sign-up", csrfProtection, signUpValidation, asyncHandler(async (re
 		loginUser(req, res, user)
 		res.redirect("/");
 	} else {
-		const errors = (validatorErrors.array().map(error => error.msg));
+		const errors = validatorErrors.array().map(error => error.msg);
 		res.render("sign-up", { errors, signupFirstName, signupLastName, signupUsername, signupEmail, csrfToken: req.csrfToken() });
 	}
 }))
 
-/* POST logout page */
 router.post("/logout", (req, res) => {
 	logoutUser(req, res);
 	res.redirect("/");
