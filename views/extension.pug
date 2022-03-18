@@ -22,11 +22,11 @@ block content
 					if user && user.id === extension.ownerId
 						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
-								button.cta-button(type="submit" id='edit-btn-extension') Edit Extension
+								button.secondary-button(type="submit" id='edit-btn-extension') Edit Extension
 					else
 						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
-								button.cta-button.hidden(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
+								button.secondary-button.hidden(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
 				div.sidebar-container
 					h2.sidebar-h2 Maker
 					img(src=`${extension.User.avatarURL}` alt=`${extension.User.username}`).maker-img

@@ -18,5 +18,5 @@ block content
             +field('Bio', 'editBio', profileUser.bio, 'edit-profile-form-group', 'form-control')
             +field('AvatarURL', 'editAvatarURL', profileUser.avatarURL, 'edit-profile-form-group', 'form-control')
             div(id='edit-profile-btn-section')
-                button(type="submit" id='edit-profile-submit-btn') Update Profile
-                a(href=`/profiles/${profileUser.id}` id='edit-profile-cancel-btn') Cancel
+                button.cta-button(type="submit" id='edit-profile-submit-btn') Update Profile
+                a.secondary-button(href=`/profiles/${profileUser.id}` id='edit-profile-cancel-btn') Cancel

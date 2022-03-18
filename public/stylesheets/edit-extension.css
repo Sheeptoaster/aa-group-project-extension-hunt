@@ -56,7 +56,6 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-
 .categoryText {
     line-height: 2em;
 }
@@ -74,8 +73,6 @@
 }
 
 #product-delete-btn {
-    margin-right: 2em;
-    background-color: #007acc;
-    padding: 2% 10%;
-    border-radius: .35em;
+    background-color: red;
+	color: white;
 }

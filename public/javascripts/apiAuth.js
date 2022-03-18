@@ -43,13 +43,23 @@ if (cancelPopupButton) {
 
 function loginDOM(user) {
 	// Update navbar
-	document.querySelector('#nav-bar-left').innerHTML += `<a href="/extensions/new"> Post an Extension </a>`;
-	document.querySelector('#nav-bar-right').innerHTML = `
+	const welcomeContainer = document.querySelector('#nav-bar-right')
+	welcomeContainer.innerHTML = `
+		<a class="secondary-button" id="publish-button" href="/extensions/new"> Post an Extension </a>
 		<span>Welcome ${user.firstName}</span>
-		<a href="/profiles/${user.id}">Profile</a>
-		<form action="/users/logout" method="POST">
-			<button class="cta-button logout-button" type="submit">Logout</button>
-		</form>`;
+		<div id="dropdown-text">
+			<img class="maker-img" src=${user.avatarURL} alt=${user.username}/>
+			<ul id="user-dropdown">
+				<li class="dropdown-link">
+					<a class="nav-anchor" href="/profiles/${user.id}">Profile</a>
+				</li>
+				<li class="dropdown-link">
+					<form action="/users/logout" method="POST">
+						<button class="cta-button logout-button" type="submit">Logout</button>
+					</form>
+				</li>
+			</ul>
+		</div>`;
 
 	// Activate upvote buttons on home page
 	document.querySelectorAll(".upvote-container").forEach(button => {
