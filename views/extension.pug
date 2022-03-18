@@ -47,7 +47,8 @@ block content
 				div(id='comment-section')
 					script.
 						const deleteComment = async (idTag, id) => {
-							const removed = document.querySelector(idTag.toString())
+
+							const removed = document.querySelector(idTag)
 							if(removed !== null) {
 								removed.remove()
 							}
@@ -105,6 +106,17 @@ block content
 										hidden
 										onclick=`submitEdit(${comment.id})`
 									) Edit
+									button(
+										type='submit' class="comment-delete-submit-btn" id=`comment-delete-submit-btn${comment.id}`
+										hidden
+										onclick=`deleteComment('#comment${comment.id}', ${comment.id})`
+									) Delete
+									button(
+										type='submit'
+										class="comment-delete-cancel-btn" id=`comment-delete-cancel-btn${comment.id}`
+										hidden
+										onclick=``
+									) Cancel
 									div.comment-btns
 										i.fa.fa-undo(
 											aria-hidden='true' class='edit-comment-btn'
