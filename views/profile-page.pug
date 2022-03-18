@@ -31,7 +31,7 @@ block content
             ul#comment-list
                 div#comment-header #{profileUser.username}'s comments
                 each comment in comments
-                    div#comment-container
+                    a(href=`/extensions/${comment.extensionId}`)#comment-container
                         li#user-comment
                             div#chat-bubble 💬
                             div#chat-text #{comment.content}
