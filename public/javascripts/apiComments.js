@@ -55,6 +55,8 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 		cancelBtn.addEventListener("click", function() {
 			cancelBtn.setAttribute("hidden", "");
 			deleteBtn.setAttribute("hidden", "");
+			dTag.classList.remove("hidden");
+			eTag.classList.remove("hidden");
 		});
 
 		const deleteBtn = document.createElement("button");
@@ -69,7 +71,7 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 
 		const eTag = document.createElement('i');
 		eTag.classList.add("fa");
-		eTag.classList.add("fa-undo");
+		eTag.classList.add("fa-pencil");
 		eTag.classList.add("edit-comment-btn");
 		eTag.ariaHidden="true";
 		eTag.addEventListener("click", function() {
@@ -89,12 +91,14 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 		dTag.ariaHidden="true";
 		dTag.addEventListener("click", function() {
 			deleteBtn.removeAttribute("hidden", "");
-			cancelBtn.removeAttribute("hidden", "")
+			cancelBtn.removeAttribute("hidden", "");
+			dTag.classList.add("hidden");
+			eTag.classList.add("hidden");
 		})
 
 		commentLi.append(submitBtn);
-		commentLi.append(cancelBtn);
 		commentLi.append(deleteBtn);
+		commentLi.append(cancelBtn);
 		commentDiv.appendChild(eTag);
 		commentDiv.appendChild(dTag);
 		commentLi.appendChild(commentDiv);
