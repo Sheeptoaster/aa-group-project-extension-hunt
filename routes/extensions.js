@@ -57,7 +57,7 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 	const extensionId = parseInt(req.params.id);
 	const extension = await db.Extension.findOne({
 		where: { id: extensionId },
-		include: [db.User, db.Category]
+		include: ["owner", db.Category, "upvotes"]
 	});
 	const comments = await db.Comment.findAll({
 		where: { extensionId },

@@ -6,7 +6,7 @@ const { csrfProtection, asyncHandler } = require('./utils')
 /* GET home page. */
 router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
 	const extensions = await db.Extension.findAll({
-		include: db.Category,
+		include: [db.Category, "upvotes"],
 		order: [['id', 'DESC']],
 		limit: 10
 	});

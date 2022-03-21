@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	}, {});
 	Extension.associate = function (models) {
-		Extension.belongsTo(models.User, { foreignKey: 'ownerId' })
+		Extension.belongsTo(models.User, { as: "owner", foreignKey: 'ownerId' })
 		Extension.belongsToMany(models.Category, {
 			through: 'ExtensionCategories',
 			otherKey: 'categoryId',
@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
 		})
 		Extension.hasMany(models.Comment, { foreignKey: 'extensionId' })
 		Extension.belongsToMany(models.User, {
+			as: "upvotes",
 			through: "ExtensionUpvote",
 			otherKey: "userId",
 			foreignKey: "extensionId"

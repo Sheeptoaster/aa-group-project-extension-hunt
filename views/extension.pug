@@ -18,7 +18,7 @@ block content
 					button(type="disabled" id='upvote-btn-extension' extensionId=`${extension.id}`).cta-button
 						div.triangle
 						text#upvote-btn-text Upvote
-						upvote.extension-upvotes #{extension.upvotes}
+						upvote.extension-upvotes #{extension.upvotes.length}
 					if user && user.id === extension.ownerId
 						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
@@ -29,8 +29,8 @@ block content
 								button.secondary-button.hidden(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
 				div.sidebar-container
 					h2.sidebar-h2 Maker
-					img(src=`${extension.User.avatarURL}` alt=`${extension.User.username}`).maker-img
-					a(href=`/profiles/${extension.User.id}`).comment-username.maker-name #{extension.User.username}
+					img(src=`${extension.owner.avatarURL}` alt=`${extension.owner.username}`).maker-img
+					a(href=`/profiles/${extension.owner.id}`).comment-username.maker-name #{extension.owner.username}
 				div.sidebar-container
 					h2.sidebar-h2 Categories
 						div.category-container
