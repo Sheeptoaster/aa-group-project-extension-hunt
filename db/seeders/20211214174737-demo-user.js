@@ -28,7 +28,6 @@ module.exports = {
 
 		await queryInterface.bulkInsert("Extensions", [
 			{
-				upvotes: 100,
 				name: "Demo Extension",
 				description: "Demonstrates use of Extension Hunt. This is a second sentence.\n\nWe even have a second paragraph.\nCheck our socials: Twitter, Facebook, YouTube",
 				ownerId: 51,
