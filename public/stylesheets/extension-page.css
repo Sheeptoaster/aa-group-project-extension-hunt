@@ -1,63 +1,62 @@
-
 #main-extension-container {
-    display: inline-flex;
-    justify-items: space-around;
-    align-items: center;
-    flex-direction: column;
+	display: inline-flex;
+	justify-items: space-around;
+	align-items: center;
+	flex-direction: column;
 }
 
 #extension-page-header {
-    background-color: #232323;
-    color: white;
-    display: grid;
-    justify-content: center;
-    width: 100%;
-    grid-template-areas:
-    "picture title"
-    "picture ."
-    "picture description";
-    grid-template-rows: 5%;
-    grid-template-columns: 10%;
+	background-color: #232323;
+	color: white;
+	display: grid;
+	justify-content: center;
+	width: 100%;
+	grid-template-areas:
+		"picture title"
+		"picture ."
+		"picture description";
+	grid-template-rows: 5%;
+	grid-template-columns: 10%;
 }
 
 #extension-name {
-    grid-area: title;
+	grid-area: title;
 }
 
 #slogan {
-    grid-area: description;
+	grid-area: description;
 }
 
 #extension-icon {
-    grid-area: picture;
-    border-radius: .65em;
-    margin: .25em;
-    width: 7.5em;
-    height: 7.5em;
+	grid-area: picture;
+	border-radius: .65em;
+	margin: .25em;
+	width: 7.5em;
+	height: 7.5em;
 }
 
 #extension-page-body {
-    display: grid;
-    grid-template-areas:
-    "details buttons"
-    "comments . ";
-    grid-template-columns: 1.5fr 1fr;
-    margin: 0.5% 10%;
+	display: grid;
+	grid-template-areas:
+		"details buttons"
+		"comments . ";
+	grid-template-columns: 1.5fr 1fr;
+	margin: 0.5% 10%;
 }
 
 #extension-details {
-    grid-area: details;
+	grid-area: details;
 }
 
 #extension-img {
-    max-width: 1100px;
-    max-height: 500px;
-    width: 65vw;
-    height: 35vh;
+	max-width: 1100px;
+	max-height: 500px;
+	width: 65vw;
+	height: 35vh;
 }
 
 #extension-description {
-    text-align: left;
+	text-align: left;
 }
 
 #extension-actions {
@@ -67,23 +66,23 @@
 }
 
 #extension-btn-container {
-    display: flex;
+	display: flex;
 }
 
 #upvote-btn-extension {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 130px;
-    height: 50px;
-    margin: 0 .5em;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 130px;
+	height: 50px;
+	margin: 0 .5em;
 }
 
 #edit-btn-extension {
-    width: 130px;
-    height: 50px;
-    border-radius: .35em;
-    margin: 0 .5em;
+	width: 130px;
+	height: 50px;
+	border-radius: .35em;
+	margin: 0 .5em;
 }
 
 .sidebar-container {
@@ -100,6 +99,9 @@
 	vertical-align: top;
 	margin-left: 4px;
 }
+.maker-name:hover {
+	text-decoration: underline;
+}
 
 .maker-img {
 	width: 30px;
@@ -107,14 +109,14 @@
 }
 
 #comments-container {
-    grid-area: comments;
-    background-color: white;
+	grid-area: comments;
+	background-color: white;
 	border: 1px solid grey;
 }
 
 #add-comment-form {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 	align-items: center;
 	height: 60px;
 	width: 100%;
@@ -126,63 +128,70 @@
 }
 
 .extension-comment-field {
-    width: 72em;
-    height: 35px;
-    margin: .5em;
+	width: 72em;
+	height: 35px;
+	margin: .5em;
 	border-radius: 4px;
 	border: 1px solid grey;
 }
 
 #comment-section {
-    background-color: white;
+	background-color: white;
 	border-top: 1px solid grey;
 }
 
 .comment-li {
-    display: grid;
-    grid-template-areas:
-    "avatar username"
-    ". content";
-    grid-template-columns: 3em auto;
-    padding: 1.5em;
+	display: grid;
+	grid-template-areas:
+		"avatar username"
+		". content"
+		". timestamp";
+	grid-template-columns: 3em auto auto;
+	padding: 1.5em;
 }
 
 .comment-avatar-img {
-    width: 2em;
-    height: 2em;
-    border-radius: 2em;
-    grid-area: avatar;
+	width: 2em;
+	height: 2em;
+	border-radius: 2em;
+	grid-area: avatar;
 }
 
 .comment-username {
-    grid-area: username;
+	grid-area: username;
+	font-weight: bold;
 }
-
 .comment-username:hover {
 	text-decoration: underline;
 }
 
 .comment-content {
-    grid-area: content;
+	grid-area: content;
+}
+
+.comment-timestamp {
+	grid-area: timestamp;
+	font-size: 10pt;
+	color: grey;
 }
 
 .comment-btns {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 1px;
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 1px;
 }
 
 .edit-comment-btn, .delete-comment-btn {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .comment-edit-input {
-    border: 1px solid black;
-    padding: 2px;
-    width: 50%;
+	border: 1px solid black;
+	padding: 2px;
+	width: 50%;
 }
 
 .comment-edit-submit-btn {
-    background-color: #007acc;
-    border-radius: .35em;
+	background-color: #007acc;
+	border-radius: .35em;
 }
