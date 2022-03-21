@@ -15,6 +15,22 @@ Time Alloted: 160 person*hours
 
 Time spent on first delivery: 182 person*hours (13.75% overtime)
 
+# Views
+
+### Home Page
+![image](https://user-images.githubusercontent.com/85136034/159085252-15b5dfe0-6733-45d9-891b-1799ac28423b.png)
+
+### Profile Page
+![image](https://user-images.githubusercontent.com/85136034/159085297-e88f9c9c-8472-4e73-b2d1-2e7fac1765cb.png)
+
+### Login Modal
+![image](https://user-images.githubusercontent.com/85136034/159085336-8c6856c4-a494-485f-a3ee-0da385f99fa7.png)
+
+### Extension Page
+![image](https://user-images.githubusercontent.com/85136034/159085370-7347eafa-5549-4370-926c-15e108c5b7e0.png)
+
+
+
 ## Links
 - [Live Site](https://extension-hunt.herokuapp.com/)
 - [Product Hunt](https://www.producthunt.com/) (original inspiration)

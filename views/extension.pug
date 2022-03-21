@@ -22,15 +22,15 @@ block content
 					if user && user.id === extension.ownerId
 						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
-								button.cta-button(type="submit" id='edit-btn-extension') Edit Extension
+								button.secondary-button(type="submit" id='edit-btn-extension') Edit Extension
 					else
 						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
-								button.cta-button.hidden(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
+								button.secondary-button.hidden(type="submit" id='edit-btn-extension' owner=extension.ownerId) Edit Extension
 				div.sidebar-container
 					h2.sidebar-h2 Maker
 					img(src=`${extension.User.avatarURL}` alt=`${extension.User.username}`).maker-img
-					a(href=`/profiles/${extension.User.id}`).comment-username.maker-name #{extension.User.username}
+					a(href=`/profiles/${extension.User.id}`).maker-name #{extension.User.username}
 				div.sidebar-container
 					h2.sidebar-h2 Categories
 						div.category-container
@@ -160,3 +160,4 @@ block content
 									img(src=comment.User.avatarURL, class='comment-avatar-img')
 									a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
 									span(class='comment-content')= comment.content
+									div(class="comment-timestamp")= comment.updatedAt.toLocaleString()

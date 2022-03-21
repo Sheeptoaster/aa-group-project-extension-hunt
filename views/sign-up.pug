@@ -18,8 +18,8 @@ block content
 			+field('Password', 'signupPassword', password, 'sign-up-form-group', 'form-control', "password")
 			+field('Confirm Password', 'signupConfirmPassword', confirmPassword, 'sign-up-form-group', 'form-control', "password")
 			div(class='sign-up-submit-section')
-				button(type='submit' id='sign-up-submit-btn') Register
-				a(href='/' id='sign-up-cancel-link') Cancel
+				button.cta-button.auth-button(type='submit' id='sign-up-submit-btn') Register
+				a.secondary-button.auth-button(href='/' id='sign-up-cancel-link') Cancel
 		div(class='sign-up-link-to-login')
 			p(id='sign-up-link-text') Already have an account?
-				span: a#login-from-signup Login Here
+				span: a.secondary-button#login-from-signup Login Here
