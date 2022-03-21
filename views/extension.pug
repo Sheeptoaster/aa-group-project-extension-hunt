@@ -70,11 +70,17 @@ block content
 							cancelBtn.setAttribute("hidden", "");
 						}
 						const deleteComment = async (idTag, id) => {
+<<<<<<< HEAD
 							const addCommentForm = document.querySelector(`#add-comment-form`)
 							const formData = new FormData(addCommentForm)
 							const csrf = formData.get('_csrf')
 
 
+=======
+							const addCommentForm = document.querySelector('#add-comment-form')
+							const formData = new FormData(addCommentForm)
+							const csrf = formData.get('_csrf')
+>>>>>>> a16ec55d904e65586ac5d4564707a041ae90e189
 							const removed = document.querySelector(idTag)
 							if(removed !== null) {
 								removed.remove()
@@ -99,7 +105,7 @@ block content
 							btn.removeAttribute('hidden')
 						}
 						const submitEdit = async (id) => {
-							const addCommentForm = document.querySelector(`#add-comment-form`)
+							const addCommentForm = document.querySelector('#add-comment-form')
 							const formData = new FormData(addCommentForm)
 							const csrf = formData.get('_csrf')
 							const submitBtn = document.querySelector(`#comment-edit-submit-btn${id}`)
