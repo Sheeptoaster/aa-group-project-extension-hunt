@@ -34,7 +34,7 @@ router.post("/", requireAuth, csrfProtection, commentValidators, asyncHandler(as
 	}
 }))
 
-router.post("/:id(\\d+)/delete", asyncHandler(async (req, res) => {
+router.post("/:id(\\d+)/delete", csrfProtection, asyncHandler(async (req, res) => {
 	console.log('REQ', req.body)
 	let commentId = parseInt(req.params.id)
 	await db.Comment.destroy({
@@ -45,7 +45,7 @@ router.post("/:id(\\d+)/delete", asyncHandler(async (req, res) => {
 	return;
 }))
 
-router.post("/:id(\\d+)/edit", commentValidators, asyncHandler(async (req, res) => {
+router.post("/:id(\\d+)/edit", csrfProtection, commentValidators, asyncHandler(async (req, res) => {
 	const commentId = parseInt(req.params.id)
 	const userId = req.session.auth.userId;
 	const {content} = req.body;
