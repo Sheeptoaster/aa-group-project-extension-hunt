@@ -66,12 +66,14 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 			as: "User"
 		}
 	})
-	res.render("extension", {
+
+	return res.render('extension', {
 		user: res.locals?.user,
 		extension,
 		comments,
-		csrfToken: req.csrfToken()
+		csrfToken: req.csrfToken(),
 	});
+	// res.send("TEST")
 }))
 
 router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {

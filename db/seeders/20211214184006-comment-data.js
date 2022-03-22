@@ -60,7 +60,7 @@ module.exports = {
       "updatedAt": "9/22/2021"
     }, {
       "content": "Highly cool notification =)",
-      "extensionId": 10,
+      "extensionId": 4,
       "userId": 5,
       "createdAt": "2/1/2021",
       "updatedAt": "9/12/2021"
@@ -120,7 +120,7 @@ module.exports = {
       "updatedAt": "1/15/2021"
     }, {
       "content": "I love this extension.",
-      "extensionId": 10,
+      "extensionId": 2,
       "userId": 48,
       "createdAt": "8/5/2021",
       "updatedAt": "11/27/2021"
@@ -180,7 +180,7 @@ module.exports = {
       "updatedAt": "8/6/2021"
     }, {
       "content": "bad extension",
-      "extensionId": 10,
+      "extensionId": 6,
       "userId": 32,
       "createdAt": "5/25/2021",
       "updatedAt": "4/9/2021"
