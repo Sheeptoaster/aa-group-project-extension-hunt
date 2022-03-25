@@ -46,8 +46,36 @@ block content
 						button(type="submit" disabled= !locals.authenticated).cta-button#send-comment SEND
 				div(id='comment-section')
 					script.
+						const handleDelete = (id) => {
+							const cancelBtn = document.querySelector(`#comment-delete-cancel-btn${id}`);
+							const deleteBtn = document.querySelector(`#comment-delete-submit-btn${id}`);
+							const editBtn = document.querySelector(`#edit-btn${id}-submit`);
+							const trashBtn = document.querySelector(`#delete-btn${id}-submit`);
+
+							editBtn.classList.add('hidden');
+							trashBtn.classList.add("hidden");
+							deleteBtn.removeAttribute('hidden');
+							cancelBtn.removeAttribute("hidden");
+						}
+
+						const handleCancel = (id) => {
+							const cancelBtn = document.querySelector(`#comment-delete-cancel-btn${id}`);
+							const deleteBtn = document.querySelector(`#comment-delete-submit-btn${id}`);
+							const editBtn = document.querySelector(`#edit-btn${id}-submit`);
+							const trashBtn = document.querySelector(`#delete-btn${id}-submit`);
+
+							editBtn.classList.remove('hidden');
+							trashBtn.classList.remove("hidden");
+							deleteBtn.setAttribute('hidden', "");
+							cancelBtn.setAttribute("hidden", "");
+						}
 						const deleteComment = async (idTag, id) => {
-							const removed = document.querySelector(idTag.toString())
+							const addCommentForm = document.querySelector(`#add-comment-form`)
+							const formData = new FormData(addCommentForm)
+							const csrf = formData.get('_csrf')
+
+
+							const removed = document.querySelector(idTag)
 							if(removed !== null) {
 								removed.remove()
 							}
@@ -57,12 +85,10 @@ block content
 									"Content-Type": "application/json",
 								},
 								body: JSON.stringify({
-									_csrf: csrfToken.value,
+									_csrf: csrf,
 								}),
 							})
 						}
-
-					script.
 						const editComment = async (id) => {
 							const edit = document.querySelector(`#comment-edit${id}`)
 							const btn = document.querySelector(`#comment-edit-submit-btn${id}`)
@@ -72,9 +98,10 @@ block content
 
 							btn.removeAttribute('hidden')
 						}
-
-					script.
 						const submitEdit = async (id) => {
+							const addCommentForm = document.querySelector('#add-comment-form')
+							const formData = new FormData(addCommentForm)
+							const csrf = formData.get('_csrf')
 							const submitBtn = document.querySelector(`#comment-edit-submit-btn${id}`)
 							const editText = document.querySelector(`#comment-edit${id}`)
 							if (editText !== null) {
@@ -87,8 +114,8 @@ block content
 										"Content-Type": "application/json",
 									},
 									body: JSON.stringify({
-										_csrf: csrfToken.value,
 										content: editText.innerText,
+										_csrf: csrf,
 									}),
 								})
 							}
@@ -105,8 +132,19 @@ block content
 										hidden
 										onclick=`submitEdit(${comment.id})`
 									) Edit
+									button(
+										type='submit' class="comment-delete-submit-btn" id=`comment-delete-submit-btn${comment.id}`
+										hidden
+										onclick=`deleteComment('#comment${comment.id}', ${comment.id})`
+									) Delete
+									button(
+										type='submit'
+										class="comment-delete-cancel-btn" id=`comment-delete-cancel-btn${comment.id}`
+										hidden
+										onclick=`handleCancel(${comment.id})`
+									) Cancel
 									div.comment-btns
-										i.fa.fa-undo(
+										i.fa.fa-pencil(
 											aria-hidden='true' class='edit-comment-btn'
 											id=`edit-btn${comment.id}-submit`
 											onclick=`editComment(${comment.id})`
@@ -114,7 +152,8 @@ block content
 
 										i.fa.fa-trash(
 											aria-hidden='true' class='delete-comment-btn'
-											onClick=`deleteComment('#comment${comment.id}', ${comment.id})`
+											id=`delete-btn${comment.id}-submit`
+											onClick=`handleDelete(${comment.id})`
 										)
 							else
 								li(class='comment-li')
