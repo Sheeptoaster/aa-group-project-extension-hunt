@@ -73,7 +73,6 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 		comments,
 		csrfToken: req.csrfToken(),
 	});
-	// res.send("TEST")
 }))
 
 router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
