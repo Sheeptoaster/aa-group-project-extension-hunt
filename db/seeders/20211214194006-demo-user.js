@@ -114,25 +114,25 @@ module.exports = {
 
 		return queryInterface.bulkInsert("ExtensionCategories", [
 			{
-				extensionId: 201,
+				extensionId: 10,
 				categoryId: 1,
 				createdAt: "12/17/21",
 				updatedAt: "12/17/21"
 			},
 			{
-				extensionId: 201,
+				extensionId: 10,
 				categoryId: 9,
 				createdAt: "12/17/21",
 				updatedAt: "12/17/21"
 			},
 			{
-				extensionId: 201,
+				extensionId: 10,
 				categoryId: 3,
 				createdAt: "12/17/21",
 				updatedAt: "12/17/21"
 			},
 			{
-				extensionId: 201,
+				extensionId: 10,
 				categoryId: 13,
 				createdAt: "12/17/21",
 				updatedAt: "12/17/21"

@@ -35,6 +35,7 @@ router.post("/", requireAuth, csrfProtection, commentValidators, asyncHandler(as
 }))
 
 router.post("/:id(\\d+)/delete", csrfProtection, asyncHandler(async (req, res) => {
+	console.log('REQ', req.body)
 	let commentId = parseInt(req.params.id)
 	await db.Comment.destroy({
 		where: {
