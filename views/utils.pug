@@ -6,13 +6,16 @@ mixin field(labelText, fieldName, fieldValue, divClass, className, fieldType = '
         else
             input(type=fieldType id=fieldName name=fieldName value=fieldValue placeholder=placeholder class=className)
 
-mixin upvoteButton(extension, authenticated)
-    if authenticated
-        //- TODONOW downvote styling
-        div.upvote-container.upvote-active(extensionId=`${extension.id}`)
-            div.triangle
-            div.upvotes(id=`${extension.id}`) #{extension.upvotes.length}
+mixin upvoteButton(extension, userId)
+    if userId
+        div.rating-container.rating-active(extensionId=`${extension.id}`)
+            if extension.upvotes.some(upvoter => upvoter.dataValues.id === userId)
+                div.triangle-down
+                div.upvotes(id=`${extension.id}`) #{extension.upvotes.length}
+            else
+                div.triangle
+                div.upvotes(id=`${extension.id}`) #{extension.upvotes.length}
     else
-        div.upvote-container.upvote-inactive(extensionId=`${extension.id}`)
+        div.rating-container.rating-inactive(extensionId=`${extension.id}`)
             div.triangle
             div.upvotes(id=`${extension.id}`) #{extension.upvotes.length}

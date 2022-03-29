@@ -1,11 +1,11 @@
-const upvoteButtons = document.querySelectorAll('.upvote-container')
-const extensionUpvote = document.querySelector('#upvote-btn-extension')
+const ratingButtons = document.querySelectorAll('.rating-container') //TODONOW downvote-containers
+const extensionRating = document.querySelector('#upvote-btn-extension') //TODONOW downvote on extension
 
-upvoteButtons.forEach(button => {
+ratingButtons.forEach(button => {
 	button.addEventListener('click', async (event) => {
 		const extensionId = button.getAttribute('extensionId')
 
-		const res = await fetch('/api/upvote', {
+		const res = await fetch('/api/rating/upvote', {
 			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json"
@@ -22,11 +22,11 @@ upvoteButtons.forEach(button => {
 	})
 })
 
-if(extensionUpvote) {
-	extensionUpvote.addEventListener('click', async (event) => {
-		const extensionId = extensionUpvote.getAttribute('extensionId')
+if(extensionRating) {
+	extensionRating.addEventListener('click', async (event) => {
+		const extensionId = extensionRating.getAttribute('extensionId')
 
-		const res = await fetch('/api/upvote', {
+		const res = await fetch('/api/rating/upvote', {
 			method: 'PATCH',
 			headers: {
 				"Content-Type": "application/json"

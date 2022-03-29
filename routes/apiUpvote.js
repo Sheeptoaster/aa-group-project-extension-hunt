@@ -4,21 +4,39 @@ const { asyncHandler } = require('./utils');
 
 const router = express.Router()
 
-router.patch('/', asyncHandler(async (req, res) => {
+router.patch('/upvote', asyncHandler(async (req, res) => {
 	if (res.locals.authenticated) {
 		const { extensionId } = req.body
 
-		const extension = await db.Extension.findByPk(extensionId);
-
-		extension.upvotes++
-		extension.save()
+		await db.ExtensionUpvote.create({ extensionId, userId: req.session.auth.userId });
+		let upvotes = await db.ExtensionUpvote.findAll({
+			where: { extensionId }
+		})
 
 		res.json({
-			upvotes: `${extension.upvotes}`
+			upvotes: upvotes.length
 		})
 	} else {
 		res.json({});
 	}
 }))
 
-module.exports = router
+router.patch('/downvote', asyncHandler(async (req, res) => {
+	if (res.locals.authenticated) {
+		const { extensionId } = req.body
+
+		let upvote = await db.ExtensionUpvote.findOne({ where: { extensionId, userId: req.session.auth.userId } });
+		await upvote.destroy(); //TODONOW test
+		let upvotes = await db.ExtensionUpvote.findAll({
+			where: { extensionId }
+		})
+
+		res.json({
+			upvotes: upvotes.length
+		})
+	} else {
+		res.json({});
+	}
+}))
+
+module.exports = router;

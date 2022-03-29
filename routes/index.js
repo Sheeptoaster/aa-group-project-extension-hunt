@@ -11,7 +11,7 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
 		limit: 10
 	});
 	let headings = ["Is the next 🦄 here?", "Your next favorite extension 👇"];
-	res.render('home', { title: 'Extension Hunt', heading: headings[Math.floor(Math.random() * headings.length)], extensions, csrfToken: req.csrfToken(), authenticated: !!res?.locals.authenticated });
+	res.render('home', { title: 'Extension Hunt', heading: headings[Math.floor(Math.random() * headings.length)], extensions, csrfToken: req.csrfToken(), userId: req.session?.auth?.userId });
 }));
 
 module.exports = router;
