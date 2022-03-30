@@ -5,7 +5,8 @@
     "scripts": {
         "start": "per-env",
         "start:development": "nodemon -r dotenv/config ./bin/www",
-        "start:production": "node ./bin/www"
+        "start:production": "node ./bin/www",
+		"remigrate": "dotenv sequelize db:seed:undo:all && dotenv sequelize db:migrate:undo:all && dotenv sequelize db:migrate && dotenv sequelize db:seed:all"
     },
     "devDependencies": {
         "dotenv": "^8.2.0",

@@ -49,7 +49,7 @@ app.use('/api/comments', apiCommentsRouter);
 app.use('/extensions', extensionRouter)
 app.use('/profiles', profileRouter)
 app.use('/api/auth', apiAuthRouter)
-app.use('/api/upvote', apiUpvoteRouter)
+app.use('/api/rating', apiUpvoteRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

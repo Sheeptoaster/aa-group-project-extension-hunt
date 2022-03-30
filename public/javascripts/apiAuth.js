@@ -33,6 +33,70 @@ function closeLoginPopup() {
 	passwordErrors.classList.add("hidden");
 }
 
+async function upvote(event) {
+	const extensionId = event.target.getAttribute('extensionId');
+	console.log(extensionId);
+	const res = await fetch('/api/rating/upvote', {
+		method: 'PATCH',
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			extensionId
+		})
+	})
+	const data = await res.json();
+	if (data.upvotes) {
+		event.target.classList.remove("upvote");
+		event.target.classList.add("downvote");
+		event.target.removeEventListener("click", upvote);
+		event.target.addEventListener("click", downvote);
+
+		const upvoteElement = document.getElementById(extensionId);
+		if (upvoteElement) {
+			upvoteElement.innerText = data.upvotes;
+		}
+		const upvoteButtonText = document.getElementById("upvote-btn-text");
+		if (upvoteButtonText) {
+			upvoteButtonText.innerText = "Downvote";
+			const ratingText = document.querySelector(".upvotes");
+			ratingText.innerText = data.upvotes;
+		}
+	}
+}
+
+async function downvote(event) {
+	const extensionId = event.target.getAttribute('extensionId')
+
+	const res = await fetch('/api/rating/downvote', {
+		method: 'PATCH',
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			extensionId
+		})
+	})
+	const data = await res.json();
+	if (data.upvotes !== undefined) {
+		event.target.classList.remove("downvote");
+		event.target.classList.add("upvote");
+		event.target.removeEventListener("click", downvote);
+		event.target.addEventListener("click", upvote);
+
+		const upvoteElement = document.getElementById(extensionId);
+		if (upvoteElement) {
+			upvoteElement.innerText = data.upvotes;
+		}
+		const upvoteButtonText = document.getElementById("upvote-btn-text");
+		if (upvoteButtonText) {
+			upvoteButtonText.innerText = "Upvote";
+			const ratingText = document.querySelector(".upvotes");
+			ratingText.innerText = data.upvotes;
+		}
+	}
+}
+
 const cancelPopupButton = document.querySelector("#cancel-popup-button");
 if (cancelPopupButton) {
 	cancelPopupButton.addEventListener("click", async event => {
@@ -41,12 +105,12 @@ if (cancelPopupButton) {
 	})
 }
 
-function loginDOM(user) {
+async function loginDOM(user) {
 	// Update navbar
 	const welcomeContainer = document.querySelector('#nav-bar-right')
 	welcomeContainer.innerHTML = `
 		<a class="secondary-button" id="publish-button" href="/extensions/new"> Post an Extension </a>
-		<span>Welcome ${user.firstName}</span>
+		<span>Welcome, ${user.firstName}</span>
 		<div id="dropdown-text">
 			<img class="maker-img" src=${user.avatarURL} alt=${user.username}/>
 			<ul id="user-dropdown">
@@ -62,15 +126,57 @@ function loginDOM(user) {
 		</div>`;
 
 	// Activate upvote buttons on home page
-	document.querySelectorAll(".upvote-container").forEach(button => {
-		button.classList.remove("upvote-inactive");
-		button.classList.add("upvote-active");
+	document.querySelectorAll(".rating-container").forEach(async button => {
+		button.classList.remove("rating-inactive");
+		button.classList.add("rating-active");
+		const res = await fetch("/api/rating/ratingtype", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				extensionId: button.getAttribute("extensionId"),
+				userId: user.id
+			})
+		})
+		const { isUpvote } = await res.json();
+		if (isUpvote) {
+			button.addEventListener("click", upvote);
+		} else {
+			button.addEventListener("click", downvote);
+			button.classList.remove("upvote");
+			button.classList.add("downvote");
+		}
 	})
 
 	// Change extension page's comment avatar to user's avatar
 	const userAvatar = document.querySelector("#user-avatar");
 	if (userAvatar) {
 		userAvatar.setAttribute("src", user.avatarURL);
+	}
+
+	// Activate upvote button on extension page
+	const ratingButton = document.querySelector("#upvote-btn-extension");
+	if (ratingButton) {
+		ratingButton.disabled = false;
+		const res = await fetch("/api/rating/ratingtype", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				extensionId: ratingButton.getAttribute("extensionId"),
+				userId: user.id
+			})
+		})
+		const { isUpvote } = await res.json();
+		if (isUpvote) {
+			ratingButton.addEventListener("click", upvote);
+		} else {
+			ratingButton.addEventListener("click", downvote);
+			ratingButton.classList.remove("upvote");
+			ratingButton.classList.add("downvote");
+		}
 	}
 
 	// Add Edit Extension button to extension page

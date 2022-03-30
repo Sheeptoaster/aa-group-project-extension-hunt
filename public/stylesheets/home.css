@@ -34,7 +34,7 @@ a {
 	background: linear-gradient(10deg, #f1f1f1 60%, rgb(253, 221, 226));
 }
 
-.upvote-container {
+.rating-container {
 	position: absolute;
 	right: 35.5%;
 	width: 45px;
@@ -48,28 +48,40 @@ a {
 	align-items: center;
 }
 
-.upvote-active {
+.rating-active {
 	cursor: pointer;
 	background-color: #f1f1f1;
 	border: 1px solid rgba(0, 0, 0, .2);
 	z-index: 2;
 }
 
-.upvote-inactive {
+.rating-inactive {
 	border: none;
+}
+
+.rating-arrow {
+	margin-bottom: 7px;
 }
 
 .upvotes {
 	font-size: 13px;
-	margin-top: 7px;
 }
 
-.triangle {
+.upvote>span {
 	width: 0;
 	height: 0;
 	border-left: 8px solid transparent;
 	border-right: 8px solid transparent;
 	border-bottom: 16px solid black;
+	justify-self: center;
+}
+
+.downvote>span {
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 16px solid black;
 	justify-self: center;
 }
 
