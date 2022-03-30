@@ -59,12 +59,15 @@ a {
 	border: none;
 }
 
-.upvotes {
-	font-size: 13px;
-	margin-top: 7px;
+.rating-arrow {
+	margin-bottom: 7px;
 }
 
-.triangle {
+.upvotes {
+	font-size: 13px;
+}
+
+.upvote>span {
 	width: 0;
 	height: 0;
 	border-left: 8px solid transparent;
@@ -73,7 +76,7 @@ a {
 	justify-self: center;
 }
 
-.triangle-down {
+.downvote>span {
 	width: 0;
 	height: 0;
 	border-left: 8px solid transparent;

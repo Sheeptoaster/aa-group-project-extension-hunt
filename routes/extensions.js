@@ -68,6 +68,7 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
 	})
 
 	return res.render('extension', {
+		title: `Extension Hunt - ${extension.name}`,
 		user: res.locals?.user,
 		extension,
 		comments,

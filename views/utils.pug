@@ -8,14 +8,15 @@ mixin field(labelText, fieldName, fieldValue, divClass, className, fieldType = '
 
 mixin upvoteButton(extension, userId)
     if userId
-        div.rating-container.rating-active(extensionId=`${extension.id}`)
-            if extension.upvotes.some(upvoter => upvoter.dataValues.id === userId)
-                div.triangle-down
+        if extension.upvotes.some(upvoter => upvoter.dataValues.id === userId)
+            div.rating-container.rating-active.downvote(extensionId=`${extension.id}`)
+                span.rating-arrow
                 div.upvotes(id=`${extension.id}`) #{extension.upvotes.length}
-            else
-                div.triangle
+        else
+            div.rating-container.rating-active.upvote(extensionId=`${extension.id}`)
+                span.rating-arrow
                 div.upvotes(id=`${extension.id}`) #{extension.upvotes.length}
     else
-        div.rating-container.rating-inactive(extensionId=`${extension.id}`)
-            div.triangle
+        div.rating-container.rating-inactive.upvote(extensionId=`${extension.id}`)
+            span.rating-arrow
             div.upvotes(id=`${extension.id}`) #{extension.upvotes.length}

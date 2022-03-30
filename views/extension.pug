@@ -15,10 +15,22 @@ block content
 				p(id='extension-description')= extension.description
 			div#extension-actions
 				div(id='extension-btn-container')
-					button(type="disabled" id='upvote-btn-extension' extensionId=`${extension.id}`).cta-button
-						div.triangle
-						text#upvote-btn-text Upvote
-						upvote.extension-upvotes #{extension.upvotes.length}
+					if user && user.id
+						if extension.upvotes.some(upvoter => upvoter.dataValues.id === user.id)
+							button(id='upvote-btn-extension' extensionId=`${extension.id}`).cta-button.downvote
+								span
+								text#upvote-btn-text Downvote
+								div.upvotes #{extension.upvotes.length}
+						else
+							button(id='upvote-btn-extension' extensionId=`${extension.id}`).cta-button.upvote
+								span
+								text#upvote-btn-text Upvote
+								div.upvotes #{extension.upvotes.length}
+					else
+						button(disabled=true id='upvote-btn-extension' extensionId=`${extension.id}`).cta-button.upvote
+							span
+							text#upvote-btn-text Upvote
+							div.upvotes #{extension.upvotes.length}
 					if user && user.id === extension.ownerId
 						div
 							form(action=`/extensions/${extension.id}/edit` method='GET')
