@@ -8,7 +8,7 @@
 
 #nav-bar-left {
 	list-style: none;
-	width: 30%;
+	width: 500px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -63,7 +63,7 @@
 
 #nav-bar-right {
 	list-style: none;
-	width: 25%;
+	width: 500px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

@@ -35,7 +35,6 @@ function closeLoginPopup() {
 
 async function upvote(event) {
 	const extensionId = event.target.getAttribute('extensionId');
-	console.log(extensionId);
 	const res = await fetch('/api/rating/upvote', {
 		method: 'PATCH',
 		headers: {
