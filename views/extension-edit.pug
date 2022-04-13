@@ -7,7 +7,7 @@ block content
         if errors
             each error in errors
                 li(class='sign-up-errors')= error
-    h1(class='create-extension-h1') Edit #{extensionName}
+    h2(class='edit-extension-h2') Edit #{extensionName}
     div(class='create-extension-section')
         form(action=`/extensions/${id}/edit` method='POST')
             input(type='hidden' name='_csrf' value=csrfToken)
