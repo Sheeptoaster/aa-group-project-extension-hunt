@@ -97,7 +97,6 @@ async function downvote(event) {
             }
         }
     } else {
-        console.log(extensionId);
         const res = await fetch('/api/rating/downvote', {
             method: 'PATCH',
             headers: {
