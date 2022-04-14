@@ -1,14 +1,15 @@
+import { upvote, downvote } from "./apiUpvote.js";
 const searchBar = document.querySelector("#navbar-search");
 
 if (searchBar) {
 	searchBar.addEventListener("keyup", async event => {
 		if (event.target.value.trim().length) {
 			const response = await fetch(`/extensions/search/${event.target.value.trim()}`);
-			const { heading, extensions, authenticated } = await response.json();
+			const { heading, extensions, authenticated, userId } = await response.json();
 			const headingElement = document.querySelector("#extension-h2");
 			headingElement.innerText = heading;
 			const containerElement = document.querySelector("#extensions-container");
-			while(containerElement.lastChild) {
+			while (containerElement.lastChild) {
 				containerElement.removeChild(containerElement.lastChild);
 			}
 
@@ -46,23 +47,31 @@ if (searchBar) {
 				linkRegion.appendChild(extensionImg);
 				linkRegion.appendChild(textContainer);
 
-				const triangle = document.createElement("div");
-				triangle.classList.add("triangle");
+				const triangle = document.createElement("span");
+				triangle.classList.add("rating-arrow");
 
 				const count = document.createElement("div");
 				count.classList.add("upvotes");
 				count.setAttribute("id", extension.id);
-				count.innerText = extension.upvotes;
+				count.innerText = extension.upvotes.length;
 
 				const upvoteButton = document.createElement("div");
 				upvoteButton.appendChild(triangle);
 				upvoteButton.appendChild(count);
-				upvoteButton.classList.add("upvote-container");
+				upvoteButton.classList.add("rating-container");
 				upvoteButton.setAttribute("extensionId", extension.id);
 				if (authenticated) {
-					upvoteButton.classList.add("upvote-active");
+					upvoteButton.classList.add("rating-active");
+					if (extension.upvotes.some(upvoter => upvoter.id === userId)) {
+						upvoteButton.classList.add("downvote");
+						upvoteButton.addEventListener("click", downvote);
+					} else {
+						upvoteButton.classList.add("upvote");
+						upvoteButton.addEventListener("click", upvote);
+					}
 				} else {
-					upvoteButton.classList.add("upvote-inactive");
+					upvoteButton.classList.add("rating-inactive");
+					upvoteButton.classList.add("upvote");
 				}
 
 				const extensionCard = document.createElement("div");

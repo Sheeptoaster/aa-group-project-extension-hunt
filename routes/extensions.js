@@ -107,10 +107,10 @@ router.get("/search/:searchTerm", csrfProtection, asyncHandler(async (req, res) 
 				{ slogan: { [Op.iLike]: `%${searchTerm}%` } }
 			]
 		},
-		include: db.Category,
+		include: ["owner", db.Category, "upvotes"],
 		limit: 10
 	})
-	res.json({ heading: `Search: ${searchTerm}`, extensions, authenticated: !!res?.locals.authenticated });
+	res.json({ heading: `Search: ${searchTerm}`, extensions, authenticated: !!res?.locals.authenticated, userId: req.session?.auth?.userId });
 }))
 
 const updateExtensionValidation = [
