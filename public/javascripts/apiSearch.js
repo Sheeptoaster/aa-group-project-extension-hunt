@@ -1,8 +1,8 @@
 const searchBar = document.querySelector("#navbar-search");
 
 if (searchBar) {
-	searchBar.addEventListener("keydown", async event => {
-		if (event.key === "Enter" && event.target.value.trim().length) {
+	searchBar.addEventListener("keyup", async event => {
+		if (event.target.value.trim().length) {
 			const response = await fetch(`/extensions/search/${event.target.value.trim()}`);
 			const { heading, extensions, authenticated } = await response.json();
 			const headingElement = document.querySelector("#extension-h2");
