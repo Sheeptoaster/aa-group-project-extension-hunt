@@ -104,7 +104,11 @@ block content
 						const editComment = async (id) => {
 							const edit = document.querySelector(`#comment-edit${id}`)
 							const btn = document.querySelector(`#comment-edit-submit-btn${id}`)
+							const editBtn = document.querySelector(`#edit-btn${id}-submit`);
+							const trashBtn = document.querySelector(`#delete-btn${id}-submit`);
 
+							editBtn.classList.add('hidden');
+							trashBtn.classList.add("hidden");
 							edit.classList.add("comment-edit-input")
 							edit.setAttribute('contenteditable', 'true')
 
