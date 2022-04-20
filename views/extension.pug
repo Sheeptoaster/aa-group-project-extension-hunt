@@ -75,11 +75,17 @@ block content
 							const deleteBtn = document.querySelector(`#comment-delete-submit-btn${id}`);
 							const editBtn = document.querySelector(`#edit-btn${id}-submit`);
 							const trashBtn = document.querySelector(`#delete-btn${id}-submit`);
+							const submitBtn = document.querySelector(`#comment-save-edit-btn${id}`)
+							const editText = document.querySelector(`#comment-edit${id}`)
 
+							editText.classList.remove('comment-edit-input')
+							editText.setAttribute('contenteditable', 'false')
+							submitBtn.setAttribute('hidden', '')
 							editBtn.classList.remove('hidden');
 							trashBtn.classList.remove("hidden");
 							deleteBtn.setAttribute('hidden', "");
 							cancelBtn.setAttribute("hidden", "");
+
 						}
 						const deleteComment = async (idTag, id) => {
 							const addCommentForm = document.querySelector(`#add-comment-form`)
@@ -103,10 +109,11 @@ block content
 						}
 						const editComment = async (id) => {
 							const edit = document.querySelector(`#comment-edit${id}`)
-							const btn = document.querySelector(`#comment-edit-submit-btn${id}`)
+							const btn = document.querySelector(`#comment-save-edit-btn${id}`)
 							const editBtn = document.querySelector(`#edit-btn${id}-submit`);
 							const trashBtn = document.querySelector(`#delete-btn${id}-submit`);
-
+							const cancelBtn = document.querySelector(`#comment-delete-cancel-btn${id}`);
+							cancelBtn.removeAttribute("hidden");
 							editBtn.classList.add('hidden');
 							trashBtn.classList.add("hidden");
 							edit.classList.add("comment-edit-input")
@@ -118,8 +125,15 @@ block content
 							const addCommentForm = document.querySelector('#add-comment-form')
 							const formData = new FormData(addCommentForm)
 							const csrf = formData.get('_csrf')
-							const submitBtn = document.querySelector(`#comment-edit-submit-btn${id}`)
+							const submitBtn = document.querySelector(`#comment-save-edit-btn${id}`)
 							const editText = document.querySelector(`#comment-edit${id}`)
+							const editBtn = document.querySelector(`#edit-btn${id}-submit`);
+							const trashBtn = document.querySelector(`#delete-btn${id}-submit`);
+							const cancelBtn = document.querySelector(`#comment-delete-cancel-btn${id}`);
+
+							cancelBtn.setAttribute('hidden', '')
+							editBtn.classList.remove('hidden');
+							trashBtn.classList.remove("hidden");
 							if (editText !== null) {
 								editText.classList.remove('comment-edit-input')
 								editText.setAttribute('contenteditable', 'false')
@@ -144,18 +158,18 @@ block content
 									a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
 									span(class='comment-content' id=`comment-edit${comment.id}` contenteditable='false')= comment.content
 									button(
-										type='submit' class="comment-edit-submit-btn" id=`comment-edit-submit-btn${comment.id}`
+										type='submit' class="comment-edit-submit-btn cta-button" id=`comment-save-edit-btn${comment.id}`
 										hidden
 										onclick=`submitEdit(${comment.id})`
-									) Edit
+									) Save
 									button(
-										type='submit' class="comment-delete-submit-btn" id=`comment-delete-submit-btn${comment.id}`
+										type='submit' class="comment-delete-submit-btn cta-danger-button" id=`comment-delete-submit-btn${comment.id}`
 										hidden
 										onclick=`deleteComment('#comment${comment.id}', ${comment.id})`
 									) Delete
 									button(
 										type='submit'
-										class="comment-delete-cancel-btn" id=`comment-delete-cancel-btn${comment.id}`
+										class="comment-delete-cancel-btn secondary-button" id=`comment-delete-cancel-btn${comment.id}`
 										hidden
 										onclick=`handleCancel(${comment.id})`
 									) Cancel

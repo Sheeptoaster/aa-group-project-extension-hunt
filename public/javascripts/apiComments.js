@@ -44,7 +44,7 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 
 		const submitBtn = document.createElement("button");
 		submitBtn.classList.add("comment-edit-submit-btn");
-		submitBtn.id=`comment-edit-submit-btn${data.id}`;
+		submitBtn.id=`comment-save-edit-btn${data.id}`;
 		submitBtn.setAttribute("hidden", "");
 
 		const cancelBtn = document.createElement("button");
