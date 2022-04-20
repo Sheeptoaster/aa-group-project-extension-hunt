@@ -152,10 +152,10 @@
 .comment-li {
 	display: grid;
 	grid-template-areas:
-		"avatar username"
-		". content"
-		". timestamp";
-	grid-template-columns: 3em auto auto;
+		"avatar username btn1"
+		". content btn2"
+		". timestamp .";
+	grid-template-columns: 3em 600px auto;
 	padding: 1.5em;
 }
 
@@ -190,6 +190,12 @@
 	margin-top: 1px;
 }
 
+.comment-delete-cancel-btn {
+    grid-area: btn2;
+    height: 32px;
+    margin-top: 10px;
+}
+
 .edit-comment-btn, .delete-comment-btn {
 	cursor: pointer;
     padding-left: 24px;
@@ -198,10 +204,11 @@
 .comment-edit-input {
 	border: 1px solid black;
 	padding: 2px;
-	width: 50%;
+	width: 80%;
 }
 
 .comment-edit-submit-btn {
 	background-color: #007acc;
 	border-radius: .35em;
+    height: 32px;
 }
