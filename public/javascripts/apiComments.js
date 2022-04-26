@@ -1,3 +1,6 @@
+/** Change the comment action menu to edit (confirm) and cancel
+ * @param {Event} event
+ */
 function startEdit(event) {
 	const attributeSelector = `[comment-id='${event.target.getAttribute("comment-id")}']`;
 	const edit = document.querySelector(".comment-content" + attributeSelector);
@@ -17,6 +20,9 @@ document.querySelectorAll(".comment-start-edit").forEach(button => {
 	button.addEventListener("click", startEdit);
 })
 
+/** Change the comment action menu to delete (confirm) and cancel
+ * @param {Event} event
+ */
 function startDelete(event) {
 	const attributeSelector = `[comment-id='${event.target.getAttribute("comment-id")}']`;
 
@@ -33,6 +39,9 @@ document.querySelectorAll(".comment-start-delete").forEach(button => {
 	button.addEventListener("click", startDelete);
 })
 
+/** Confirm a comment edit
+ * @param {Event} event
+ */
 function confirmEdit(event) {
 	const id = event.target.getAttribute("comment-id");
 	const attributeSelector = `[comment-id='${id}']`;
@@ -65,6 +74,9 @@ document.querySelectorAll(".comment-confirm-edit").forEach(button => {
 	button.addEventListener("click", confirmEdit);
 })
 
+/** Confirm the deletion of a comment
+ * @param {Event} event
+ */
 function confirmDelete(event) {
 	const id = event.target.getAttribute("comment-id");
 	const removed = document.querySelector(`#comment${id}`);
@@ -89,6 +101,9 @@ document.querySelectorAll(".comment-confirm-delete").forEach(button => {
 	button.addEventListener("click", confirmDelete);
 })
 
+/** Cancel the editing or deletion of a comment
+ * @param {Event} event
+ */
 function cancelAction(event) {
 	const id = event.target.getAttribute("comment-id");
 	const attributeSelector = `[comment-id='${id}']`;
