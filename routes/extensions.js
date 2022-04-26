@@ -23,7 +23,7 @@ const extensionValidation = [
 	check("newDescription")
 		.exists({ checkFalsy: true })
 		.withMessage("Please provide a description"),
-	check("categoryIds") //TODO #154 catch 0 categories provided
+	check("categoryIds")
 		.exists({ checkFalsy: true })
 		.withMessage("Please select extension categories")
 ];
