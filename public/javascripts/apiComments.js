@@ -56,6 +56,7 @@ function confirmEdit(event) {
 	if (editText !== null) {
 		editText.classList.remove('comment-edit-input');
 		editText.setAttribute('contenteditable', 'false');
+		editText.setAttribute("original-content", editText.innerText);
 		const formData = new FormData(document.querySelector('#add-comment-form'));
 		fetch(`/api/comments/${id}/edit`, {
 			method: "POST",
@@ -108,6 +109,7 @@ function cancelAction(event) {
 	const id = event.target.getAttribute("comment-id");
 	const attributeSelector = `[comment-id='${id}']`;
 	const editText = document.querySelector(".comment-content" + attributeSelector);
+	editText.innerText = editText.getAttribute("original-content");
 	editText.classList.remove('comment-edit-input');
 	editText.setAttribute('contenteditable', 'false');
 
