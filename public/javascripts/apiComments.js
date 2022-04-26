@@ -166,6 +166,7 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 		contentElement.classList.add("comment-content");
 		contentElement.setAttribute("comment-id", data.id);
 		contentElement.innerText = content;
+		contentElement.setAttribute("original-content", content);
 		commentInputElement.value = '';
 
 		const commentDiv = document.createElement('div');
