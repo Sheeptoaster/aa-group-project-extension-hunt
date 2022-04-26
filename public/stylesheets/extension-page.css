@@ -191,13 +191,7 @@
 	margin-top: 1px;
 }
 
-.comment-delete-cancel-btn {
-    grid-area: btn2;
-    height: 32px;
-    margin-top: 10px;
-}
-
-.edit-comment-btn, .delete-comment-btn {
+.comment-start-edit, .comment-start-delete {
 	cursor: pointer;
     padding-left: 24px;
 }
@@ -208,8 +202,13 @@
 	width: 80%;
 }
 
-.comment-edit-submit-btn {
-	background-color: #007acc;
+.comment-confirm-edit {
 	border-radius: .35em;
     height: 32px;
+}
+
+.comment-cancel-action {
+    grid-area: btn2;
+    height: 32px;
+    margin-top: 10px;
 }

@@ -16,12 +16,10 @@ h1 {
 	border: none;
 	border-radius: 4px;
 }
-
 .cta-button:hover:not(:disabled) {
 	background-color: #0175c2;
 	box-shadow: inset .75px 1.5px 2.5px -1px #000000;
 }
-
 .cta-button:disabled {
 	opacity: 0.5;
 }
@@ -31,13 +29,25 @@ h1 {
 	border: 1px solid grey;
 	border-radius: 4px;
 }
-
-.secondary-button:hover {
+.secondary-button:hover:not(:disabled) {
 	background-color: #eeeeee;
 	box-shadow: inset .75px 1.5px 2.5px -1px #000000;
 }
-
 .secondary-button:disabled {
+	opacity: 0.5;
+}
+
+.cta-danger-button {
+    background-color: red;
+    color: white;
+    border: none;
+	border-radius: 4px;
+}
+.cta-danger-button:hover:not(:disabled) {
+	background-color: rgb(166, 0, 0);
+	box-shadow: inset .75px 1.5px 2.5px -1px #000000;
+}
+.cta-danger-button:disabled {
 	opacity: 0.5;
 }
 
@@ -47,11 +57,4 @@ h1 {
 
 #password-errors {
 	color: red;
-}
-
-.cta-danger-button {
-    background-color: red;
-    color: white;
-    border: 1px solid grey;
-	border-radius: 4px;
 }
