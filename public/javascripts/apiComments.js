@@ -165,6 +165,9 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 		contentElement.setAttribute("comment-id", data.id);
 		contentElement.innerText = content;
 		commentInputElement.value = '';
+		const timestampElement = document.createElement("div");
+		timestampElement.classList.add("comment-timestamp");
+		timestampElement.innerText = new Date().toLocaleString();
 
 		const commentDiv = document.createElement('div');
 		commentDiv.classList.add("comment-btns");
@@ -213,6 +216,7 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 		commentDiv.appendChild(dTag);
 		commentLi.appendChild(commentDiv);
 		commentLi.appendChild(contentElement);
+		commentLi.appendChild(timestampElement);
 		contentContainer.appendChild(commentLi);
 	} else {
 		// display errors dynamically
