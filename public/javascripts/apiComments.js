@@ -56,6 +56,7 @@ function confirmEdit(event) {
 	if (editText !== null) {
 		editText.classList.remove('comment-edit-input');
 		editText.setAttribute('contenteditable', 'false');
+		editText.setAttribute("original-content", editText.innerText);
 		const formData = new FormData(document.querySelector('#add-comment-form'));
 		fetch(`/api/comments/${id}/edit`, {
 			method: "POST",
@@ -80,7 +81,6 @@ document.querySelectorAll(".comment-confirm-edit").forEach(button => {
 function confirmDelete(event) {
 	const id = event.target.getAttribute("comment-id");
 	const removed = document.querySelector(`#comment${id}`);
-	console.log(removed);
 	if (removed !== null) {
 		removed.remove()
 	}
@@ -108,6 +108,7 @@ function cancelAction(event) {
 	const id = event.target.getAttribute("comment-id");
 	const attributeSelector = `[comment-id='${id}']`;
 	const editText = document.querySelector(".comment-content" + attributeSelector);
+	editText.innerText = editText.getAttribute("original-content");
 	editText.classList.remove('comment-edit-input');
 	editText.setAttribute('contenteditable', 'false');
 
@@ -127,7 +128,6 @@ document.querySelectorAll(".comment-cancel-action").forEach(button => {
 document.querySelector("#send-comment").addEventListener("click", async event => {
 	event.preventDefault();
 	// Call POST /api/comments
-	const commentInputElement = document.querySelector('#content')
 	const addCommentForm = document.querySelector('#add-comment-form')
 	const formData = new FormData(addCommentForm)
 	const content = formData.get('content').trim();
@@ -148,6 +148,7 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 	const data = await res.json();
 	if (!data.error) {
 		const { username, profileURL } = data;
+		document.querySelector('#content').value = '';
 		const contentContainer = document.querySelector('#content-container')
 		const commentLi = document.createElement('li');
 		commentLi.id = `comment${data.id}`;
@@ -164,14 +165,13 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 		contentElement.classList.add("comment-content");
 		contentElement.setAttribute("comment-id", data.id);
 		contentElement.innerText = content;
-		commentInputElement.value = '';
+		contentElement.setAttribute("original-content", content);
 
 		const commentDiv = document.createElement('div');
 		commentDiv.classList.add("comment-btns");
 
 		const submitBtn = document.createElement("button");
-		submitBtn.classList.add("comment-confirm-edit");
-		submitBtn.classList.add("cta-button");
+		submitBtn.classList.add("comment-confirm-edit", "cta-button");
 		submitBtn.setAttribute("comment-id", data.id);
 		submitBtn.setAttribute("hidden", "");
 		submitBtn.innerText = "Save";
@@ -185,24 +185,19 @@ document.querySelector("#send-comment").addEventListener("click", async event =>
 		cancelBtn.addEventListener("click", cancelAction);
 
 		const deleteBtn = document.createElement("button");
-		deleteBtn.classList.add("comment-confirm-delete");
-		deleteBtn.classList.add("cta-danger-button");
+		deleteBtn.classList.add("comment-confirm-delete", "cta-danger-button");
 		deleteBtn.setAttribute("comment-id", data.id);
 		deleteBtn.setAttribute("hidden", "")
 		deleteBtn.innerText = "Delete";
 		deleteBtn.addEventListener("click", confirmDelete);
 
 		const eTag = document.createElement('i');
-		eTag.classList.add("fa");
-		eTag.classList.add("fa-pencil");
-		eTag.classList.add("comment-start-edit");
+		eTag.classList.add("fa", "fa-pencil", "comment-start-edit");
 		eTag.setAttribute("comment-id", data.id);
 		eTag.addEventListener("click", startEdit);
 
 		const dTag = document.createElement('i');
-		dTag.classList.add("fa");
-		dTag.classList.add("fa-trash");
-		dTag.classList.add("comment-start-delete");
+		dTag.classList.add("fa", "fa-trash", "comment-start-delete");
 		dTag.setAttribute("comment-id", data.id);
 		dTag.addEventListener("click", startDelete);
 

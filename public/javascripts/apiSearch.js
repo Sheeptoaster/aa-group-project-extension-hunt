@@ -70,13 +70,11 @@ if (searchBar) {
 						upvoteButton.addEventListener("click", upvote);
 					}
 				} else {
-					upvoteButton.classList.add("rating-inactive");
-					upvoteButton.classList.add("upvote");
+					upvoteButton.classList.add("rating-inactive", "upvote");
 				}
 
 				const extensionCard = document.createElement("div");
-				extensionCard.classList.add("extension-card");
-				extensionCard.classList.add("gradient");
+				extensionCard.classList.add("extension-card", "gradient");
 				extensionCard.appendChild(linkRegion);
 				extensionCard.appendChild(upvoteButton);
 
