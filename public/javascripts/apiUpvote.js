@@ -1,10 +1,7 @@
-const ratingButtons = document.querySelectorAll('.rating-container');
-const extensionRating = document.querySelector('#upvote-btn-extension');
-
-export async function upvote (event) {
+export async function upvote(event) {
 	let extensionId = event.target.getAttribute('extensionId');
 	if (extensionId === null) {
-		extensionId = event.target.parentNode.getAttribute('extensionId')
+		extensionId = event.target.parentNode.getAttribute('extensionId');
 
 		const res = await fetch('/api/rating/upvote', {
 			method: 'PATCH',
@@ -64,7 +61,7 @@ export async function upvote (event) {
 	}
 }
 
-export async function downvote (event) {
+export async function downvote(event) {
 	let extensionId = event.target.getAttribute('extensionId')
 	if (extensionId === null) {
 		extensionId = event.target.parentNode.getAttribute('extensionId')
@@ -127,18 +124,25 @@ export async function downvote (event) {
 	}
 }
 
-ratingButtons.forEach(button => {
+
+// Home page
+document.querySelectorAll('.rating-container').forEach(button => {
 	if (button.classList.contains("upvote")) {
 		button.addEventListener('click', upvote);
+		button.removeEventListener("click", downvote);
 	} else {
 		button.addEventListener('click', downvote);
+		button.removeEventListener("click", upvote);
 	}
 })
 
+// Extension Page
+const extensionRating = document.querySelector('#upvote-btn-extension');
 if (extensionRating) {
 	if (extensionRating.classList.contains("upvote")) {
-		extensionRating.addEventListener('click', upvote);
+		extensionRating.removeEventListener("click", downvote);
 	} else {
 		extensionRating.addEventListener('click', downvote);
+		extensionRating.removeEventListener("click", upvote);
 	}
 }

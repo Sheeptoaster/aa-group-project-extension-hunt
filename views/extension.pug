@@ -63,7 +63,7 @@ block content
 								li(class=`comment-li` id=`comment${comment.id}`)
 									img(src=comment.User.avatarURL, class='comment-avatar-img')
 									a.comment-username(href= `/profiles/${comment.User.id}`)= comment.User.username
-									span(class='comment-content' comment-id= comment.id contenteditable='false')= comment.content
+									span(class='comment-content' comment-id= comment.id contenteditable='false' original-content= comment.content)= comment.content
 									div(class="comment-timestamp")= comment.updatedAt.toLocaleString()
 									button(
 										class="comment-confirm-edit cta-button"

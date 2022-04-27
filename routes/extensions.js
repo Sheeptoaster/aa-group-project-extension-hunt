@@ -185,6 +185,12 @@ router.post('/:id(\\d+)/edit', csrfProtection, updateExtensionValidation, asyncH
 router.post('/delete/:id(\\d+)', asyncHandler(async (req, res, next) => {
 	const extensionId = parseInt(req.params.id)
 
+	await db.ExtensionUpvote.destroy({
+		where: {
+			extensionId
+		}
+	})
+
 	await db.ExtensionCategories.destroy({
 		where: {
 			extensionId
